@@ -1,0 +1,27 @@
+.landing {
+  padding: 2rem;
+  /* min-height: 100vh; */
+  /* text-align: center; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.header {
+  font: Butler;
+  text-align: center;
+}
+
+.landing-btns {
+  /* display: flex;
+  justify-content: space-around; */
+  /* margin: 0 1rem; */
+}
+
+.landing-btns__login,
+.landing-btns__register {
+  margin: 0 1rem;
+}

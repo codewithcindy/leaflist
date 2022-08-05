@@ -1,0 +1,13 @@
+@font-face {
+  font-family: Butler Light;
+  src: url("../fonts/butler/Butler_Light.otf") format("opentype");
+  /* font-weight: 300;
+  font-style: normal; */
+}
+
+@font-face {
+  font-family: Roboto Light;
+  src: url("../fonts/roboto/Roboto-Light.ttf") format("truetype");
+  /* font-weight: normal; */
+  /* font-style: normal; */
+}
