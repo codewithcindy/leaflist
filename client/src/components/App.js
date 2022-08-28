@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./Landing";
 import LogIn from "./LogIn";
@@ -15,6 +15,11 @@ export const FormContext = React.createContext();
 function App() {
   // set state for user info
   const [userData, setUserData] = useState(sampleData);
+
+  // Connect to backend
+  useEffect(() => {
+    fetch("/").then((res) => console.log("Connected to backend"));
+  }, []);
 
   // Update user data with new links
   function handleLinksSubmit(links) {
@@ -37,6 +42,7 @@ function App() {
 
   return (
     <FormContext.Provider value={FormContextValue}>
+      {/* {alert(`${data}`)} */}
       <Router>
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -65,6 +71,24 @@ const sampleData = {
   socialLinks: [
     { id: uuidv4(), socialLinkIcon: "Instagram", socialLinkURL: "klefgegbeg" },
   ],
+  profileImage: "/../img/catdesk.jpeg",
 };
+
+// {
+//   id: 1,
+//   username: "Poo pants",
+//   links: [
+//     { id: uuidv4(), linkText: "Youtubeee", linkURL: "wnetfgineg" },
+//     {
+//       id: uuidv4(),
+//       linkText: "Favorite recipes",
+//       linkURL: "efnegnekg",
+//     },
+//   ],
+//   socialLinks: [
+//     { id: uuidv4(), socialLinkIcon: "Instagram", socialLinkURL: "klefgegbeg" },
+//   ],
+//   profileImage: "/../img/catdesk.jpeg",
+// }
 
 export default App;

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import ProfileImage from "./editComponents/ProfileImage";
 import Heading from "./editComponents/Heading";
 import SubHeading from "./editComponents/SubHeading";
 import Description from "./editComponents/Description";
@@ -12,9 +13,9 @@ export default function EditForm() {
   const { userData } = useContext(FormContext);
 
   return (
-    <div className="edit__form">
-      <form>
-        {/* Image Component */}
+    <div className="edit-form-container">
+      <form className="edit-form">
+        <ProfileImage profileImage={userData.profileImage} />
         <Heading />
         <SubHeading />
         <Description />
