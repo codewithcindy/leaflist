@@ -1,5 +1,7 @@
 .landing {
   padding: 2rem;
+  background-color: #fff;
+
   /* min-height: 100vh; */
   /* text-align: center; */
 
@@ -15,13 +17,18 @@
   text-align: center;
 }
 
-.landing-btns {
+.landing-btns-container {
   /* display: flex;
   justify-content: space-around; */
   /* margin: 0 1rem; */
 }
 
+.landing-btns__link {
+  display: contents;
+}
+
 .landing-btns__login,
 .landing-btns__register {
   margin: 0 1rem;
+  cursor: pointer;
 }

@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import {
+  faInstagram,
+  faTwitter,
+  faYoutube,
+  faTiktok,
+} from "@fortawesome/free-brands-svg-icons";
+// import { regular } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
 
 export default function NewSocialLink(props) {
   const { icon, linkInfo, handleSocialLinkChange, handleSelect } = props;
+
+  const [iconName, setIconName] = useState("fa" + icon);
+
+  console.log(faTwitter);
 
   function handleChange(changes) {
     handleSocialLinkChange(linkInfo.id, { ...linkInfo, ...changes });
@@ -22,14 +35,7 @@ export default function NewSocialLink(props) {
           onChange={(e) => handleChange({ socialLinkURL: e.target.value })}
           onClick={() => handleSelect(linkInfo.id)}
         />
-        <div>
-          <i className={"fa-brands fa-" + icon}></i>
-          {/* <img src={`"${linkInfo.socialLinkIcon}"`} alt="social link icon" /
-          > */}
-          {/* <p className="social-links-form__icon">
-            {linkInfo.socialLinkIcon ?? "default icon"}
-          </p> */}
-        </div>
+        <FontAwesomeIcon icon={iconName} />
       </div>
     </div>
   );

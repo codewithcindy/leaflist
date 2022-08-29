@@ -28,8 +28,6 @@ function App() {
   function handleHeadingChange(changes) {
     const newUserData = { ...userData };
     setUserData({ ...newUserData, ...changes });
-    console.log(userData);
-    console.log(`updated user w heading: ${userData}`);
   }
 
   // Update user data with new links
@@ -47,8 +45,13 @@ function App() {
 
   function handlePreviewPage() {
     setUpdatedUserData(userData);
+  }
 
-    console.log();
+  function saveUserDataToDB() {
+    // Fetch post route
+    fetch("/save")
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   }
 
   const FormContextValue = {
@@ -57,6 +60,7 @@ function App() {
     handleLinksSubmit,
     handleSocialLinksSubmit,
     handlePreviewPage,
+    saveUserDataToDB,
   };
 
   return (
@@ -79,7 +83,12 @@ function App() {
 
 const sampleData = {
   id: 1,
-  username: "Gus Gus",
+  email: "GusGus@cat.me",
+  password: "12345",
+  heading: "catlady1234",
+  subHeading: "i like black cats",
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet tellus maximus, faucibus risus et, vehicula est. Aenean commodo massa nunc, a tempor est lobortis cursus.",
   links: [
     { id: 1, linkText: "Amazon Storefront", linkURL: "wnetfgineg" },
     {

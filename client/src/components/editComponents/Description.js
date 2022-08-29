@@ -20,7 +20,7 @@ export default function Description({ description }) {
         rows="5"
         cols="20"
         value={description ? description : ""}
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={(e) => handleChange({ description: e.target.value })}
       ></textarea>
     </div>
   );

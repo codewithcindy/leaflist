@@ -1,19 +1,39 @@
-.login {
-  padding: 2rem;
+.login-container {
+  /* padding: 2rem;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 2rem; */
+
+  width: 100vw;
+  height: 100vh;
+  padding: 2rem;
+
+  /* display: flex;
+  align-items: center; */
 }
 
 .login-form {
-  text-align: center;
+  background-color: #fff;
+  height: 100%;
   width: 100%;
+  padding: 2rem;
+  overflow: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form__header {
 }
 
 .login-form__row {
+  width: 100%;
   margin: 1rem 0;
 }
 

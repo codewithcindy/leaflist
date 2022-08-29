@@ -24,12 +24,12 @@ export default function EditForm() {
       <form className="edit-form" onSubmit={(e) => handleEditFormSubmit(e)}>
         <ProfileImage profileImage={userData.profileImage} />
         <Heading heading={userData.heading} />
-        <SubHeading subheading={userData.subHeading} />
+        <SubHeading subHeading={userData.subHeading} />
         <Description description={userData.description} />
         <LinksList linksData={userData.links} />
         <SocialLinksList socialLinksData={userData.socialLinks} />
 
-        <button type="submit" className="btn">
+        <button type="submit" className="btn btn-preview">
           Preview
         </button>
       </form>

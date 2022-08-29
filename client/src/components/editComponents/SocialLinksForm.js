@@ -74,35 +74,35 @@ export default function SocialLinksForm() {
         <div className="social-links__icons-container">
           <div
             className="social-links__icon"
-            data-icon-id="twitter"
+            data-icon-id="Twitter"
             onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
           >
             Twitter
           </div>
           <div
             className="social-links__icon"
-            data-icon-id="instagram"
+            data-icon-id="Instagram"
             onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
           >
             Instagram
           </div>
           <div
             className="social-links__icon"
-            data-icon-id="youtube"
+            data-icon-id="Youtube"
             onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
           >
             Youtube
           </div>
           <div
             className="social-links__icon"
-            data-icon-id="tiktok"
+            data-icon-id="Tiktok"
             onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
           >
             TikTok
           </div>
           <div
             className="social-links__icon"
-            data-icon-id="email"
+            data-icon-id="Envelope"
             onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
           >
             Email

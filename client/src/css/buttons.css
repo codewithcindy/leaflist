@@ -7,3 +7,13 @@
 
   margin: 0.5rem 0;
 }
+
+.btn-back {
+  background-color: #e9c3c3;
+}
+
+.btn-preview,
+.btn-final {
+  background-color: #cdddb9;
+  color: #2f2e2e;
+}
