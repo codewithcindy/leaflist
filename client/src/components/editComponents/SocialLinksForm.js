@@ -13,7 +13,7 @@ export default function SocialLinksForm() {
   const [socialLinkIconSelected, setSocialLinkIconSelected] = useState("");
 
   function handleSocialLinkSelect(id) {
-    console.log(id);
+    // console.log(id);
     setSocialLinkSelectedId(id);
   }
 
@@ -65,35 +65,43 @@ export default function SocialLinksForm() {
   }
 
   return (
-    <div>
-      <h1>Social Links</h1>
-      <form onSubmit={(e) => handleSocialLinksFormSubmit(e)}>
-        <div>
+    <div className="social-links-container">
+      <form
+        className="social-links__form"
+        onSubmit={(e) => handleSocialLinksFormSubmit(e)}
+      >
+        <h1 className="social-links__title">Social Links</h1>
+        <div className="social-links__icons-container">
           <div
+            className="social-links__icon"
             data-icon-id="twitter"
             onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
           >
             Twitter
           </div>
           <div
+            className="social-links__icon"
             data-icon-id="instagram"
             onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
           >
             Instagram
           </div>
           <div
+            className="social-links__icon"
             data-icon-id="youtube"
             onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
           >
             Youtube
           </div>
           <div
+            className="social-links__icon"
             data-icon-id="tiktok"
             onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
           >
             TikTok
           </div>
           <div
+            className="social-links__icon"
             data-icon-id="email"
             onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
           >
@@ -105,13 +113,18 @@ export default function SocialLinksForm() {
             <NewSocialLink
               key={link.id}
               linkInfo={link}
+              icon={socialLinkIconSelected}
               handleSocialLinkChange={handleSocialLinkChange}
               handleSelect={handleSocialLinkSelect}
             />
           );
         })}
-        <button onClick={(e) => handleSocialLinkAdd(e)}>Add Social Link</button>
-        <button type="submit">Save</button>
+        <button className="btn" onClick={(e) => handleSocialLinkAdd(e)}>
+          Add Social Link
+        </button>
+        <button className="btn" type="submit">
+          Save
+        </button>
       </form>
     </div>
   );

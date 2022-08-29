@@ -5,6 +5,8 @@
 @import "./login.css";
 @import "./register.css";
 @import "./editForm.css";
+@import "./linksForm.css";
+@import "./socialLinksForm.css";
 
 *,
 *::before,

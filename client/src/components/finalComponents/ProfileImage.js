@@ -7,6 +7,7 @@ export default function ProfileImage({ profileImage }) {
 
   return (
     <div className="edit-form__section edit-form__section-image">
+      {console.log(profileImage)}
       <div className="edit-form--circle">
         <label
           className="edit-form__label edit-form__label-image"

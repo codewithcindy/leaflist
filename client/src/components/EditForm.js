@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import ProfileImage from "./editComponents/ProfileImage";
 import Heading from "./editComponents/Heading";
 import SubHeading from "./editComponents/SubHeading";
@@ -11,18 +12,26 @@ import { FormContext } from "./App";
 
 export default function EditForm() {
   const { userData } = useContext(FormContext);
+  const navigate = useNavigate();
+
+  function handleEditFormSubmit(e) {
+    e.preventDefault();
+    navigate("/preview");
+  }
 
   return (
     <div className="edit-form-container">
-      <form className="edit-form">
+      <form className="edit-form" onSubmit={(e) => handleEditFormSubmit(e)}>
         <ProfileImage profileImage={userData.profileImage} />
-        <Heading />
-        <SubHeading />
-        <Description />
+        <Heading heading={userData.heading} />
+        <SubHeading subheading={userData.subHeading} />
+        <Description description={userData.description} />
         <LinksList linksData={userData.links} />
         <SocialLinksList socialLinksData={userData.socialLinks} />
 
-        <button className="btn">Preview</button>
+        <button type="submit" className="btn">
+          Preview
+        </button>
       </form>
     </div>
   );

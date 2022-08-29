@@ -9,13 +9,10 @@ export default function NewLink(props) {
   }
 
   return (
-    <div className="links-form__section">
-      <div className="links-form__row links-form__row-text">
-        <label className="links-form__input-label" htmlFor="linkText">
-          Link Text
-        </label>
+    <div>
+      <div>
+        <label htmlFor="linkText">Link Text</label>
         <input
-          className="links-form__input-value"
           type="text"
           name="linkText"
           id="linkText"
@@ -23,12 +20,9 @@ export default function NewLink(props) {
           onChange={(e) => handleChange({ linkText: e.target.value })}
         />
       </div>
-      <div className="links-form__row links-form__row-url">
-        <label className="links-form__input-label" htmlFor="linkURL">
-          URL
-        </label>
+      <div>
+        <label htmlFor="linkURL">URL</label>
         <input
-          className="links-form__input-value"
           type="text"
           name="linkURL"
           id="linkURL"

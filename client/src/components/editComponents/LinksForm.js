@@ -34,8 +34,6 @@ export default function LinksForm() {
   function handleLinkFormSubmit(e) {
     e.preventDefault();
 
-    console.log(e);
-
     handleLinksSubmit(links);
 
     // Redirect back to main edit page
@@ -43,9 +41,9 @@ export default function LinksForm() {
   }
 
   return (
-    <div>
-      <h1>Links</h1>
-      <form onSubmit={(e) => handleLinkFormSubmit(e)}>
+    <div className="links-form-container">
+      <form className="links-form" onSubmit={(e) => handleLinkFormSubmit(e)}>
+        <h1 className="links-form__title">Links</h1>
         {links.map((linkInfo) => {
           return (
             <NewLink
@@ -55,8 +53,12 @@ export default function LinksForm() {
             />
           );
         })}
-        <button onClick={(e) => handleLinkAdd(e)}>Add Link</button>
-        <button type="submit">Save</button>
+        <button className="btn" onClick={(e) => handleLinkAdd(e)}>
+          Add Link
+        </button>
+        <button className="btn" type="submit">
+          Save
+        </button>
       </form>
     </div>
   );
