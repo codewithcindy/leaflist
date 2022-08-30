@@ -16,13 +16,20 @@ mongoose
 // Enable cors
 app.use(cors());
 
+// Use body parser
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.json("Connected to backend");
 });
 
-app.get("/save", (req, res) => {
-  console.log("save to db");
-  const data = {};
+app.post("/save", async (req, res) => {
+  const data = req.body;
+  const newData = new UserData(data);
+
+  // Save data to mongo
+  newData.save();
 });
 
 // app.get("*", (req, res) => {

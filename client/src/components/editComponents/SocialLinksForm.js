@@ -12,6 +12,8 @@ export default function SocialLinksForm() {
   const [socialLinkSelectedId, setSocialLinkSelectedId] = useState("");
   const [socialLinkIconSelected, setSocialLinkIconSelected] = useState("");
 
+  let dynamicIcon = { selectedIcon: socialLinkIconSelected };
+
   function handleSocialLinkSelect(id) {
     // console.log(id);
     setSocialLinkSelectedId(id);
@@ -113,7 +115,10 @@ export default function SocialLinksForm() {
             <NewSocialLink
               key={link.id}
               linkInfo={link}
-              icon={socialLinkIconSelected}
+              // linkIcon={link.socialLinkIcon}
+              // linkURL={link.socialLinkURL}
+              // selectedIcon={socialLinkIconSelected}
+              {...dynamicIcon}
               handleSocialLinkChange={handleSocialLinkChange}
               handleSelect={handleSocialLinkSelect}
             />

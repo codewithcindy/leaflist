@@ -9,6 +9,7 @@ import SocialLinksForm from "./editComponents/SocialLinksForm";
 import FinalPage from "./FinalPage";
 import "../css/app.css";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 // Set up Context
 export const FormContext = React.createContext();
@@ -19,9 +20,12 @@ function App() {
 
   const [updatedUserData, setUpdatedUserData] = useState("");
 
+  const [finalData, setFinalData] = useState("");
+
   // Connect to backend
   useEffect(() => {
-    fetch("/").then((res) => console.log("Connected to backend"));
+    axios.get("/").then((res) => console.log("Connected to backend"));
+    // fetch("/").then((res) => console.log("Connected to backend"));
   }, []);
 
   // Update heading
@@ -47,11 +51,15 @@ function App() {
     setUpdatedUserData(userData);
   }
 
-  function saveUserDataToDB() {
-    // Fetch post route
-    fetch("/save")
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+  async function saveUserDataToDB() {
+    // axios({
+    //   method: "post",
+    //   url: "/save",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(userData),
+    // });
+
+    await axios.post("/save", userData);
   }
 
   const FormContextValue = {
@@ -101,7 +109,7 @@ const sampleData = {
     {
       id: 1,
       socialLinkIcon: "Instagram",
-      socialLinkURL: "klefgegbeg",
+      socialLinkURL: "instagram.com",
     },
   ],
   profileImage: "/../img/catdesk.jpeg",

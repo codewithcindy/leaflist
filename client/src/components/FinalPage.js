@@ -5,7 +5,9 @@ import { FormContext } from "./App";
 export default function FinalPage({ userData }) {
   const { saveUserDataToDB } = useContext(FormContext);
 
-  function handleFinalSave() {
+  function handleFinalSave(e) {
+    e.preventDefault();
+
     // display final product - same as preview but no btns
 
     // pass data to App to save data to mongo
@@ -43,13 +45,15 @@ export default function FinalPage({ userData }) {
         <Link to="/edit">
           <button className="btn btn-back">Back</button>
         </Link>
-        <button
-          onClick={() => handleFinalSave()}
-          type="submit"
-          className="btn btn-final"
-        >
-          Save
-        </button>
+        <form onSubmit={(e) => handleFinalSave(e)} action="/save" method="POST">
+          <button
+            // onClick={(e) => handleFinalSave(e)}
+            type="submit"
+            className="btn btn-final"
+          >
+            Save
+          </button>
+        </form>
       </div>
     </div>
   );

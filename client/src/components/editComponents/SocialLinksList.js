@@ -10,7 +10,7 @@ export default function SocialLinksList({ socialLinksData }) {
     <div className="edit-form__section edit-form__section-social-links">
       <label className="edit-form__label">Social Links</label>
       <ul>
-        <Link to="/links">{socialLinks}</Link>
+        <Link to="/socialLinks">{socialLinks}</Link>
       </ul>
       <Link to="/socialLinks">
         <button className="edit-form__section-social-links__add-btn">+</button>
