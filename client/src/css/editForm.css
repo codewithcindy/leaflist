@@ -42,6 +42,8 @@
   height: 40px;
   outline: none;
   padding: 15px;
+  font-family: Roboto Light;
+  font-size: 0.9rem;
 }
 
 textarea.edit-form__input {
@@ -92,9 +94,17 @@ textarea.edit-form__input {
 
 /* Links, Social Links */
 
+.link {
+  text-decoration: none;
+}
+
 .edit-form__section-links ul,
 .edit-form__section-social-links ul {
   list-style-type: none;
+  /* padding: 0 2rem; */
+  /* background-color: #f9f9f9; */
+  border-radius: 5px;
+  font-size: 0.9rem;
 }
 
 .edit-form__section-links__add-btn,
@@ -103,6 +113,45 @@ textarea.edit-form__input {
   width: 100%;
   border: none;
   height: 40px;
-  color: #9b9b9b;
+  color: rgb(101, 101, 101);
   cursor: pointer;
+  background-color: #e7efdd;
+  margin-top: 0.5rem;
+}
+
+.edit-form__link {
+  display: flex;
+
+  text-decoration: none;
+  background-color: #f1f1f1;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+}
+
+.edit-form__link-text {
+  color: rgb(101, 101, 101);
+}
+
+.edit-form__social-link {
+  display: flex;
+  align-items: center;
+
+  margin: 0.5rem 0;
+  /* justify-content: space-between; */
+}
+
+.edit-form__social-link__icon {
+  flex-basis: 15%;
+  width: 100%;
+  color: rgb(59, 59, 59);
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.edit-form__social-link__url {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background-color: #f1f1f1;
+  color: rgb(101, 101, 101);
+  border-radius: 5px;
 }

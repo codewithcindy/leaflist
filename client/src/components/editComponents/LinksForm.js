@@ -34,6 +34,14 @@ export default function LinksForm() {
   function handleLinkFormSubmit(e) {
     e.preventDefault();
 
+    const completedLinks = links.map((link) => {
+      if (!link.linkText && !link.linkURL) {
+        return;
+      }
+      return link;
+    });
+    console.log(completedLinks);
+
     handleLinksSubmit(links);
 
     // Redirect back to main edit page

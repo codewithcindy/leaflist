@@ -11,6 +11,12 @@ import "../css/app.css";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+library.add(fab, fas, faEnvelope);
+
 // Set up Context
 export const FormContext = React.createContext();
 
@@ -20,13 +26,32 @@ function App() {
 
   const [updatedUserData, setUpdatedUserData] = useState("");
 
-  const [finalData, setFinalData] = useState("");
+  // const [finalData, setFinalData] = useState("");
 
   // Connect to backend
   useEffect(() => {
     axios.get("/").then((res) => console.log("Connected to backend"));
     // fetch("/").then((res) => console.log("Connected to backend"));
   }, []);
+
+  //////////// Register ////////////
+  function handleRegisterFormSubmit(formData) {
+    console.log(formData);
+
+    axios
+      .post("/registerUser", formData)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log("err" + err));
+
+    // axios({
+    //   method: "post",
+    //   url: "/registerUser",
+    //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    //   data: formData,
+    // })
+    //   .then((res) => console.log(res.data))
+    //   .catch((err) => console.log(err));
+  }
 
   // Update heading
   function handleHeadingChange(changes) {
@@ -45,6 +70,8 @@ function App() {
     const newUserData = { ...userData };
     newUserData.socialLinks = links;
     setUserData(newUserData);
+
+    console.log(userData);
   }
 
   function handlePreviewPage() {
@@ -52,18 +79,12 @@ function App() {
   }
 
   async function saveUserDataToDB() {
-    // axios({
-    //   method: "post",
-    //   url: "/save",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(userData),
-    // });
-
     await axios.post("/save", userData);
   }
 
   const FormContextValue = {
     userData,
+    handleRegisterFormSubmit,
     handleHeadingChange,
     handleLinksSubmit,
     handleSocialLinksSubmit,
@@ -108,8 +129,13 @@ const sampleData = {
   socialLinks: [
     {
       id: 1,
-      socialLinkIcon: "Instagram",
+      socialLinkIconName: "Instagram",
       socialLinkURL: "instagram.com",
+    },
+    {
+      id: 2,
+      socialLinkIconName: "Youtube",
+      socialLinkURL: "youtube.com",
     },
   ],
   profileImage: "/../img/catdesk.jpeg",

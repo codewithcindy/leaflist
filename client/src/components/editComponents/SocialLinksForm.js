@@ -3,66 +3,61 @@ import NewSocialLink from "./NewSocialLink";
 import { FormContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function SocialLinksForm() {
   const { userData, handleSocialLinksSubmit } = useContext(FormContext);
   const navigate = useNavigate();
 
   const [socialLinks, setSocialLinks] = useState(userData.socialLinks);
-  const [socialLinkSelectedId, setSocialLinkSelectedId] = useState("");
-  const [socialLinkIconSelected, setSocialLinkIconSelected] = useState("");
+  const [linkSelectedId, setLinkSelectedId] = useState("");
+  const [linkIconSelected, setLinkIconSelected] = useState(""); // const [linkIconTypeSelected, setlinkIconTypeSelected] = useState("");
 
-  let dynamicIcon = { selectedIcon: socialLinkIconSelected };
-
-  function handleSocialLinkSelect(id) {
-    // console.log(id);
-    setSocialLinkSelectedId(id);
+  // Handle link select
+  function handleLinkSelect(id) {
+    setLinkSelectedId(id);
   }
 
-  function handleSocialIconSelect(icon) {
-    setSocialLinkIconSelected(icon);
-    handleSocialLinkUpdate(icon);
-  }
+  // Handle link input change
+  function handleLinkInputChange(id, changes) {
+    // updating links...
+    let newLinks = [...socialLinks];
 
-  function handleSocialLinkUpdate(icon) {
-    // find social link
-    let socialLinksCopy = [...socialLinks];
-
-    const updatedSocialLinks = socialLinksCopy.map((obj) => {
-      if (obj.id === socialLinkSelectedId) {
-        return { ...obj, socialLinkIcon: icon };
+    newLinks = newLinks.map((link) => {
+      if (link.id === id) {
+        return changes;
       }
-      return obj;
+      return link;
     });
 
-    setSocialLinks(updatedSocialLinks);
+    setSocialLinks(newLinks);
   }
 
+  // Handle new link add
   function handleSocialLinkAdd(e) {
     e.preventDefault();
 
     const newSocialLink = {
       id: uuidv4(),
+      socialLinkIconName: "",
       socialLinkURL: "",
-      socialLinkIcon: "",
     };
 
     const newSocialLinks = [...socialLinks, newSocialLink];
     setSocialLinks(newSocialLinks);
   }
 
-  function handleSocialLinkChange(id, changes) {
-    const newSocialLinks = [...socialLinks];
-    const index = newSocialLinks.findIndex((link) => link.id === id);
-    newSocialLinks[index] = changes;
-    setSocialLinks(newSocialLinks);
-  }
-
-  function handleSocialLinksFormSubmit(e) {
+  // handle form submit
+  function handleFormSubmit(e) {
     e.preventDefault();
 
-    handleSocialLinksSubmit(socialLinks);
+    // Only keep the links with the URL field completed
+    const completedLinks = socialLinks.filter((link) => {
+      if (!link.socialLinkIconName) return null;
+      return link;
+    });
 
+    handleSocialLinksSubmit(completedLinks);
     navigate("/edit");
   }
 
@@ -70,57 +65,22 @@ export default function SocialLinksForm() {
     <div className="social-links-container">
       <form
         className="social-links__form"
-        onSubmit={(e) => handleSocialLinksFormSubmit(e)}
+        onSubmit={(e) => handleFormSubmit(e)}
       >
-        <h1 className="social-links__title">Social Links</h1>
-        <div className="social-links__icons-container">
-          <div
-            className="social-links__icon"
-            data-icon-id="Twitter"
-            onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
-          >
-            Twitter
-          </div>
-          <div
-            className="social-links__icon"
-            data-icon-id="Instagram"
-            onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
-          >
-            Instagram
-          </div>
-          <div
-            className="social-links__icon"
-            data-icon-id="Youtube"
-            onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
-          >
-            Youtube
-          </div>
-          <div
-            className="social-links__icon"
-            data-icon-id="Tiktok"
-            onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
-          >
-            TikTok
-          </div>
-          <div
-            className="social-links__icon"
-            data-icon-id="Envelope"
-            onClick={(e) => handleSocialIconSelect(e.target.dataset.iconId)}
-          >
-            Email
-          </div>
-        </div>
+        <h1 className="social-links__title">Social Links</h1>\
         {socialLinks.map((link) => {
           return (
             <NewSocialLink
               key={link.id}
               linkInfo={link}
+              iconName={link.socialLinkIconName}
+              iconURL={link.socialLinkURL}
               // linkIcon={link.socialLinkIcon}
-              // linkURL={link.socialLinkURL}
-              // selectedIcon={socialLinkIconSelected}
-              {...dynamicIcon}
-              handleSocialLinkChange={handleSocialLinkChange}
-              handleSelect={handleSocialLinkSelect}
+              // linkURL={link.socialLinkURL}\
+              // linkIconSelected={linkIconSelected}
+              // linkIconTypeSelected={linkIconTypeSelected}
+              handleLinkInputChange={handleLinkInputChange}
+              handleLinkSelect={handleLinkSelect}
             />
           );
         })}

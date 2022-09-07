@@ -19,6 +19,7 @@ export default function Description({ description }) {
         id="description"
         rows="5"
         cols="20"
+        max-length="50"
         value={description ? description : ""}
         onChange={(e) => handleChange({ description: e.target.value })}
       ></textarea>

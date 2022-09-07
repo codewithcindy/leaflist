@@ -1,44 +1,106 @@
-import React, { useState } from "react";
+import { icon } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import {
-  faInstagram,
-  faTwitter,
-  faYoutube,
-  faTiktok,
-} from "@fortawesome/free-brands-svg-icons";
-import { library } from "@fortawesome/fontawesome-svg-core";
-
-library.add(fab, fas, faInstagram, faTwitter, faYoutube, faTiktok, faEnvelope);
+import React, { useState } from "react";
 
 export default function NewSocialLink(props) {
-  const { selectedIcon, linkInfo, handleSocialLinkChange, handleSelect } =
-    props;
-  console.log(selectedIcon);
+  const {
+    linkInfo,
+    iconName,
+    iconURL,
+    handleLinkInputChange,
+    handleLinkSelect,
+  } = props;
+
+  const [isSelect, setIsSelect] = useState("");
 
   function handleChange(changes) {
-    handleSocialLinkChange(linkInfo.id, { ...linkInfo.id, ...changes });
+    handleLinkInputChange(linkInfo.id, { ...linkInfo, ...changes });
   }
+
+  // function handleIconSelect(iconName) {
+  //   console.log(iconName);
+  //   handleLinkInputChange();
+  // }
 
   return (
     <div className="social-links-form__section">
       <label className="social-links-form__label" htmlFor="socialLinkURL">
         URL
       </label>
-      <div className="social-links-form__input-row">
+      <div
+        className="social-links-form__input-row"
+        onClick={(e) => console.log("link id is" + linkInfo.id)}
+      >
         <input
           className="social-links-form__input"
           type="text"
           name="socialLinkURL"
           id="socialLinkURL"
-          value={linkInfo.socialLinkURL}
+          value={iconURL}
           onChange={(e) => handleChange({ socialLinkURL: e.target.value })}
-          onClick={() => handleSelect(linkInfo.id)}
+          onClick={() => handleLinkSelect(linkInfo.id)}
         />
-        <FontAwesomeIcon prefix="fas" iconName={selectedIcon} />
+        <div className="social-links__icons-container">
+          <FontAwesomeIcon
+            icon={["fab", "twitter"]}
+            className="social-links__icon"
+            data-name="Twitter"
+            // data-icon-type="brand"
+            onClick={(e) =>
+              handleChange({
+                socialLinkIconName: e.target.dataset["name"], // socialLinkIconType: e.target.dataset.iconType,
+              })
+            }
+          />
+
+          <FontAwesomeIcon
+            icon={["fab", "instagram"]}
+            className="social-links__icon"
+            data-name="instagram"
+            // data-icon-type="brand"
+            onClick={(e) =>
+              handleChange({
+                socialLinkIconName: e.target.dataset["name"],
+                // socialLinkIconType: e.target.dataset.iconType,
+              })
+            }
+          />
+
+          <FontAwesomeIcon
+            icon={["fab", "youtube"]}
+            className="social-links__icon"
+            data-name="youtube"
+            // data-icon-type="brand"
+            onClick={(e) =>
+              handleChange({
+                socialLinkIconName: e.target.dataset["name"], // socialLinkIconType: e.target.dataset.iconType,
+              })
+            }
+          />
+
+          <FontAwesomeIcon
+            icon={["fab", "tiktok"]}
+            className="social-links__icon"
+            data-name="Tiktok"
+            // data-icon-type="brand"
+            onClick={(e) =>
+              handleChange({
+                socialLinkIconName: e.target.dataset["name"], // socialLinkIconType: e.target.dataset.iconType,
+              })
+            }
+          />
+          <FontAwesomeIcon
+            icon={["far", "envelope"]}
+            className="social-links__icon"
+            data-name="Envelope"
+            // data-icon-type="regular"
+            onClick={(e) =>
+              handleChange({
+                socialLinkIconName: e.target.dataset["name"], // socialLinkIconType: e.target.dataset.iconType,
+              })
+            }
+          />
+        </div>
       </div>
     </div>
   );

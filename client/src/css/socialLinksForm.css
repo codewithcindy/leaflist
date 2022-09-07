@@ -49,5 +49,17 @@
   padding: 15px;
 }
 
-.social-links-form__icon {
+social-links__icons-container {
+}
+
+.selected {
+  background-color: #f4f4f4;
+}
+
+.social-links__icon {
+  padding: 5px;
+  margin: 0 5px;
+  cursor: pointer;
+
+  /* border: 1px solid blue; */
 }
