@@ -19,6 +19,8 @@ export default function EditForm() {
     navigate("/preview");
   }
 
+  console.log(userData);
+
   return (
     <div className="edit-form-container">
       <form className="edit-form" onSubmit={(e) => handleEditFormSubmit(e)}>

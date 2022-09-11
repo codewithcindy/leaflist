@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { FormContext } from "./App";
 import { useNavigate } from "react-router-dom";
+import FormData from "form-data";
 
 export default function LogIn() {
   const {
@@ -9,20 +11,28 @@ export default function LogIn() {
     formState: { errors },
   } = useForm();
 
+  const { handleLoginFormSubmit } = useContext(FormContext);
+
   const navigate = useNavigate();
 
-  function handleLoginFormSubmit(data) {
+  function handleFormSubmit(e) {
+    e.preventDefault();
     // Check user auth
     // Navigate to EditForm and pass in user data as userData in App
 
-    navigate("/edit");
+    const data = new FormData(e.target);
+    const formData = Object.fromEntries(data.entries());
+
+    handleLoginFormSubmit(formData);
+
+    // navigate("/edit");
   }
 
   return (
     <div className="login-container">
       <form
         className="login-form"
-        onSubmit={handleSubmit(handleLoginFormSubmit)}
+        onSubmit={(e) => handleSubmit(handleFormSubmit(e))}
       >
         <h1 className="login-form__header">Welcome Back ✨</h1>
         <div className="login-form__row">

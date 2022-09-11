@@ -3,78 +3,82 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function SocialLinksList({ socialLinksData }) {
-  const socialLinks = socialLinksData.map((link) => {
-    const icon = link.socialLinkIconName.toLowerCase();
+  let socialLinks;
 
-    if (icon === "twitter") {
-      return (
-        <Link className="link" to="/socialLinks" key={link.id}>
-          <li className="edit-form__social-link">
-            <div className="edit-form__social-link__icon">
-              <FontAwesomeIcon icon={["fab", "twitter"]} size="lg" />
-            </div>
-            <div className="edit-form__social-link__url">
-              {link.socialLinkURL}
-            </div>
-          </li>
-        </Link>
-      );
-    } else if (icon === "instagram") {
-      return (
-        <Link className="link" to="/socialLinks" key={link.id}>
-          <li className="edit-form__social-link">
-            <div className="edit-form__social-link__icon">
-              <FontAwesomeIcon icon={["fab", "instagram"]} size="lg" />
-            </div>
-            <div className="edit-form__social-link__url">
-              {link.socialLinkURL}
-            </div>
-          </li>
-        </Link>
-      );
-    } else if (icon === "youtube") {
-      return (
-        <Link className="link" to="/socialLinks" key={link.id}>
-          <li className="edit-form__social-link">
-            <div className="edit-form__social-link__icon">
-              <FontAwesomeIcon icon={["fab", "youtube"]} size="lg" />
-            </div>
-            <div className="edit-form__social-link__url">
-              {link.socialLinkURL}
-            </div>
-          </li>
-        </Link>
-      );
-    } else if (icon === "tiktok") {
-      return (
-        <Link className="link" to="/socialLinks" key={link.id}>
-          <li className="edit-form__social-link">
-            <div className="edit-form__social-link__icon">
-              <FontAwesomeIcon icon={["fab", "tiktok"]} size="lg" />
-            </div>
-            <div className="edit-form__social-link__url">
-              {link.socialLinkURL}
-            </div>
-          </li>
-        </Link>
-      );
-    } else if (icon === "envelope") {
-      return (
-        <Link className="link" to="/socialLinks" key={link.id}>
-          <li className="edit-form__social-link">
-            <div className="edit-form__social-link__icon">
-              <FontAwesomeIcon icon={["far", "envelope"]} size="lg" />
-            </div>
-            <div className="edit-form__social-link__url">
-              {link.socialLinkURL}
-            </div>
-          </li>
-        </Link>
-      );
-    }
+  if (!socialLinksData) {
+    socialLinks = [];
+  } else {
+    socialLinks = socialLinksData.map((link) => {
+      const icon = link.socialLinkIconName.toLowerCase();
 
-    return;
-  });
+      if (icon === "twitter") {
+        return (
+          <Link className="link" to="/socialLinks" key={link.id}>
+            <li className="edit-form__social-link">
+              <div className="edit-form__social-link__icon">
+                <FontAwesomeIcon icon={["fab", "twitter"]} size="lg" />
+              </div>
+              <div className="edit-form__social-link__url">
+                {link.socialLinkURL}
+              </div>
+            </li>
+          </Link>
+        );
+      } else if (icon === "instagram") {
+        return (
+          <Link className="link" to="/socialLinks" key={link.id}>
+            <li className="edit-form__social-link">
+              <div className="edit-form__social-link__icon">
+                <FontAwesomeIcon icon={["fab", "instagram"]} size="lg" />
+              </div>
+              <div className="edit-form__social-link__url">
+                {link.socialLinkURL}
+              </div>
+            </li>
+          </Link>
+        );
+      } else if (icon === "youtube") {
+        return (
+          <Link className="link" to="/socialLinks" key={link.id}>
+            <li className="edit-form__social-link">
+              <div className="edit-form__social-link__icon">
+                <FontAwesomeIcon icon={["fab", "youtube"]} size="lg" />
+              </div>
+              <div className="edit-form__social-link__url">
+                {link.socialLinkURL}
+              </div>
+            </li>
+          </Link>
+        );
+      } else if (icon === "tiktok") {
+        return (
+          <Link className="link" to="/socialLinks" key={link.id}>
+            <li className="edit-form__social-link">
+              <div className="edit-form__social-link__icon">
+                <FontAwesomeIcon icon={["fab", "tiktok"]} size="lg" />
+              </div>
+              <div className="edit-form__social-link__url">
+                {link.socialLinkURL}
+              </div>
+            </li>
+          </Link>
+        );
+      } else if (icon === "envelope") {
+        return (
+          <Link className="link" to="/socialLinks" key={link.id}>
+            <li className="edit-form__social-link">
+              <div className="edit-form__social-link__icon">
+                <FontAwesomeIcon icon={["far", "envelope"]} size="lg" />
+              </div>
+              <div className="edit-form__social-link__url">
+                {link.socialLinkURL}
+              </div>
+            </li>
+          </Link>
+        );
+      }
+    });
+  }
 
   return (
     <div className="edit-form__section edit-form__section-social-links">

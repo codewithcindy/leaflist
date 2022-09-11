@@ -9,7 +9,14 @@ export default function SocialLinksForm() {
   const { userData, handleSocialLinksSubmit } = useContext(FormContext);
   const navigate = useNavigate();
 
-  const [socialLinks, setSocialLinks] = useState(userData.socialLinks);
+  let existingSocialLinks;
+  if (!userData.socialLinks) {
+    existingSocialLinks = [];
+  } else {
+    existingSocialLinks = userData.socialLinks;
+  }
+
+  const [socialLinks, setSocialLinks] = useState(existingSocialLinks);
   const [linkSelectedId, setLinkSelectedId] = useState("");
   const [linkIconSelected, setLinkIconSelected] = useState(""); // const [linkIconTypeSelected, setlinkIconTypeSelected] = useState("");
 
@@ -67,7 +74,7 @@ export default function SocialLinksForm() {
         className="social-links__form"
         onSubmit={(e) => handleFormSubmit(e)}
       >
-        <h1 className="social-links__title">Social Links</h1>\
+        <h1 className="social-links__title">Social Links</h1>
         {socialLinks.map((link) => {
           return (
             <NewSocialLink

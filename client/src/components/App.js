@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Landing from "./Landing";
 import LogIn from "./LogIn";
 import Register from "./Register";
 import EditForm from "./EditForm";
 import LinksForm from "./editComponents/LinksForm";
 import SocialLinksForm from "./editComponents/SocialLinksForm";
-import FinalPage from "./FinalPage";
+import Preview from "./Preview";
+import Final from "./Final";
 import "../css/app.css";
-import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -22,35 +22,57 @@ export const FormContext = React.createContext();
 
 function App() {
   // set state for user info
-  const [userData, setUserData] = useState(sampleData);
+  const [userData, setUserData] = useState("");
+
+  // const [formData, setFormData] = useState("");
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [updatedUserData, setUpdatedUserData] = useState("");
 
-  // const [finalData, setFinalData] = useState("");
+  // Navigate
+  const navigate = useNavigate();
 
-  // Connect to backend
+  // Connect to API
   useEffect(() => {
-    axios.get("/").then((res) => console.log("Connected to backend"));
-    // fetch("/").then((res) => console.log("Connected to backend"));
-  }, []);
-
-  //////////// Register ////////////
-  function handleRegisterFormSubmit(formData) {
-    console.log(formData);
+    const controller = new AbortController();
 
     axios
-      .post("/registerUser", formData)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log("err" + err));
+      .get("/", {
+        signal: controller.signal,
+      })
+      .then((res) => {
+        console.log("Connected to backend");
+      });
 
-    // axios({
-    //   method: "post",
-    //   url: "/registerUser",
-    //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //   data: formData,
-    // })
-    //   .then((res) => console.log(res.data))
-    //   .catch((err) => console.log(err));
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
+  async function handleRegisterFormSubmit(formData) {
+    console.log("front end form data");
+    // console.log(formData);
+    // const data = JSON.stringify(formData);
+
+    const result = await axios.post(
+      "http://localhost:8080/registerUser",
+      formData
+    );
+
+    console.log(result.data);
+
+    setUserData(result.data);
+
+    // handleLoginUser();
+
+    navigate("/edit");
+  }
+
+  // async function handleLoginUser() {
+
+  function handleLoginFormSubmit(formData) {
+    console.log("logged in");
   }
 
   // Update heading
@@ -78,13 +100,19 @@ function App() {
     setUpdatedUserData(userData);
   }
 
-  async function saveUserDataToDB() {
-    await axios.post("/save", userData);
+  async function saveUserDataToDB(userData) {
+    axios
+      .post("http://localhost:8080/save", userData)
+      .then((res) => console.log(res))
+      .catch((e) => console.log("e", e));
+
+    navigate("/final");
   }
 
   const FormContextValue = {
     userData,
     handleRegisterFormSubmit,
+    handleLoginFormSubmit,
     handleHeadingChange,
     handleLinksSubmit,
     handleSocialLinksSubmit,
@@ -94,51 +122,50 @@ function App() {
 
   return (
     <FormContext.Provider value={FormContextValue}>
-      {/* {alert(`${data}`)} */}
-      <Router>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/edit" element={<EditForm />} />
-          <Route path="/links" element={<LinksForm />} />
-          <Route path="/socialLinks" element={<SocialLinksForm />} />
-          <Route path="/preview" element={<FinalPage userData={userData} />} />
-        </Routes>
-      </Router>
+      {/* <Nav /> */}
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/edit" element=<EditForm /> />
+        <Route path="/links" element={<LinksForm />} />
+        <Route path="/socialLinks" element={<SocialLinksForm />} />
+        <Route path="/preview" element={<Preview userData={userData} />} />
+        <Route path="/final" element={<Final userData={userData} />} />
+      </Routes>
     </FormContext.Provider>
   );
 }
 
-const sampleData = {
-  id: 1,
-  email: "GusGus@cat.me",
-  password: "12345",
-  heading: "catlady1234",
-  subHeading: "i like black cats",
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet tellus maximus, faucibus risus et, vehicula est. Aenean commodo massa nunc, a tempor est lobortis cursus.",
-  links: [
-    { id: 1, linkText: "Amazon Storefront", linkURL: "wnetfgineg" },
-    {
-      id: 2,
-      linkText: "Favorite recipes",
-      linkURL: "efnegnekg",
-    },
-  ],
-  socialLinks: [
-    {
-      id: 1,
-      socialLinkIconName: "Instagram",
-      socialLinkURL: "instagram.com",
-    },
-    {
-      id: 2,
-      socialLinkIconName: "Youtube",
-      socialLinkURL: "youtube.com",
-    },
-  ],
-  profileImage: "/../img/catdesk.jpeg",
-};
+// const sampleData = {
+//   id: 1,
+//   email: "GusGus@cat.me",
+//   password: "12345",
+//   heading: "catlady1234",
+//   subHeading: "i like black cats",
+//   description:
+//     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet tellus maximus, faucibus risus et, vehicula est. Aenean commodo massa nunc, a tempor est lobortis cursus.",
+//   links: [
+//     { id: 1, linkText: "Amazon Storefront", linkURL: "wnetfgineg" },
+//     {
+//       id: 2,
+//       linkText: "Favorite recipes",
+//       linkURL: "efnegnekg",
+//     },
+//   ],
+//   socialLinks: [
+//     {
+//       id: 1,
+//       socialLinkIconName: "Instagram",
+//       socialLinkURL: "instagram.com",
+//     },
+//     {
+//       id: 2,
+//       socialLinkIconName: "Youtube",
+//       socialLinkURL: "youtube.com",
+//     },
+//   ],
+//   profileImage: "/../img/catdesk.jpeg",
+// };
 
 export default App;

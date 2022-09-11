@@ -5,10 +5,18 @@ import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 
 export default function LinksForm() {
-  const { userData, handleLinksSubmit } = useContext(FormContext);
   const navigate = useNavigate();
+  const { userData, handleLinksSubmit } = useContext(FormContext);
 
-  const [links, setLinks] = useState(userData.links);
+  // Set links
+  let existingLinks;
+  if (!userData.links) {
+    existingLinks = [];
+  } else {
+    existingLinks = userData.links;
+  }
+
+  const [links, setLinks] = useState(existingLinks);
 
   function handleLinkChange(id, updatedLink) {
     // updating links...
@@ -34,15 +42,16 @@ export default function LinksForm() {
   function handleLinkFormSubmit(e) {
     e.preventDefault();
 
-    const completedLinks = links.map((link) => {
-      if (!link.linkText && !link.linkURL) {
-        return;
-      }
-      return link;
-    });
-    console.log(completedLinks);
+    // Return links with completed fields
+    function isFormCompleted(link) {
+      if (link.linkText.length > 0 && link.linkURL.length > 0) return link;
+    }
 
-    handleLinksSubmit(links);
+    // Filtered array with links with completed fields
+    const completedLinks = links.filter(isFormCompleted);
+
+    // Submit Link Form
+    handleLinksSubmit(completedLinks);
 
     // Redirect back to main edit page
     navigate("/edit");

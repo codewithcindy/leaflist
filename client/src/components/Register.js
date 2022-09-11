@@ -18,54 +18,32 @@ export default function Register() {
 
   const navigate = useNavigate();
 
-  function handleChange(changes) {
-    // console.log(changes.email);
-    // const email = { ...formEmail, ...changes };
-    // const password = { ...formPassword, ...changes };
-    // setFormEmail(...email);
-    // setFormPassword(...password);
-    // const
-    // const currentFormData = { ...formData };
-    // const newFormData = { ...currentFormData, ...changes };
-    // setFormData(newFormData);
-  }
+  function handleChange(changes) {}
 
-  // function handleFormSubmit(e) {
-  //   e.preventDefault();
-
-  //   const formData = new FormData(e.currentTarget);
-
-  //   formData.append("email", email);
-  //   formData.append("password", password);
-
-  //   // for (let [key, value] of formData.entries()) {
-  //   //   formData.append(key, value);
-  //   // }
-
-  //   console.log("form data");
-  //   console.log(formData);
-
-  //   let formObject = Object.fromEntries(formData.entries());
-
-  //   handleRegisterFormSubmit(formObject);
-
-  //   // Navigate to EditForm
-  //   // navigate("/edit");
-  // }
-
-  function handleFormSubmit(e) {
+  async function handleFormSubmit(e) {
     e.preventDefault();
+
+    // const formData = new URLSearchParams();
+    // formData.append("username", e.target.username.value);
+    // formData.append("password", e.target.password.value);
 
     // console.log(e.target.email.value);
 
-    const newRegisterData = {
-      email: e.target.email.value,
-      password: e.target.password.value,
-    };
+    // const formData = new FormData();
+    // formData.append("username", e.target.username.value);
+    // formData.append("password", e.target.password.value);
 
-    console.log(newRegisterData);
+    const data = new FormData(e.target);
+    const formData = Object.fromEntries(data.entries());
 
-    handleRegisterFormSubmit(newRegisterData);
+    // const newRegisterData = {
+    //   username: e.target.email.value,
+    //   password: e.target.password.value,
+    // };
+
+    // console.log(formData);
+
+    handleRegisterFormSubmit(formData);
   }
 
   return (
@@ -82,12 +60,12 @@ export default function Register() {
           <input
             className="register-form__input"
             type="email"
-            name="email"
-            id="email"
+            name="username"
+            id="username"
             placeholder="Email"
             // value={email ? email : ""}
             // onChange={(e) => setEmail(e.target.value)}
-            {...register("email", { required: true })}
+            {...register("username", { required: true })}
           ></input>
           {errors.email && <span>Email is required</span>}
         </div>
