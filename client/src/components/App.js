@@ -28,7 +28,9 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [updatedUserData, setUpdatedUserData] = useState("");
+  const [updatedUserData, setUpdatedUserData] = useState(false);
+
+  const [rerender, setRerender] = useState(false);
 
   // Navigate
   const navigate = useNavigate();
@@ -50,6 +52,10 @@ function App() {
     };
   }, []);
 
+  // Re-render on userData state change
+  useEffect(() => {}, [userData]);
+
+  /****************************    Register   *******************************/
   async function handleRegisterFormSubmit(formData) {
     console.log("front end form data");
     // console.log(formData);
@@ -61,19 +67,32 @@ function App() {
     );
 
     console.log(result.data);
-
     setUserData(result.data);
-
-    // handleLoginUser();
-
     navigate("/edit");
   }
 
-  // async function handleLoginUser() {
+  /****************************    Login    *******************************/
 
   function handleLoginFormSubmit(formData) {
     console.log("logged in");
   }
+
+  /*************************    Profile Image    ****************************/
+
+  function handleImageUpload() {
+    // Get image file from localStorage
+    const image = localStorage.getItem("imageFileLocal");
+
+    // Set user's profile image src to equal the image from localStorage
+
+    const newUserData = { ...userData };
+
+    newUserData.profileImageSrc = "data:image/png;base64," + image;
+
+    setUserData({ ...userData, ...newUserData });
+  }
+
+  /****************************    Heading    *******************************/
 
   // Update heading
   function handleHeadingChange(changes) {
@@ -81,12 +100,16 @@ function App() {
     setUserData({ ...newUserData, ...changes });
   }
 
+  /****************************    Links    *******************************/
+
   // Update user data with new links
   function handleLinksSubmit(links) {
     const newUserData = { ...userData };
     newUserData.links = links;
     setUserData(newUserData);
   }
+
+  /****************************  SocialLinks  *******************************/
 
   function handleSocialLinksSubmit(links) {
     const newUserData = { ...userData };
@@ -96,9 +119,13 @@ function App() {
     console.log(userData);
   }
 
+  /****************************    Preview    *******************************/
+
   function handlePreviewPage() {
     setUpdatedUserData(userData);
   }
+
+  /****************************    Final    *******************************/
 
   async function saveUserDataToDB(userData) {
     axios
@@ -109,10 +136,13 @@ function App() {
     navigate("/final");
   }
 
+  /****************************    Context    *******************************/
+
   const FormContextValue = {
     userData,
     handleRegisterFormSubmit,
     handleLoginFormSubmit,
+    handleImageUpload,
     handleHeadingChange,
     handleLinksSubmit,
     handleSocialLinksSubmit,

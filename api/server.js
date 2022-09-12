@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -7,6 +11,9 @@ const LocalStrategy = require("passport-local");
 const catchAsync = require("./utils/catchAsync");
 const session = require("express-session");
 const flash = require("connect-flash");
+const multer = require("multer");
+const { storage } = require("./cloudinaryConfig");
+const upload = multer({ storage });
 
 const port = 8080;
 
@@ -64,6 +71,8 @@ app.get("/", (req, res) => {
   res.send("Server good");
 });
 
+/****************************    Register    *******************************/
+
 app.post("/registerUser", async (req, res, next) => {
   try {
     const { username, password } = req.body;
@@ -99,6 +108,12 @@ app.post("/registerUser", async (req, res, next) => {
     next(e);
   }
 });
+
+/****************************    Final    *******************************/
+
+// app.post("/saveImage", upload.single());
+
+/****************************    Final    *******************************/
 
 app.post("/save", (req, res, next) => {
   console.log("saving", req.body);

@@ -18,7 +18,7 @@ export default function FinalPage({ userData }) {
 
   return (
     <div className="preview-container">
-      <img src={userData.profileImage} alt="Profile Image" />
+      <img src={userData.profileImageSrc} alt="Profile Image" />
       <h1>{userData.heading}</h1>
       <p>{userData.subHeading}</p>
       <p>{userData.description}</p>
