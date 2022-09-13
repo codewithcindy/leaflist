@@ -23,25 +23,8 @@ export default function Register() {
   async function handleFormSubmit(e) {
     e.preventDefault();
 
-    // const formData = new URLSearchParams();
-    // formData.append("username", e.target.username.value);
-    // formData.append("password", e.target.password.value);
-
-    // console.log(e.target.email.value);
-
-    // const formData = new FormData();
-    // formData.append("username", e.target.username.value);
-    // formData.append("password", e.target.password.value);
-
     const data = new FormData(e.target);
     const formData = Object.fromEntries(data.entries());
-
-    // const newRegisterData = {
-    //   username: e.target.email.value,
-    //   password: e.target.password.value,
-    // };
-
-    // console.log(formData);
 
     handleRegisterFormSubmit(formData);
   }

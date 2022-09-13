@@ -58,8 +58,17 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+// passport.serializeUser(function (user, done) {
+//   done(null, user._id);
+// });
 
-function checkAuthentication(req, res, next) {
+// passport.deserializeUser(async function (user, done) {
+//   User.findById(user._id, function (err, user) {
+//     done(err, user);
+//   });
+// });
+
+function checkAuth(req, res, next) {
   if (req.isAuthenticated()) {
     next();
   } else {
@@ -75,21 +84,12 @@ app.get("/", (req, res) => {
 
 app.post("/registerUser", async (req, res, next) => {
   try {
+    console.log(req.body);
+
     const { username, password } = req.body;
 
     // Create new user instance
-    const user = new User({ username });
-
-    // Save user to mongo
-    // await user.save();
-
-    // Register new user using passport
-    // User.register(user, password, (err) => {
-    //   if (err) {
-    //     console.log("error while registering user", err);
-    //     return next(err);
-    //   }
-    // });
+    const user = new User({ username: req.body.username });
 
     const registeredUser = await User.register(user, password);
 
@@ -107,18 +107,46 @@ app.post("/registerUser", async (req, res, next) => {
   } catch (e) {
     next(e);
   }
+
+  // , (err) => {
+  //   if (err) return next(err);
+  // }
 });
 
-/****************************    Final    *******************************/
+/****************************    Login    *******************************/
+
+// app.get("/login", (req, res, next) => {});
+
+app.post(
+  "/loginUser",
+  passport.authenticate("local", {
+    failureFlash: true,
+  }),
+  (req, res, next) => {
+    try {
+      console.log("user logged in backend", req.body);
+      console.log("req.user", req.user);
+
+      const user = req.user;
+
+      res.send({ user });
+    } catch (e) {
+      console.log("error logging in user", e);
+    }
+  }
+);
 
 // app.post("/saveImage", upload.single());
 
+/**************************    Profile Image    *****************************/
+// app.post("/uploadImage", upload.sin gle(), (req, res, next) => {});
+
 /****************************    Final    *******************************/
 
-app.post("/save", (req, res, next) => {
+app.post("/save", upload.single("profileImageSource"), (req, res, next) => {
   console.log("saving", req.body);
 
-  const user = User.findById({ id: req.body._id }, req.body, {
+  const user = User.findById({ _id: req.body._id }, req.body, {
     runValidators: true,
     new: true,
   });

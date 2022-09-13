@@ -23,6 +23,7 @@ export default function EditForm() {
 
   return (
     <div className="edit-form-container">
+      {/* <div>{userData.username}</div> */}
       <form className="edit-form" onSubmit={(e) => handleEditFormSubmit(e)}>
         <ProfileImage profileImage={userData.profileImageSrc} />
         <Heading heading={userData.heading} />

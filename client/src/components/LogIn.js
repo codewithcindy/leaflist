@@ -17,15 +17,11 @@ export default function LogIn() {
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    // Check user auth
-    // Navigate to EditForm and pass in user data as userData in App
 
     const data = new FormData(e.target);
     const formData = Object.fromEntries(data.entries());
 
     handleLoginFormSubmit(formData);
-
-    // navigate("/edit");
   }
 
   return (
@@ -40,10 +36,10 @@ export default function LogIn() {
           <input
             className="login-form__input"
             type="email"
-            name="email"
-            id="email"
+            name="username"
+            id="username"
             placeholder="Email"
-            {...register("email", { required: true })}
+            {...register("username", { required: true })}
           ></input>
           {errors.email && <span>Email is required</span>}
         </div>

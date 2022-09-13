@@ -53,28 +53,39 @@ function App() {
   }, []);
 
   // Re-render on userData state change
-  useEffect(() => {}, [userData]);
+  // useEffect(() => {}, [userData]);
 
   /****************************    Register   *******************************/
   async function handleRegisterFormSubmit(formData) {
     console.log("front end form data");
-    // console.log(formData);
-    // const data = JSON.stringify(formData);
 
+    // Send register form data to node
     const result = await axios.post(
       "http://localhost:8080/registerUser",
-      formData
+      formData,
+      { withCredentials: true }
     );
 
     console.log(result.data);
     setUserData(result.data);
+
+    // Re route user to edit page
     navigate("/edit");
   }
 
   /****************************    Login    *******************************/
 
   function handleLoginFormSubmit(formData) {
-    console.log("logged in");
+    axios
+      .post("http://localhost:8080/loginUser", formData)
+      .then((res) => {
+        setUserData(res.data.user);
+      })
+      .catch((e) => {
+        console.log("error:", e);
+      });
+
+    navigate("/edit");
   }
 
   /*************************    Profile Image    ****************************/
@@ -121,9 +132,9 @@ function App() {
 
   /****************************    Preview    *******************************/
 
-  function handlePreviewPage() {
-    setUpdatedUserData(userData);
-  }
+  // function handlePreviewPage() {
+  //   setUpdatedUserData(userData);
+  // }
 
   /****************************    Final    *******************************/
 
@@ -146,7 +157,7 @@ function App() {
     handleHeadingChange,
     handleLinksSubmit,
     handleSocialLinksSubmit,
-    handlePreviewPage,
+    // handlePreviewPage,
     saveUserDataToDB,
   };
 
