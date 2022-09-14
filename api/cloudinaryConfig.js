@@ -13,7 +13,8 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "Leaflist",
-    format: async (req, file) => ["png", "jpeg", "jpg"], // supports promises as well
+    allowed_formats: ["png", "jpeg", "jpg"],
+    // format: async (req, file) => ["png", "jpeg", "jpg"], // supports promises as well
     // public_id: (req, file) => "computed-filename-using-request",
   },
 });

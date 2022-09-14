@@ -12,18 +12,23 @@ const catchAsync = require("./utils/catchAsync");
 const session = require("express-session");
 const flash = require("connect-flash");
 const multer = require("multer");
+const cloudinary = require("cloudinary");
 const { storage } = require("./cloudinaryConfig");
+// const { db } = require("./models/user");
 const upload = multer({ storage });
+const dbURL = process.env.DB_URL || "mongodb://localhost:27017/leaflistDB";
 
 const port = 8080;
 
 const app = express();
 
-// Connect top MongoDB
+// // Connect to MongoDB
 mongoose
-  .connect("mongodb://localhost:27017/leaflistDB")
+  .connect(dbURL)
   .then(() => console.log("Connected to database"))
   .catch((err) => console.log(`Error: ${err}`));
+
+// Connect to Mongo Atlas
 
 // Enable cors
 app.use(
@@ -54,10 +59,46 @@ app.use(flash());
 // Configure Passportjs
 app.use(passport.initialize());
 app.use(passport.session());
-// passport.use(User.createStrategy());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+
+passport.use(
+  new LocalStrategy(function (username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false, { message: "Invalid username or password" });
+      }
+      if (!user.authenticate(password)) {
+        return done(null, false, { message: "Invalid username or password" });
+      }
+      return done(null, user);
+    });
+  })
+);
+
+passport.serializeUser(function (user, cb) {
+  process.nextTick(function () {
+    return cb(null, {
+      username: user.username,
+      heading: user.heading,
+      subHeading: user.subheading,
+      description: user.description,
+      links: user.links,
+      socialLinks: user.socialLinks,
+      profileImageSrc: user.profileImageSrc,
+    });
+  });
+});
+
+passport.deserializeUser(function (user, cb) {
+  process.nextTick(function () {
+    return cb(null, user);
+  });
+});
+// passport.use(new LocalStrategy(User.authenticate()));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 // passport.serializeUser(function (user, done) {
 //   done(null, user._id);
 // });
@@ -89,7 +130,7 @@ app.post("/registerUser", async (req, res, next) => {
     const { username, password } = req.body;
 
     // Create new user instance
-    const user = new User({ username: req.body.username });
+    const user = new User({ username });
 
     const registeredUser = await User.register(user, password);
 
@@ -117,39 +158,45 @@ app.post("/registerUser", async (req, res, next) => {
 
 // app.get("/login", (req, res, next) => {});
 
-app.post(
-  "/loginUser",
-  passport.authenticate("local", {
-    failureFlash: true,
-  }),
-  (req, res, next) => {
-    try {
-      console.log("user logged in backend", req.body);
-      console.log("req.user", req.user);
-
-      const user = req.user;
-
-      res.send({ user });
-    } catch (e) {
-      console.log("error logging in user", e);
-    }
-  }
-);
+app.post("/loginUser", passport.authenticate("local"), (req, res) => {
+  console.log(req.user);
+  res.json(req.user);
+});
 
 // app.post("/saveImage", upload.single());
 
 /**************************    Profile Image    *****************************/
-// app.post("/uploadImage", upload.sin gle(), (req, res, next) => {});
+app.post("/uploadImage", upload.single("profileImage"), (req, res, next) => {
+  try {
+    console.log("backend req.body", req.body);
+    // res.send("uploaded image");
+  } catch (e) {
+    console.log(e);
+  }
+  // const { profileImageSrc } = req.body;
+  // console.log(req.body.profileImageSrc);
+  // cloudinary.v2.uploader
+  //   .upload(profileImageSrc, { resource_type: image })
+  //   .then((res) => console.log(res))
+  //   .catch((e) => console.log("error uploading image", e));
+  // res.send("uploaded image");
+});
 
 /****************************    Final    *******************************/
 
-app.post("/save", upload.single("profileImageSource"), (req, res, next) => {
+app.post("/save", (req, res, next) => {
   console.log("saving", req.body);
 
-  const user = User.findById({ _id: req.body._id }, req.body, {
-    runValidators: true,
-    new: true,
-  });
+  const user = User.findByIdAndUpdate(
+    { _id: req.body._id },
+    { ...req.body },
+    {
+      runValidators: true,
+      new: true,
+    }
+  );
+
+  user.save();
 
   console.log(user);
   res.send("yay");

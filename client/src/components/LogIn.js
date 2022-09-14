@@ -11,7 +11,7 @@ export default function LogIn() {
     formState: { errors },
   } = useForm();
 
-  const { handleLoginFormSubmit } = useContext(FormContext);
+  const { message, handleLoginFormSubmit } = useContext(FormContext);
 
   const navigate = useNavigate();
 
@@ -55,6 +55,8 @@ export default function LogIn() {
           ></input>
           {errors.password && <span>Password is required</span>}
         </div>
+        <span>{message}</span>
+
         <button className="btn login-form__submit-btn" type="Submit">
           Log In
         </button>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { FormContext } from "../App";
 
 export default function ProfileImage({ profileImage }) {
@@ -16,95 +16,104 @@ export default function ProfileImage({ profileImage }) {
 
   //   return dataURL.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
   // }
-  function getBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
+  // function getBase64(file) {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader();
 
-      reader.onload = () => {
-        // Convert file to base64 string
-        const base64String = reader.result
-          .replace("data:", "")
-          .replace(/^.+,/, "");
+  //     reader.onload = () => {
+  //       // Convert file to base64 string
+  //       const base64String = reader.result
+  //         .replace("data:", "")
+  //         .replace(/^.+,/, "");
 
-        // Save file to localStorage
-        localStorage.setItem("imageFileLocal", base64String);
+  //       // Save file to localStorage
+  //       localStorage.setItem("imageFileLocal", base64String);
 
-        resolve(reader.result);
-      };
-      reader.onerror = (error) => {
-        reject(error);
-      };
+  //       resolve(reader.result);
+  //     };
+  //     reader.onerror = (error) => {
+  //       reject(error);
+  //     };
 
-      // localStorage.setItem("image", reader.result);
-      reader.readAsDataURL(file);
-    });
-  }
+  //     // localStorage.setItem("image", reader.result);
+  //     reader.readAsDataURL(file);
+  //   });
+  // }
 
-  function handleImageUpdate() {
+  function handleImageUpdate(imageBase64) {
     // Get image file from localStorage
-    const image = localStorage.getItem("imageFileLocal");
+    // const image = localStorage.getItem("imageFileLocal");
 
     // Set user's profile image src to equal the image from localStorage
-    const newUserData = { ...userData };
+    // const newUserData = { ...userData };
 
-    newUserData.profileImageSrc = "data:image/png;base64," + image;
+    // const profileImageSrc = "data:image/png;base64," + imageBase64;
 
-    handleImageUpload();
+    handleImageUpload(profileImageSrc);
   }
 
-  function handleChange(imageFile) {
-    const reader = new FileReader();
+  const profileImageForm = useRef(null);
 
-    reader.onload = () => {
-      // Convert file to base64 string
-      const base64String = reader.result
-        .replace("data:", "")
-        .replace(/^.+,/, "");
+  function handleChange(e) {
+    profileImageForm.current.submit(e);
+    // console.log(e);
 
-      // Save file to localStorage
-      localStorage.setItem("imageFileLocal", base64String);
-
-      // resolve(reader.result);
-    };
-    reader.onerror = (error) => {
-      // reject(error);
-      console.log(error);
-    };
-
-    reader.readAsDataURL(imageFile);
-
-    // localStorage.setItem("imageData", imageData);
-
-    // handleImageUpload();
-
-    handleImageUpdate();
+    // handleImageUpload(e);
+    // console.log(e.target.files[0]);
+    // const profileImageForm
+    // console.log(file);
+    // const imageFile = e.target.files[0];
+    // handleImageUpload(file);
+    // const reader = new FileReader();
+    // reader.readAsDataURL(imageFile);
+    // reader.onload = () => {
+    //   // Convert file to base64 string
+    //   const base64String = reader.result
+    //     .replace("data:", "")
+    //     .replace(/^.+,/, "");
+    //   console.log(typeof base64String);
+    //   handleImageUpdate(base64String);
+    //   // Save file to localStorage
+    //   // localStorage.setItem("imageFileLocal", base64String);
+    // };
+    // reader.onerror = (error) => {
+    //   console.log(error);
+    // };
   }
 
   return (
     <div className="edit-form__section edit-form__section-image">
       <div className="edit-form--circle">
-        <label
-          className="edit-form__label edit-form__label-image"
-          htmlFor="profileImage"
+        <form
+          ref={profileImageForm}
+          action="/uploadImage"
+          method="post"
+          encType="multipart/form-data"
+          // onSubmit={(e) => handleChange(e)}
         >
-          {profileImage ? (
-            <img
-              className="edit-form__profile-image"
-              src={profileImage}
-              alt="cat desk"
-            />
-          ) : (
-            "Image"
-          )}
-        </label>
-        <input
-          className="edit-form__input-image"
-          type="file"
-          name="profileImage"
-          id="profileImage"
-          accept=".jpg, .jpeg, .png"
-          onChange={(e) => handleChange(e.target.files[0])}
-        />
+          <label
+            className="edit-form__label edit-form__label-image"
+            htmlFor="profileImage"
+          >
+            {profileImage ? (
+              <img
+                className="edit-form__profile-image"
+                src={profileImage}
+                alt="cat desk"
+              />
+            ) : (
+              "Image"
+            )}
+          </label>
+          <input
+            className="edit-form__input-image"
+            type="file"
+            name="profileImage"
+            id="profileImage"
+            accept=".jpg, .jpeg, .png"
+            onChange={(e) => handleChange(e)}
+          />
+        </form>
       </div>
     </div>
   );

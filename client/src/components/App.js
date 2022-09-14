@@ -24,13 +24,7 @@ function App() {
   // set state for user info
   const [userData, setUserData] = useState("");
 
-  // const [formData, setFormData] = useState("");
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const [updatedUserData, setUpdatedUserData] = useState(false);
-
-  const [rerender, setRerender] = useState(false);
+  const [message, setMessage] = useState("");
 
   // Navigate
   const navigate = useNavigate();
@@ -51,9 +45,6 @@ function App() {
       controller.abort();
     };
   }, []);
-
-  // Re-render on userData state change
-  // useEffect(() => {}, [userData]);
 
   /****************************    Register   *******************************/
   async function handleRegisterFormSubmit(formData) {
@@ -79,28 +70,25 @@ function App() {
     axios
       .post("http://localhost:8080/loginUser", formData)
       .then((res) => {
-        setUserData(res.data.user);
+        const user = res.data;
+        setUserData(user); // setUserData(res.data.user);
+        navigate("/edit");
       })
       .catch((e) => {
-        console.log("error:", e);
+        setMessage("Invalid username or password. Please try again.");
       });
-
-    navigate("/edit");
   }
 
   /*************************    Profile Image    ****************************/
 
-  function handleImageUpload() {
-    // Get image file from localStorage
-    const image = localStorage.getItem("imageFileLocal");
-
-    // Set user's profile image src to equal the image from localStorage
-
-    const newUserData = { ...userData };
-
-    newUserData.profileImageSrc = "data:image/png;base64," + image;
-
-    setUserData({ ...userData, ...newUserData });
+  function handleImageUpload(imageFile) {
+    // axios
+    //   .post("http://localhost:8080/uploadImage", { profileImageSrc })
+    //   .then((res) => console.log(res))
+    //   .catch((e) => console.log("error connecting to route", e));
+    // const newUserData = { ...userData };
+    // newUserData.profileImageSrc = profileImageSrc;
+    // setUserData({ ...userData, ...newUserData });
   }
 
   /****************************    Heading    *******************************/
@@ -150,6 +138,7 @@ function App() {
   /****************************    Context    *******************************/
 
   const FormContextValue = {
+    message,
     userData,
     handleRegisterFormSubmit,
     handleLoginFormSubmit,

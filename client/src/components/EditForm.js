@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import ProfileImage from "./editComponents/ProfileImage";
 import Heading from "./editComponents/Heading";
 import SubHeading from "./editComponents/SubHeading";
@@ -11,20 +11,19 @@ import { FormContext } from "./App";
 // import Links from "./editComponents/Links";
 
 export default function EditForm() {
-  const { userData } = useContext(FormContext);
+  const { userData, displayPreview } = useContext(FormContext);
   const navigate = useNavigate();
 
-  function handleEditFormSubmit(e) {
-    e.preventDefault();
-    navigate("/preview");
-  }
+  // function handleEditFormSubmit(e) {
+  //   e.preventDefault();
+  //   displayPreview();
+  // }
 
   console.log(userData);
 
   return (
     <div className="edit-form-container">
-      {/* <div>{userData.username}</div> */}
-      <form className="edit-form" onSubmit={(e) => handleEditFormSubmit(e)}>
+      <div className="edit-form">
         <ProfileImage profileImage={userData.profileImageSrc} />
         <Heading heading={userData.heading} />
         <SubHeading subHeading={userData.subHeading} />
@@ -32,10 +31,13 @@ export default function EditForm() {
         <LinksList linksData={userData.links} />
         <SocialLinksList socialLinksData={userData.socialLinks} />
 
-        <button type="submit" className="btn btn-preview">
-          Preview
-        </button>
-      </form>
+        <Link to="/preview">
+          <button type="submit" className="btn btn-preview">
+            Preview
+          </button>
+        </Link>
+      </div>
+      {/* <div>{userData.username}</div> */}
     </div>
   );
 }
