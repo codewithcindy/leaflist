@@ -125,8 +125,6 @@ app.get("/", (req, res) => {
 
 app.post("/registerUser", async (req, res, next) => {
   try {
-    console.log(req.body);
-
     const { username, password } = req.body;
 
     // Create new user instance
@@ -158,7 +156,7 @@ app.post("/registerUser", async (req, res, next) => {
 
 // app.get("/login", (req, res, next) => {});
 
-app.post("/loginUser", passport.authenticate("local"), (req, res) => {
+app.post("/login", passport.authenticate("local"), (req, res) => {
   console.log(req.user);
   res.json(req.user);
 });
@@ -168,18 +166,14 @@ app.post("/loginUser", passport.authenticate("local"), (req, res) => {
 /**************************    Profile Image    *****************************/
 app.post("/uploadImage", upload.single("profileImage"), (req, res, next) => {
   try {
-    console.log("backend req.body", req.body);
-    // res.send("uploaded image");
+    const image = req.file;
+
+    // Send the single file data to React
+    res.json(image);
   } catch (e) {
+    next(e);
     console.log(e);
   }
-  // const { profileImageSrc } = req.body;
-  // console.log(req.body.profileImageSrc);
-  // cloudinary.v2.uploader
-  //   .upload(profileImageSrc, { resource_type: image })
-  //   .then((res) => console.log(res))
-  //   .catch((e) => console.log("error uploading image", e));
-  // res.send("uploaded image");
 });
 
 /****************************    Final    *******************************/

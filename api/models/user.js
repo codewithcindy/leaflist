@@ -30,7 +30,10 @@ const userSchema = new Schema({
       socialLinkURL: String,
     },
   ],
-  profileImageSrc: String,
+  profileImageSrc: {
+    url: String,
+    filename: String,
+  },
 });
 
 userSchema.plugin(passportLocalMongoose);

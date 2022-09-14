@@ -68,7 +68,7 @@ function App() {
 
   function handleLoginFormSubmit(formData) {
     axios
-      .post("http://localhost:8080/loginUser", formData)
+      .post("http://localhost:8080/login", formData)
       .then((res) => {
         const user = res.data;
         setUserData(user); // setUserData(res.data.user);
@@ -81,11 +81,21 @@ function App() {
 
   /*************************    Profile Image    ****************************/
 
-  function handleImageUpload(imageFile) {
-    // axios
-    //   .post("http://localhost:8080/uploadImage", { profileImageSrc })
-    //   .then((res) => console.log(res))
-    //   .catch((e) => console.log("error connecting to route", e));
+  function handleImageUpload(formData) {
+    axios
+      .post("http://localhost:8080/uploadImage", formData)
+      .then((res) => {
+        const file = res.data;
+
+        const newUserData = { ...userData };
+        newUserData.profileImageSrc = {
+          url: file.path,
+          filename: file.filename,
+        };
+
+        setUserData(newUserData);
+      })
+      .catch((e) => console.log("error connecting to route", e));
     // const newUserData = { ...userData };
     // newUserData.profileImageSrc = profileImageSrc;
     // setUserData({ ...userData, ...newUserData });

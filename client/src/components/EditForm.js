@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ProfileImage from "./editComponents/ProfileImage";
 import Heading from "./editComponents/Heading";
 import SubHeading from "./editComponents/SubHeading";
@@ -12,14 +12,6 @@ import { FormContext } from "./App";
 
 export default function EditForm() {
   const { userData, displayPreview } = useContext(FormContext);
-  const navigate = useNavigate();
-
-  // function handleEditFormSubmit(e) {
-  //   e.preventDefault();
-  //   displayPreview();
-  // }
-
-  console.log(userData);
 
   return (
     <div className="edit-form-container">
@@ -37,7 +29,6 @@ export default function EditForm() {
           </button>
         </Link>
       </div>
-      {/* <div>{userData.username}</div> */}
     </div>
   );
 }
