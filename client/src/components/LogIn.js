@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FormContext } from "./App";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import FormData from "form-data";
 
 export default function LogIn() {
@@ -11,7 +11,7 @@ export default function LogIn() {
     formState: { errors },
   } = useForm();
 
-  const { message, handleLoginFormSubmit } = useContext(FormContext);
+  const { errMsg, handleLoginFormSubmit } = useContext(FormContext);
 
   const navigate = useNavigate();
 
@@ -55,11 +55,21 @@ export default function LogIn() {
           ></input>
           {errors.password && <span>Password is required</span>}
         </div>
-        <span>{message}</span>
+        <p>
+          Not registered? Sign up <Link to="/register">here</Link>
+        </p>
+        <div>{errMsg.loginErr}</div>
 
-        <button className="btn login-form__submit-btn" type="Submit">
-          Log In
-        </button>
+        <div className="btn-flex">
+          {errMsg.loginErr && (
+            <Link to="/register">
+              <button className="btn login-form__submit-btn">Sign Up</button>
+            </Link>
+          )}
+          <button className="btn login-form__submit-btn" type="Submit">
+            Log In
+          </button>
+        </div>
       </form>
     </div>
   );

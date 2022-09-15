@@ -13,7 +13,7 @@ export default function FinalPage({ userData }) {
     // display final product - same as preview but no btns
 
     // pass data to App to save data to mongo
-    saveUserDataToDB(userData);
+    saveUserDataToDB();
   }
 
   return (
@@ -32,7 +32,10 @@ export default function FinalPage({ userData }) {
             hidden
             onChange={() => {}}
           ></input> */}
-          <img src={userData.profileImageSrc || "NO IMG"} alt="Profile Image" />
+          <img
+            src={userData.profileImageSrc.url || "NO IMG"}
+            alt="Profile Image"
+          />
           <h1>{userData.heading || ""}</h1>
           <p>{userData.subHeading || ""}</p>
           <p>{userData.description || ""}</p>

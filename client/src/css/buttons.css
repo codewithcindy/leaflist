@@ -8,6 +8,10 @@
   margin: 0.5rem 0;
 }
 
+.btn-flex {
+  display: flex;
+}
+
 .btn-back {
   background-color: #e9c3c3;
 }

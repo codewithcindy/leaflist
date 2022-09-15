@@ -24,7 +24,12 @@ function App() {
   // set state for user info
   const [userData, setUserData] = useState("");
 
-  const [message, setMessage] = useState("");
+  const [errMsg, setErrMsg] = useState({
+    registerErr: "",
+    loginErr: "",
+  });
+  // const [registerErrorMsg, setRegisterErrorMsg] = useState("");
+  // const [loginErrorMsg, setLoginErrorMsg] = useState("");
 
   // Navigate
   const navigate = useNavigate();
@@ -51,17 +56,22 @@ function App() {
     console.log("front end form data");
 
     // Send register form data to node
-    const result = await axios.post(
-      "http://localhost:8080/registerUser",
-      formData,
-      { withCredentials: true }
-    );
-
-    console.log(result.data);
-    setUserData(result.data);
-
-    // Re route user to edit page
-    navigate("/edit");
+    axios
+      .post("http://localhost:8080/registerUser", formData, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setUserData(res.data);
+        // Re route user to edit page
+        navigate("/edit");
+      })
+      .catch((e) => {
+        const errMsg = {
+          registerErr: "A user with that email already exists.",
+        };
+        setErrMsg(errMsg);
+        console.log(errMsg);
+      });
   }
 
   /****************************    Login    *******************************/
@@ -75,7 +85,11 @@ function App() {
         navigate("/edit");
       })
       .catch((e) => {
-        setMessage("Invalid username or password. Please try again.");
+        const errMsg = {
+          loginErr: "Invalid username or password. Please try again.",
+        };
+        setErrMsg(errMsg);
+        console.log(errMsg);
       });
   }
 
@@ -136,7 +150,7 @@ function App() {
 
   /****************************    Final    *******************************/
 
-  async function saveUserDataToDB(userData) {
+  async function saveUserDataToDB() {
     axios
       .post("http://localhost:8080/save", userData)
       .then((res) => console.log(res))
@@ -148,7 +162,7 @@ function App() {
   /****************************    Context    *******************************/
 
   const FormContextValue = {
-    message,
+    errMsg,
     userData,
     handleRegisterFormSubmit,
     handleLoginFormSubmit,

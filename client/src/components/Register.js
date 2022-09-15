@@ -1,15 +1,11 @@
 import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { FormContext } from "./App";
 import FormData from "form-data";
 
 export default function Register() {
-  const { handleRegisterFormSubmit } = useContext(FormContext);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
+  const { errMsg, handleRegisterFormSubmit } = useContext(FormContext);
   const {
     register,
     handleSubmit,
@@ -66,9 +62,20 @@ export default function Register() {
           ></input>
           {errors.email && <span>Password is required</span>}
         </div>
-        <button className="btn login-form__submit-btn" type="Submit">
-          Sign Up
-        </button>
+        <p>
+          Already have an account? Log in <Link to="/login">here</Link>
+        </p>
+        <div>{errMsg.registerErr}</div>
+        <div className="btn-flex">
+          <button className="btn login-form__submit-btn" type="Submit">
+            Sign Up
+          </button>
+          {errMsg.registerErr && (
+            <Link to="/login">
+              <button className="btn login-form__submit-btn">Login</button>
+            </Link>
+          )}
+        </div>
       </form>
     </div>
   );

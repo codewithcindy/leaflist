@@ -4,6 +4,13 @@ import { Link } from "react-router-dom";
 export default function LinksList({ linksData }) {
   let links;
 
+  function handleDeleteLink(e) {
+    console.log(e);
+    // linksData.map(link => {
+    //   if (link.id ===)
+    // })
+  }
+
   if (!linksData) {
     links = [];
   } else {
@@ -12,6 +19,12 @@ export default function LinksList({ linksData }) {
         <li className="edit-form__link" key={link.id}>
           <div className="edit-form__link-text">{link.linkText}</div>
           {/* <div>{link.linkURL}</div> */}
+          <button
+            className="edit-form__link-delete"
+            onClick={(e) => handleDeleteLink(e.target)}
+          >
+            Delete
+          </button>
         </li>
       );
     });

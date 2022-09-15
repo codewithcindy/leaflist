@@ -14,7 +14,7 @@ const flash = require("connect-flash");
 const multer = require("multer");
 const cloudinary = require("cloudinary");
 const { storage } = require("./cloudinaryConfig");
-// const { db } = require("./models/user");
+const { MongoClient } = require("mongodb");
 const upload = multer({ storage });
 const dbURL = process.env.DB_URL || "mongodb://localhost:27017/leaflistDB";
 
@@ -28,7 +28,26 @@ mongoose
   .then(() => console.log("Connected to database"))
   .catch((err) => console.log(`Error: ${err}`));
 
+const client = new MongoClient(dbURL);
+
 // Connect to Mongo Atlas
+async function run(userData) {
+  try {
+    // Connect to Mongo Client
+    console.log("Connection open");
+    await client.connect();
+    const db = client.db("Leaflist");
+    const collection = db.collection("users");
+
+    const result = await collection.updateMany({}, { $set: { ...userData } });
+    console.log("results", result);
+    return result;
+  } finally {
+    // Close connection
+    await client.close();
+    console.log("Connection closed");
+  }
+}
 
 // Enable cors
 app.use(
@@ -96,18 +115,6 @@ passport.deserializeUser(function (user, cb) {
     return cb(null, user);
   });
 });
-// passport.use(new LocalStrategy(User.authenticate()));
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
-// passport.serializeUser(function (user, done) {
-//   done(null, user._id);
-// });
-
-// passport.deserializeUser(async function (user, done) {
-//   User.findById(user._id, function (err, user) {
-//     done(err, user);
-//   });
-// });
 
 function checkAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -134,9 +141,6 @@ app.post("/registerUser", async (req, res, next) => {
 
     req.login(registeredUser, (err) => {
       if (err) return next(err);
-      // req.session.username = req.body.username;
-
-      // res.redirect("/loginUser");
     });
 
     req.session.user = req.user;
@@ -144,12 +148,9 @@ app.post("/registerUser", async (req, res, next) => {
     console.log(req.user);
     res.json(registeredUser);
   } catch (e) {
+    res.status(401);
     next(e);
   }
-
-  // , (err) => {
-  //   if (err) return next(err);
-  // }
 });
 
 /****************************    Login    *******************************/
@@ -157,7 +158,7 @@ app.post("/registerUser", async (req, res, next) => {
 // app.get("/login", (req, res, next) => {});
 
 app.post("/login", passport.authenticate("local"), (req, res) => {
-  console.log(req.user);
+  if (err) res.sendStatus(401);
   res.json(req.user);
 });
 
@@ -179,41 +180,19 @@ app.post("/uploadImage", upload.single("profileImage"), (req, res, next) => {
 /****************************    Final    *******************************/
 
 app.post("/save", (req, res, next) => {
-  console.log("saving", req.body);
+  const userData = {
+    heading: req.body.heading,
+    subHeading: req.body.subHeading,
+    description: req.body.description,
+    links: req.body.links,
+    socialLinks: req.body.socialLinks,
+    profileImageSrc: req.body.profileImageSrc,
+  };
 
-  const user = User.findByIdAndUpdate(
-    { _id: req.body._id },
-    { ...req.body },
-    {
-      runValidators: true,
-      new: true,
-    }
-  );
+  run(userData).catch(console.dir);
 
-  user.save();
-
-  console.log(user);
   res.send("yay");
 });
-
-// app.post("/loginUser", passport.authenticate("local"), (req, res, next) => {
-//   console.log(req.user);
-
-//   // res.json("hello");
-// });
-
-// app.get(
-//   "/loginUser",
-//   passport.authenticate("local"),
-//   { failureRedirect: "/login", failureMessage: true },
-//   (req, res, next) => {
-//     console.log("loginUser");
-//     console.log(req.user);
-
-//     res.json({ user: req.user });
-//     // res.send("user logged in");
-//   }
-// );
 
 app.use((err, req, res, next) => {
   const { status = 500, message = "Something went wrong" } = err;

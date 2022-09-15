@@ -9,7 +9,7 @@ export default function ProfileImage({ profileImage }) {
   function handleChange(e) {
     const formData = new FormData(profileImageForm.current);
 
-    handleImageUpload(Data);
+    handleImageUpload(formData);
   }
 
   return (
@@ -29,7 +29,7 @@ export default function ProfileImage({ profileImage }) {
             {profileImage ? (
               <img
                 className="edit-form__profile-image"
-                src={profileImage}
+                src={profileImage.url}
                 alt="cat desk"
               />
             ) : (
