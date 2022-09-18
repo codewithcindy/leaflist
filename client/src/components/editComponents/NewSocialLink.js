@@ -13,14 +13,16 @@ export default function NewSocialLink(props) {
 
   const [isSelect, setIsSelect] = useState("");
 
-  function handleChange(changes) {
-    handleLinkInputChange(linkInfo.id, { ...linkInfo, ...changes });
-  }
+  function handleChange(e) {
+    const iconChange = { socialLinkIcon: e.currentTarget.parentNode };
+    const textChange = { socialLinkURL: e.target.value };
 
-  // function handleIconSelect(iconName) {
-  //   console.log(iconName);
-  //   handleLinkInputChange();
-  // }
+    handleLinkInputChange(linkInfo.id, {
+      ...linkInfo,
+      ...iconChange,
+      ...textChange,
+    });
+  }
 
   return (
     <div className="social-links-form__section">
@@ -36,70 +38,67 @@ export default function NewSocialLink(props) {
           type="text"
           name="socialLinkURL"
           id="socialLinkURL"
+          autoComplete="off"
           value={iconURL}
-          onChange={(e) => handleChange({ socialLinkURL: e.target.value })}
+          onChange={(e) => handleChange(e)}
           onClick={() => handleLinkSelect(linkInfo.id)}
         />
         <div className="social-links__icons-container">
-          <FontAwesomeIcon
-            icon={["fab", "twitter"]}
+          <div
             className="social-links__icon"
             data-name="Twitter"
-            // data-icon-type="brand"
-            onClick={(e) =>
-              handleChange({
-                socialLinkIconName: e.target.dataset["name"], // socialLinkIconType: e.target.dataset.iconType,
-              })
-            }
-          />
-
-          <FontAwesomeIcon
-            icon={["fab", "instagram"]}
+            onClick={(e) => handleChange(e)}
+          >
+            <FontAwesomeIcon
+              icon={["fab", "twitter"]}
+              className="fontAwesomeIcon"
+              data-name="Twitter"
+            />
+          </div>
+          <div
             className="social-links__icon"
-            data-name="instagram"
-            // data-icon-type="brand"
-            onClick={(e) =>
-              handleChange({
-                socialLinkIconName: e.target.dataset["name"],
-                // socialLinkIconType: e.target.dataset.iconType,
-              })
-            }
-          />
-
-          <FontAwesomeIcon
-            icon={["fab", "youtube"]}
+            data-name="Instagram"
+            onClick={(e) => handleChange(e)}
+          >
+            <FontAwesomeIcon
+              icon={["fab", "instagram"]}
+              className="social-links__icon"
+              data-name="Instagram"
+            />
+          </div>
+          <div
             className="social-links__icon"
-            data-name="youtube"
-            // data-icon-type="brand"
-            onClick={(e) =>
-              handleChange({
-                socialLinkIconName: e.target.dataset["name"], // socialLinkIconType: e.target.dataset.iconType,
-              })
-            }
-          />
-
-          <FontAwesomeIcon
-            icon={["fab", "tiktok"]}
+            data-name="Youtube"
+            onClick={(e) => handleChange(e)}
+          >
+            <FontAwesomeIcon
+              icon={["fab", "youtube"]}
+              className="social-links__icon"
+              data-name="Youtube"
+            />
+          </div>
+          <div
             className="social-links__icon"
             data-name="Tiktok"
-            // data-icon-type="brand"
-            onClick={(e) =>
-              handleChange({
-                socialLinkIconName: e.target.dataset["name"], // socialLinkIconType: e.target.dataset.iconType,
-              })
-            }
-          />
-          <FontAwesomeIcon
-            icon={["far", "envelope"]}
+            onClick={(e) => handleChange(e)}
+          >
+            <FontAwesomeIcon
+              icon={["fab", "tiktok"]}
+              className="social-links__icon"
+              data-name="Tiktok"
+            />
+          </div>
+          <div
             className="social-links__icon"
             data-name="Envelope"
-            // data-icon-type="regular"
-            onClick={(e) =>
-              handleChange({
-                socialLinkIconName: e.target.dataset["name"], // socialLinkIconType: e.target.dataset.iconType,
-              })
-            }
-          />
+            onClick={(e) => handleChange(e)}
+          >
+            <FontAwesomeIcon
+              icon={["far", "envelope"]}
+              className="social-links__icon"
+              data-name="Envelope"
+            />
+          </div>
         </div>
       </div>
     </div>

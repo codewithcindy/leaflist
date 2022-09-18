@@ -82,10 +82,6 @@ export default function SocialLinksForm() {
               linkInfo={link}
               iconName={link.socialLinkIconName}
               iconURL={link.socialLinkURL}
-              // linkIcon={link.socialLinkIcon}
-              // linkURL={link.socialLinkURL}\
-              // linkIconSelected={linkIconSelected}
-              // linkIconTypeSelected={linkIconTypeSelected}
               handleLinkInputChange={handleLinkInputChange}
               handleLinkSelect={handleLinkSelect}
             />

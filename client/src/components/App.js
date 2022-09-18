@@ -110,9 +110,6 @@ function App() {
         setUserData(newUserData);
       })
       .catch((e) => console.log("error connecting to route", e));
-    // const newUserData = { ...userData };
-    // newUserData.profileImageSrc = profileImageSrc;
-    // setUserData({ ...userData, ...newUserData });
   }
 
   /****************************    Heading    *******************************/
@@ -124,6 +121,12 @@ function App() {
   }
 
   /****************************    Links    *******************************/
+
+  function handleLinksListChange(updatedLinks) {
+    const newUserData = { ...userData };
+    newUserData.links = updatedLinks;
+    setUserData(newUserData);
+  }
 
   // Update user data with new links
   function handleLinksSubmit(links) {
@@ -168,6 +171,7 @@ function App() {
     handleLoginFormSubmit,
     handleImageUpload,
     handleHeadingChange,
+    handleLinksListChange,
     handleLinksSubmit,
     handleSocialLinksSubmit,
     // handlePreviewPage,
