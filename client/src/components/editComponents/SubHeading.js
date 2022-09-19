@@ -18,6 +18,7 @@ export default function SubHeading({ subHeading }) {
         type="text"
         name="subHeading"
         id="subHeading"
+        autoComplete="off"
         value={subHeading ? subHeading : ""}
         onChange={(e) => handleChange({ subHeading: e.target.value })}
       />

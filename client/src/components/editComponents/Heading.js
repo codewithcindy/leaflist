@@ -20,6 +20,7 @@ export default function Heading({ heading }) {
         type="text"
         name="heading"
         id="heading"
+        autoComplete="off"
         value={heading ? heading : ""}
         onChange={(e) => handleChange({ heading: e.target.value })}
       />

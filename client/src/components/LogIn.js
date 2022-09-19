@@ -39,6 +39,7 @@ export default function LogIn() {
             name="username"
             id="username"
             placeholder="Email"
+            autoComplete="off"
             {...register("username", { required: true })}
           ></input>
           {errors.email && <span>Email is required</span>}
@@ -51,6 +52,7 @@ export default function LogIn() {
             name="password"
             id="password"
             placeholder="Password"
+            autoComplete="off"
             {...register("password", { required: true, minLength: 6 })}
           ></input>
           {errors.password && <span>Password is required</span>}

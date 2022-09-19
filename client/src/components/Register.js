@@ -42,6 +42,7 @@ export default function Register() {
             name="username"
             id="username"
             placeholder="Email"
+            autoComplete="off"
             // value={email ? email : ""}
             // onChange={(e) => setEmail(e.target.value)}
             {...register("username", { required: true })}
@@ -56,6 +57,7 @@ export default function Register() {
             name="password"
             id="password"
             placeholder="Password"
+            autoComplete="off"
             // value={password ? password : ""}
             // onChange={(e) => setPassword(e.target.value)}
             {...register("password", { required: true })}

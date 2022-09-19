@@ -9,10 +9,10 @@
   height: 90vh;
   width: 90vw;
   border-radius: 10px;
-
+  /* 
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+  justify-content: center; */
 }
 
 .edit-form {
@@ -65,7 +65,27 @@ textarea.edit-form__input {
   font-weight: 300;
 }
 
+.edit-form--circle {
+  background-color: #f4f4f4;
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  border-radius: 50%;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-image__form {
+  width: 100%;
+  height: 100%;
+}
+
 .edit-form__label-image {
+  width: 100%;
+  height: auto;
   border-radius: inherit;
 }
 
@@ -80,23 +100,14 @@ textarea.edit-form__input {
   height: 0.1px;
 }
 
-.edit-form--circle {
-  background-color: #f4f4f4;
-  width: 100px;
-  height: 100px;
-  margin: auto;
-  border-radius: 50%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .edit-form__profile-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  border-radius: inherit;
+  object-fit: cover;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /* Links, Social Links */
@@ -129,6 +140,8 @@ textarea.edit-form__input {
 
 .edit-form__link {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   text-decoration: none;
   background-color: #f1f1f1;

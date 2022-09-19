@@ -19,6 +19,7 @@ export default function NewLink(props) {
           type="text"
           name="linkText"
           id="linkText"
+          autoComplete="off"
           value={linkInfo.linkText ?? ""}
           onChange={(e) => handleChange({ linkText: e.target.value })}
         />
@@ -32,6 +33,7 @@ export default function NewLink(props) {
           type="text"
           name="linkURL"
           id="linkURL"
+          autoComplete="off"
           value={linkInfo.linkURL ?? ""}
           onChange={(e) => handleChange({ linkURL: e.target.value })}
         />

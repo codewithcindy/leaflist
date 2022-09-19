@@ -51,6 +51,8 @@ function App() {
     };
   }, []);
 
+  /*****************   User Authorization   ***********************/
+
   /****************************    Register   *******************************/
   async function handleRegisterFormSubmit(formData) {
     console.log("front end form data");

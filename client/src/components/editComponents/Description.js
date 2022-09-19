@@ -21,6 +21,7 @@ export default function Description({ description }) {
         cols="20"
         max-length="50"
         value={description ? description : ""}
+        autoComplete="off"
         onChange={(e) => handleChange({ description: e.target.value })}
       ></textarea>
     </div>

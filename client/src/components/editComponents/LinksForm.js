@@ -44,7 +44,8 @@ export default function LinksForm() {
 
     // Return links with completed fields
     function isFormCompleted(link) {
-      if (link.linkText.length > 0 && link.linkURL.length > 0) return link;
+      // if (link.linkText.length > 0 && link.linkURL.length > 0) return link;
+      if (link.linkURL.length > 0) return link;
     }
 
     // Filtered array with links with completed fields

@@ -27,7 +27,9 @@ export default function LinksList({ linksData }) {
           data-id={link.id}
         >
           <Link className="link" to="/links">
-            <div className="edit-form__link-text">{link.linkText}</div>
+            <div className="edit-form__link-text">
+              {link.linkText ? link.linkText : link.linkURL}
+            </div>
           </Link>
           {/* <div>{link.linkURL}</div> */}
           <button

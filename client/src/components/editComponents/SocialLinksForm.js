@@ -3,7 +3,6 @@ import NewSocialLink from "./NewSocialLink";
 import { FormContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function SocialLinksForm() {
   const { userData, handleSocialLinksSubmit } = useContext(FormContext);
@@ -18,7 +17,7 @@ export default function SocialLinksForm() {
 
   const [socialLinks, setSocialLinks] = useState(existingSocialLinks);
   const [linkSelectedId, setLinkSelectedId] = useState("");
-  const [linkIconSelected, setLinkIconSelected] = useState(""); // const [linkIconTypeSelected, setlinkIconTypeSelected] = useState("");
+  const [linkIconSelected, setLinkIconSelected] = useState("");
 
   // Handle link select
   function handleLinkSelect(id) {
