@@ -3,25 +3,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 
 export default function NewSocialLink(props) {
-  const {
-    linkInfo,
-    iconName,
-    iconURL,
-    handleLinkInputChange,
-    handleLinkSelect,
-  } = props;
+  const { linkInfo, linkURL, handleLinkInputChange, handleLinkSelect } = props;
 
-  const [isSelect, setIsSelect] = useState("");
+  const [active, setActive] = useState(false);
 
-  function handleChange(e) {
-    const iconChange = { socialLinkIcon: e.currentTarget.parentNode };
-    const textChange = { socialLinkURL: e.target.value };
+  function handleURLChange(e) {
+    const urlChange = { socialLinkURL: e.target.value };
 
     handleLinkInputChange(linkInfo.id, {
       ...linkInfo,
-      ...iconChange,
-      ...textChange,
+      ...urlChange,
     });
+  }
+
+  function handleIconChange(e) {
+    // Updated socialLinkIcon
+    const iconChange = { socialLinkIcon: e.currentTarget.dataset["name"] };
+
+    handleLinkInputChange(linkInfo.id, { ...linkInfo, ...iconChange });
+
+    // Clicked icon
+    // const icon = e.currentTarget.dataset["name"];
+
+    // Icon element
+    const iconElement = e.currentTarget;
+
+    // if (iconElement.dataset["name"] ===) console.log(icon);
+
+    // setActive(icon);
   }
 
   return (
@@ -31,7 +40,7 @@ export default function NewSocialLink(props) {
       </label>
       <div
         className="social-links-form__input-row"
-        onClick={(e) => console.log("link id is" + linkInfo.id)}
+        // onClick={(e)}
       >
         <input
           className="social-links-form__input"
@@ -39,26 +48,15 @@ export default function NewSocialLink(props) {
           name="socialLinkURL"
           id="socialLinkURL"
           autoComplete="off"
-          value={iconURL}
-          onChange={(e) => handleChange(e)}
+          value={linkURL}
+          onChange={(e) => handleURLChange(e)}
           onClick={() => handleLinkSelect(linkInfo.id)}
         />
         <div className="social-links__icons-container">
           <div
-            className="social-links__icon"
-            data-name="Twitter"
-            onClick={(e) => handleChange(e)}
-          >
-            <FontAwesomeIcon
-              icon={["fab", "twitter"]}
-              className="fontAwesomeIcon"
-              data-name="Twitter"
-            />
-          </div>
-          <div
-            className="social-links__icon"
+            // className={getClassName("Instagram  ")}
             data-name="Instagram"
-            onClick={(e) => handleChange(e)}
+            onClick={(e) => handleIconChange(e)}
           >
             <FontAwesomeIcon
               icon={["fab", "instagram"]}
@@ -67,9 +65,9 @@ export default function NewSocialLink(props) {
             />
           </div>
           <div
-            className="social-links__icon"
+            className={active ? "active" : ""}
             data-name="Youtube"
-            onClick={(e) => handleChange(e)}
+            onClick={(e) => handleIconChange(e)}
           >
             <FontAwesomeIcon
               icon={["fab", "youtube"]}
@@ -78,9 +76,9 @@ export default function NewSocialLink(props) {
             />
           </div>
           <div
-            className="social-links__icon"
+            className={active ? "active" : ""}
             data-name="Tiktok"
-            onClick={(e) => handleChange(e)}
+            onClick={(e) => handleIconChange(e)}
           >
             <FontAwesomeIcon
               icon={["fab", "tiktok"]}
@@ -89,14 +87,25 @@ export default function NewSocialLink(props) {
             />
           </div>
           <div
-            className="social-links__icon"
+            className={active ? "active" : ""}
             data-name="Envelope"
-            onClick={(e) => handleChange(e)}
+            onClick={(e) => handleIconChange(e)}
           >
             <FontAwesomeIcon
               icon={["far", "envelope"]}
               className="social-links__icon"
               data-name="Envelope"
+            />
+          </div>
+          <div
+            className={active ? "active" : ""}
+            data-name="Twitter"
+            onClick={(e) => handleIconChange(e)}
+          >
+            <FontAwesomeIcon
+              icon={["fab", "twitter"]}
+              className="social-links__icon"
+              data-name="Twitter"
             />
           </div>
         </div>

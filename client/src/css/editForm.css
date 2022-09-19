@@ -1,15 +1,21 @@
 .edit-form-container {
-  width: 100vw;
-  height: 100vh;
-  padding: 2rem;
+  /* text-align: center; */
+  margin: 2rem;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.2)
+  );
+  height: 90vh;
+  width: 90vw;
+  border-radius: 10px;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  /* justify-content: center; */
 }
 
 .edit-form {
-  background-color: #fff;
   height: 100%;
   width: 100%;
   padding: 2rem;
@@ -22,18 +28,19 @@
 
 .edit-form__section {
   width: 100%;
-  margin: 0.8rem 0;
+  margin-bottom: 15px;
 }
 
 .edit-form__label {
   display: inline-block;
   margin-bottom: 5px;
-  color: rgb(145, 145, 145);
+  color: rgb(116, 116, 116);
   font-weight: 300;
 }
 
 .edit-form__input {
   display: block;
+  color: #515151;
   margin: auto;
   border: none;
   background-color: #f4f4f4;
@@ -116,7 +123,8 @@ textarea.edit-form__input {
   color: rgb(101, 101, 101);
   cursor: pointer;
   background-color: #e7efdd;
-  margin-top: 0.5rem;
+  border-radius: 5px;
+  /* margin-top: 0.5rem; */
 }
 
 .edit-form__link {

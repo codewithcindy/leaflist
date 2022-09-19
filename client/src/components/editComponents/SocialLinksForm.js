@@ -27,6 +27,7 @@ export default function SocialLinksForm() {
 
   // Handle link input change
   function handleLinkInputChange(id, changes) {
+    // console.log(changes);
     // updating links...
     let newLinks = [...socialLinks];
 
@@ -46,7 +47,7 @@ export default function SocialLinksForm() {
 
     const newSocialLink = {
       id: uuidv4(),
-      socialLinkIconName: "",
+      socialLinkIcon: "",
       socialLinkURL: "",
     };
 
@@ -58,11 +59,14 @@ export default function SocialLinksForm() {
   function handleFormSubmit(e) {
     e.preventDefault();
 
+    console.log(socialLinks);
+
     // Only keep the links with the URL field completed
     const completedLinks = socialLinks.filter((link) => {
-      if (!link.socialLinkIconName) return null;
-      return link;
+      if (link.socialLinkIcon && link.socialLinkURL) return link;
     });
+
+    console.log(completedLinks);
 
     handleSocialLinksSubmit(completedLinks);
     navigate("/edit");
@@ -74,14 +78,14 @@ export default function SocialLinksForm() {
         className="social-links__form"
         onSubmit={(e) => handleFormSubmit(e)}
       >
-        <h1 className="social-links__title">Social Links</h1>
+        <h1 className="social-links__header">social links</h1>
         {socialLinks.map((link) => {
           return (
             <NewSocialLink
               key={link.id}
               linkInfo={link}
-              iconName={link.socialLinkIconName}
-              iconURL={link.socialLinkURL}
+              linkIcon={link.socialLinkIcon}
+              linkURL={link.socialLinkURL}
               handleLinkInputChange={handleLinkInputChange}
               handleLinkSelect={handleLinkSelect}
             />

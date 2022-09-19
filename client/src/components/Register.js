@@ -33,7 +33,7 @@ export default function Register() {
           handleSubmit(handleFormSubmit(e));
         }}
       >
-        <h1 className="register-form__header">Welcome ✨</h1>
+        <h1 className="register-form__header">welcome</h1>
         <div className="register-form__row">
           <label className="register-form__label" htmlFor="email"></label>
           <input
@@ -62,7 +62,7 @@ export default function Register() {
           ></input>
           {errors.email && <span>Password is required</span>}
         </div>
-        <p>
+        <p className="login-btn">
           Already have an account? Log in <Link to="/login">here</Link>
         </p>
         <div>{errMsg.registerErr}</div>

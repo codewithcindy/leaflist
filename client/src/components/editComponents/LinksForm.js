@@ -60,7 +60,7 @@ export default function LinksForm() {
   return (
     <div className="links-form-container">
       <form className="links-form" onSubmit={(e) => handleLinkFormSubmit(e)}>
-        <h1 className="links-form__title">Links</h1>
+        <h1 className="links-form__header">links</h1>
         {links.map((linkInfo) => {
           return (
             <NewLink

@@ -9,7 +9,7 @@ export default function SocialLinksList({ socialLinksData }) {
     socialLinks = [];
   } else {
     socialLinks = socialLinksData.map((link) => {
-      const icon = link.socialLinkIconName.toLowerCase();
+      const icon = link.socialLinkIcon.toLowerCase();
 
       if (icon === "twitter") {
         return (

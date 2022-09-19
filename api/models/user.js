@@ -26,7 +26,7 @@ const userSchema = new Schema({
   socialLinks: [
     {
       id: Schema.Types.ObjectId,
-      socialLinkIconName: String,
+      socialLinkIcon: String,
       socialLinkURL: String,
     },
   ],

@@ -30,7 +30,7 @@ export default function LogIn() {
         className="login-form"
         onSubmit={(e) => handleSubmit(handleFormSubmit(e))}
       >
-        <h1 className="login-form__header">Welcome Back ✨</h1>
+        <h1 className="login-form__header">welcome back</h1>
         <div className="login-form__row">
           <label className="login-form__label" htmlFor="email"></label>
           <input
@@ -55,7 +55,7 @@ export default function LogIn() {
           ></input>
           {errors.password && <span>Password is required</span>}
         </div>
-        <p>
+        <p className="register-btn">
           Not registered? Sign up <Link to="/register">here</Link>
         </p>
         <div>{errMsg.loginErr}</div>

@@ -3,8 +3,9 @@ import { NavLink } from "react-router-dom";
 
 export default function Landing() {
   return (
-    <div className="landing">
-      <h1 className="header">Your link-in-bio sidekick</h1>
+    <div className="landing-container">
+      <h1 className="header">leaflist</h1>
+      <p className="sub-header">Your link-in-bio friend</p>
       <div className="landing-btns-container">
         <NavLink to="/login" className="landing-btns__link">
           <button className="btn landing-btns__login">Log In</button>

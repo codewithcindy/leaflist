@@ -31,7 +31,8 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background-color: #f1e7db;
+  background-color: #5f8575;
+  background-image: url("../../public/img/crossword.png");
   /* min-height: 100%; */
 }
 

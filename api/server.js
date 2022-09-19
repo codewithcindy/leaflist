@@ -145,7 +145,6 @@ app.post("/registerUser", async (req, res, next) => {
 
     req.session.user = req.user;
 
-    console.log(req.user);
     res.json(registeredUser);
   } catch (e) {
     res.status(401);
