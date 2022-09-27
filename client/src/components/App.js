@@ -20,9 +20,15 @@ library.add(fab, fas, faEnvelope);
 // Set up Context
 export const FormContext = React.createContext();
 
+// Config axios
+const api = axios.create({
+  baseURL: "http://localhost:8080",
+});
+
 function App() {
   // set state for user info
   const [userData, setUserData] = useState("");
+  const [userLogin, setUserLogin] = useState("");
 
   const [errMsg, setErrMsg] = useState({
     registerErr: "",
@@ -53,9 +59,34 @@ function App() {
 
   /*****************   User Authorization   ***********************/
 
+  // // Get user
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   const controller = new AbortController();
+
+  //   function getUser() {
+  //     try {
+  //       api.get("/", { signal: controller.signal }).then((res) => {
+  //         console.log(res.data);
+  //         isMounted && setUserData(res.data);
+  //       });
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   }
+
+  //   getUser();
+
+  //   return () => {
+  //     isMounted = false;
+  //     controller.abort();
+  //   };
+  // }, [userLogin]);
+
   /****************************    Register   *******************************/
   async function handleRegisterFormSubmit(formData) {
-    console.log("front end form data");
+    console.log("front end registeatoin data");
+    console.log(formData);
 
     // Send register form data to node
     axios
@@ -78,15 +109,30 @@ function App() {
 
   /****************************    Login    *******************************/
 
+  // function handleLoginUser(data) {
+  //   const controller = new AbortController();
+
+  //   axios.get("/", { signal: controller.signal }).then((res) => {
+  //     console.log(res.data);
+  //   });
+  // }
+
   function handleLoginFormSubmit(formData) {
+    console.log("frotn end login data", formData);
+
     axios
       .post("http://localhost:8080/login", formData)
       .then((res) => {
         const user = res.data;
+
+        console.log("res", res);
+        console.log("res data", user);
+        // setUserLogin(user);
         setUserData(user); // setUserData(res.data.user);
         navigate("/edit");
       })
       .catch((e) => {
+        console.log(e);
         const errMsg = {
           loginErr: "Invalid username or password. Please try again.",
         };
@@ -171,6 +217,7 @@ function App() {
     userData,
     handleRegisterFormSubmit,
     handleLoginFormSubmit,
+    // handleLoginUser,
     handleImageUpload,
     handleHeadingChange,
     handleLinksListChange,

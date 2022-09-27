@@ -81,18 +81,21 @@ app.use(passport.session());
 
 passport.use(
   new LocalStrategy(function (username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) {
-        return done(err);
+    User.findOne(
+      {
+        username: username,
+      },
+      function (err, user) {
+        // This is how you handle error
+        if (err) return done(err);
+        // When user is not found
+        if (!user) return done(null, false);
+        // When password is not correct
+        if (user && !user.authenticate(password)) return done(null, false);
+        // When all things are good, we return the user
+        return done(null, user);
       }
-      if (!user) {
-        return done(null, false, { message: "Invalid username or password" });
-      }
-      if (!user.authenticate(password)) {
-        return done(null, false, { message: "Invalid username or password" });
-      }
-      return done(null, user);
-    });
+    );
   })
 );
 
@@ -124,24 +127,32 @@ function checkAuth(req, res, next) {
   }
 }
 
-app.get("/", (req, res) => {
-  res.send("Server good");
-});
+// app.get("/", (req, res) => {
+//   res.send(req);
+// });
 
 /****************************    Register    *******************************/
 
 app.post("/registerUser", async (req, res, next) => {
   try {
+    console.log("req.body", req.body);
+
     const { username, password } = req.body;
 
     // Create new user instance
     const user = new User({ username });
 
+    console.log("user", user);
+
     const registeredUser = await User.register(user, password);
+
+    console.log("registerduser", registeredUser);
 
     req.login(registeredUser, (err) => {
       if (err) return next(err);
     });
+
+    console.log(`req.user`, req.user);
 
     req.session.user = req.user;
 
@@ -154,12 +165,17 @@ app.post("/registerUser", async (req, res, next) => {
 
 /****************************    Login    *******************************/
 
-// app.get("/login", (req, res, next) => {});
-
-app.post("/login", passport.authenticate("local"), (req, res) => {
-  if (err) res.sendStatus(401);
-  res.json(req.user);
-});
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    failureFlash: true,
+    failureMessage: true,
+    failureRedirect: "/~",
+  }),
+  (req, res) => {
+    res.sendStatus(200);
+  }
+);
 
 // app.post("/saveImage", upload.single());
 
