@@ -11,6 +11,7 @@
 
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .preview__form {
@@ -19,6 +20,7 @@
   align-items: center;
 
   padding: 3rem 4rem;
+  color: rgb(68, 68, 68);
 }
 
 .preview__profile-image {
@@ -29,9 +31,12 @@
 }
 
 .preview__heading {
+  font-size: 1.5rem;
+  color: #405a4f;
 }
 
 .preview__subHeading {
+  font-size: 1.1rem;
 }
 
 .preview__description {
@@ -41,7 +46,7 @@
 .preview__links {
   list-style-type: none;
   cursor: pointer;
-
+  text-decoration: underline;
   margin: 2rem;
 }
 

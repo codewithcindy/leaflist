@@ -6,6 +6,7 @@ export default function NewSocialLink(props) {
   const { linkInfo, linkURL, handleLinkInputChange, handleLinkSelect } = props;
 
   const [active, setActive] = useState(false);
+  const [icon, setIcon] = useState("");
 
   function handleURLChange(e) {
     const urlChange = { socialLinkURL: e.target.value };
@@ -19,6 +20,7 @@ export default function NewSocialLink(props) {
   function handleIconChange(e) {
     // Updated socialLinkIcon
     const iconChange = { socialLinkIcon: e.currentTarget.dataset["name"] };
+    setIcon(iconChange.socialLinkIcon);
 
     handleLinkInputChange(linkInfo.id, { ...linkInfo, ...iconChange });
 
@@ -34,7 +36,7 @@ export default function NewSocialLink(props) {
   }
 
   return (
-    <div className="social-links-form__section">
+    <div className="form social-links-form__section">
       <label className="social-links-form__label" htmlFor="socialLinkURL">
         URL
       </label>
@@ -52,6 +54,7 @@ export default function NewSocialLink(props) {
           onChange={(e) => handleURLChange(e)}
           onClick={() => handleLinkSelect(linkInfo.id)}
         />
+        <span className="social-links-form__input-icon">{icon}</span>
         <div className="social-links__icons-container">
           <div
             // className={getClassName("Instagram  ")}
@@ -88,13 +91,13 @@ export default function NewSocialLink(props) {
           </div>
           <div
             className={active ? "active" : ""}
-            data-name="Envelope"
+            data-name="Email"
             onClick={(e) => handleIconChange(e)}
           >
             <FontAwesomeIcon
               icon={["far", "envelope"]}
               className="social-links__icon"
-              data-name="Envelope"
+              data-name="Email"
             />
           </div>
           <div

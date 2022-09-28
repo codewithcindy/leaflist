@@ -14,16 +14,18 @@ export default function Register() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   async function handleFormSubmit(e) {
     e.preventDefault();
     const data = new FormData(e.target);
     const formData = Object.fromEntries(data.entries());
     handleRegisterFormSubmit(formData);
   }
+
   return (
     <div className="register-container">
       <form
-        className="register-form"
+        className="form register-form"
         onSubmit={(e) => {
           handleSubmit(handleFormSubmit(e));
         }}
@@ -60,9 +62,6 @@ export default function Register() {
           {errors.email && <span>Password is required</span>}
         </div>
 
-        <div className="form-error register-form-error">
-          {errMsg.registerErr}
-        </div>
         <div className="btn-flex">
           <button className="btn register-form__submit-btn" type="Submit">
             Sign Up
@@ -72,6 +71,9 @@ export default function Register() {
               <div className="btn">Login</div>
             </Link>
           )}
+        </div>
+        <div className="form-error register-form-error">
+          {errMsg.registerErr}
         </div>
         <p className="register-form__login-alt">
           Already have an account? Log in

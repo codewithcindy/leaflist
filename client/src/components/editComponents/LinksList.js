@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { FormContext } from "../App";
 
@@ -32,12 +33,25 @@ export default function LinksList({ linksData }) {
             </div>
           </Link>
           {/* <div>{link.linkURL}</div> */}
-          <button
-            className="edit-form__link-delete"
-            onClick={(e) => handleDeleteLink(e)}
-          >
-            Delete
-          </button>
+          <div className="btn-flex">
+            <Link to="/links">
+              <button className="edit-form__link-edit">
+                <FontAwesomeIcon
+                  className="edit-form__link-edit-icon"
+                  icon={["fa", "pen-to-square"]}
+                />
+              </button>
+            </Link>
+            <button
+              className="edit-form__link-delete"
+              onClick={(e) => handleDeleteLink(e)}
+            >
+              <FontAwesomeIcon
+                className="edit-form__link-delete-icon"
+                icon={(["fa", "regular"], ["fa", "trash-can"])}
+              />
+            </button>
+          </div>
         </li>
       );
     });

@@ -73,7 +73,7 @@ app.use(
 );
 
 // Use flash
-app.use(flash());
+// app.use(flash());
 
 // Configure Passportjs
 app.use(passport.initialize());
@@ -143,6 +143,8 @@ app.post("/registerUser", async (req, res, next) => {
     const user = new User({ username });
 
     console.log("user", user);
+    user.profileImageSrc.url =
+      "https://res.cloudinary.com/codewithcindy/image/upload/v1664316788/Leaflist/default_profile_image_fwfrwu.png";
 
     const registeredUser = await User.register(user, password);
 
@@ -180,17 +182,21 @@ app.post(
 // app.post("/saveImage", upload.single());
 
 /**************************    Profile Image    *****************************/
-app.post("/uploadImage", upload.single("profileImage"), (req, res, next) => {
-  try {
-    const image = req.file;
+app.post(
+  "/uploadImage",
+  upload.single("profileImage", { type: "authenticated" }),
+  (req, res, next) => {
+    try {
+      const image = req.file;
 
-    // Send the single file data to React
-    res.json(image);
-  } catch (e) {
-    next(e);
-    console.log(e);
+      // Send the single file data to React
+      res.json(image);
+    } catch (e) {
+      next(e);
+      console.log(e);
+    }
   }
-});
+);
 
 /****************************    Final    *******************************/
 

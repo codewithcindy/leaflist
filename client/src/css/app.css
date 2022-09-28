@@ -39,3 +39,7 @@ body {
 .header {
   font-family: Butler Light, serif;
 }
+
+.form {
+  max-width: 500px;
+}

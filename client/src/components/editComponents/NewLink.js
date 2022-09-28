@@ -9,7 +9,7 @@ export default function NewLink(props) {
   }
 
   return (
-    <div className="links-form__section">
+    <div className="form links-form__section">
       <div className="links-form__row links-form__row-text">
         <label className="links-form__input-label" htmlFor="linkText">
           Link Text

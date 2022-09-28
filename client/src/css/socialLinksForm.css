@@ -11,6 +11,7 @@
 
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .social-links__form {
@@ -33,6 +34,8 @@
 .social-links-form__section {
   width: 100%;
   margin: 0.8rem 0;
+
+  position: relative;
 }
 
 .social-links-form__label {
@@ -57,6 +60,14 @@
   height: 40px;
   outline: none;
   padding: 15px;
+}
+
+.social-links-form__input-icon {
+  position: absolute;
+  right: 9%;
+  top: 40%;
+  font-size: 0.8rem;
+  color: #515151;
 }
 
 .social-links__icons-container {

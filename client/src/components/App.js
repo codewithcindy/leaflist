@@ -57,32 +57,6 @@ function App() {
     };
   }, []);
 
-  /*****************   User Authorization   ***********************/
-
-  // // Get user
-  // useEffect(() => {
-  //   let isMounted = true;
-  //   const controller = new AbortController();
-
-  //   function getUser() {
-  //     try {
-  //       api.get("/", { signal: controller.signal }).then((res) => {
-  //         console.log(res.data);
-  //         isMounted && setUserData(res.data);
-  //       });
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  //   }
-
-  //   getUser();
-
-  //   return () => {
-  //     isMounted = false;
-  //     controller.abort();
-  //   };
-  // }, [userLogin]);
-
   /****************************    Register   *******************************/
   async function handleRegisterFormSubmit(formData) {
     console.log("front end registeatoin data");
@@ -134,7 +108,7 @@ function App() {
       .catch((e) => {
         console.log(e);
         const errMsg = {
-          loginErr: "Invalid username or password. Please try again.",
+          loginErr: "Invalid username or password.",
         };
         setErrMsg(errMsg);
         console.log(errMsg);

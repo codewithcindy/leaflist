@@ -74,7 +74,7 @@ export default function SocialLinksForm() {
   return (
     <div className="social-links-container">
       <form
-        className="social-links__form"
+        className="form social-links__form"
         onSubmit={(e) => handleFormSubmit(e)}
       >
         <h1 className="social-links__header">social links</h1>
@@ -90,12 +90,17 @@ export default function SocialLinksForm() {
             />
           );
         })}
-        <button className="btn" onClick={(e) => handleSocialLinkAdd(e)}>
-          Add Social Link
-        </button>
-        <button className="btn" type="submit">
-          Save
-        </button>
+        <div className="btn-flex">
+          <button
+            className="btn btn-add-link"
+            onClick={(e) => handleSocialLinkAdd(e)}
+          >
+            +
+          </button>
+          <button className="btn" type="submit">
+            Save
+          </button>
+        </div>
       </form>
     </div>
   );

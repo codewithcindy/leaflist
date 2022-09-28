@@ -32,7 +32,7 @@ export default function LogIn() {
   return (
     <div className="login-container">
       <form
-        className="login-form"
+        className="form login-form"
         onSubmit={(e) => handleSubmit(handleFormSubmit(e), onError)}
       >
         <h1 className="login-form__header">log in</h1>
@@ -62,8 +62,6 @@ export default function LogIn() {
           ></input>
           {errors.password && <span>Password is required</span>}
         </div>
-        <div className="form-error login-form-error">{errMsg.loginErr}</div>
-
         <div className="btn-flex">
           {errMsg.loginErr && (
             <Link to="/register" className="login-form__register-btn">
@@ -73,7 +71,8 @@ export default function LogIn() {
           <button className="btn login-form__submit-btn" type="Submit">
             Log In
           </button>
-        </div>
+        </div>{" "}
+        <div className="form-error login-form-error">{errMsg.loginErr}</div>
         <p className="login-form__register-alt">
           Not registered? Sign up{" "}
           <Link to="/register" className="register-alt__link">

@@ -3,17 +3,19 @@ import { Link } from "react-router-dom";
 import { FormContext } from "./App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function FinalPage({ userData }) {
+export default function Preview({ userData }) {
   console.log(userData);
 
   const { saveUserDataToDB } = useContext(FormContext);
 
+  // Check if links is empty
   const links = userData.links
     ? userData.links.map((link) => {
         return <li key={link.id}>{link.linkText}</li>;
       })
     : "";
 
+  // Check if ssocial links is empty
   const socialLinks = userData.socialLinks
     ? userData.socialLinks.map((link) => {
         const icon = link.socialLinkIcon.toLowerCase();
@@ -72,6 +74,10 @@ export default function FinalPage({ userData }) {
       })
     : "";
 
+  const profileURL = userData.profileImageSrc
+    ? userData.profileImageSrc.url
+    : "https://res.cloudinary.com/codewithcindy/image/upload/v1664308604/Leaflist/default_image_xof5dp.png";
+
   function handleFinalSave(e) {
     e.preventDefault();
 
@@ -84,7 +90,7 @@ export default function FinalPage({ userData }) {
   return (
     <div className="preview-container">
       <form
-        className="preview__form"
+        className="form preview__form"
         onSubmit={(e) => handleFinalSave(e)}
         action="/save"
         method="POST"
@@ -99,11 +105,7 @@ export default function FinalPage({ userData }) {
           ></input> */}
         <img
           className="preview__profile-image"
-          src={
-            userData.profileImageSrc.url
-              ? userData.profileImageSrc.url
-              : "../../public/img/default_image.png"
-          }
+          src={profileURL}
           alt="Profile Image"
         />
         <h1 className="preview__heading">{userData.heading || ""}</h1>

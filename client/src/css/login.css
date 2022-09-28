@@ -13,12 +13,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .login-form {
   /* background-color: #fff; */
   height: 100%;
   width: 100%;
+  /* max-width: 500px; */
   padding: 2rem;
   overflow: auto;
 
@@ -61,6 +63,8 @@
   font-family: Roboto, sans-serif;
   color: red;
   font-size: 0.8rem;
+  position: absolute;
+  bottom: 32%;
 }
 
 .login-form__register-alt {
@@ -73,3 +77,8 @@
 .register-alt__link {
   text-decoration: none;
 }
+
+@media screen and (min-width: 500px) {
+  .login-form {
+  }
+} ;

@@ -41,7 +41,7 @@ export default function EditForm() {
 
   return (
     <div className="edit-form-container">
-      <div className="edit-form">
+      <div className="form edit-form">
         <ProfileImage profileImage={userData.profileImageSrc} />
         <Heading heading={userData.heading} />
         <SubHeading subHeading={userData.subHeading} />

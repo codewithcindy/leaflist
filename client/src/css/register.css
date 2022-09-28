@@ -13,12 +13,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .register-form {
   /* background-color: #fff; */
   height: 100%;
   width: 100%;
+  /* max-width: 500px; */
   padding: 2rem;
   overflow: auto;
 
@@ -49,8 +51,20 @@
   border-radius: 8px;
 }
 
+.register-form-error {
+}
+
 .register-form__login-btn {
   text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.form-error {
+  font-family: Roboto, sans-serif;
+  color: red;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 32%;
 }
 
 .register-form__login-alt {

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FormContext } from "./App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function FinalPage({ userData }) {
+export default function Final({ userData }) {
   const links = userData.links
     ? userData.links.map((link) => {
         return <li key={link.id}>{link.linkText}</li>;

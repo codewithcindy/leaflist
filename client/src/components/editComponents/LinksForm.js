@@ -60,7 +60,10 @@ export default function LinksForm() {
 
   return (
     <div className="links-form-container">
-      <form className="links-form" onSubmit={(e) => handleLinkFormSubmit(e)}>
+      <form
+        className="form links-form"
+        onSubmit={(e) => handleLinkFormSubmit(e)}
+      >
         <h1 className="links-form__header">links</h1>
         {links.map((linkInfo) => {
           return (
@@ -71,12 +74,17 @@ export default function LinksForm() {
             />
           );
         })}
-        <button className="btn" onClick={(e) => handleLinkAdd(e)}>
-          Add Link
-        </button>
-        <button className="btn" type="submit">
-          Save
-        </button>
+        <div className="btn-flex">
+          <button
+            className="btn btn-add-link"
+            onClick={(e) => handleLinkAdd(e)}
+          >
+            +
+          </button>
+          <button className="btn" type="submit">
+            Save
+          </button>
+        </div>
       </form>
     </div>
   );
