@@ -39,10 +39,13 @@ export default function Register() {
             name="username"
             id="username"
             placeholder="Email"
+            autoFocus
             autoComplete="off"
             // value={email ? email : ""}
             // onChange={(e) => setEmail(e.target.value)}
-            {...register("username", { required: true })}
+            {...register("username", {
+              required: true,
+            })}
           ></input>
           {errors.email && <span>Email is required</span>}
         </div>
@@ -57,7 +60,10 @@ export default function Register() {
             autoComplete="off"
             // value={password ? password : ""}
             // onChange={(e) => setPassword(e.target.value)}
-            {...register("password", { required: true })}
+            {...register("password", {
+              required: true,
+              minLength: 6,
+            })}
           ></input>
           {errors.email && <span>Password is required</span>}
         </div>

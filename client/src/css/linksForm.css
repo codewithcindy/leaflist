@@ -31,6 +31,7 @@
 .links-form__header {
   font-family: Butler, serif;
   letter-spacing: 3px;
+  margin-bottom: 1rem;
 }
 
 .links-form__section {

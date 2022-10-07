@@ -1,6 +1,7 @@
 @import-normalize;
 @import "./fonts.css";
 @import "./buttons.css";
+@import "./navbar.css";
 @import "./landing.css";
 @import "./login.css";
 @import "./register.css";
@@ -33,7 +34,23 @@ body {
   padding: 0;
   background-color: #5f8575;
   background-image: url("../../public/img/crossword.png");
+
   /* min-height: 100%; */
+}
+
+.main-container {
+  position: relative;
+  /* margin: 2rem;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.2)
+  );
+  border-radius: 10px; */
+  /* height: 90vh;
+  width: 90vw; */
+  /* padding: 0;
+  margin: 0; */
 }
 
 .header {

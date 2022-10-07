@@ -49,6 +49,17 @@ async function run(userData) {
   }
 }
 
+// Configure sessions
+app.use(
+  session({
+    secret: "orange",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true },
+    name: "connected.id",
+  })
+);
+
 // Enable cors
 app.use(
   cors({
@@ -61,16 +72,6 @@ app.use(
 // Use body parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-// Configure sessions
-app.use(
-  session({
-    secret: "orange cat",
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: true },
-  })
-);
 
 // Use flash
 // app.use(flash());
@@ -119,44 +120,34 @@ passport.deserializeUser(function (user, cb) {
   });
 });
 
-function checkAuth(req, res, next) {
-  if (req.isAuthenticated()) {
-    next();
-  } else {
-    console.log("not authenticated");
-  }
-}
-
-// app.get("/", (req, res) => {
-//   res.send(req);
-// });
-
 /****************************    Register    *******************************/
 
 app.post("/registerUser", async (req, res, next) => {
   try {
-    console.log("req.body", req.body);
+    // console.log("req.body", req.body);
 
     const { username, password } = req.body;
 
     // Create new user instance
     const user = new User({ username });
 
-    console.log("user", user);
+    // Set default profile image
     user.profileImageSrc.url =
       "https://res.cloudinary.com/codewithcindy/image/upload/v1664316788/Leaflist/default_profile_image_fwfrwu.png";
 
     const registeredUser = await User.register(user, password);
 
-    console.log("registerduser", registeredUser);
+    // console.log("registerduser", registeredUser);
+
+    // req.session.passport.user = req.user;
 
     req.login(registeredUser, (err) => {
       if (err) return next(err);
     });
 
-    console.log(`req.user`, req.user);
-
     req.session.user = req.user;
+
+    // console.log("req.session", req.session);
 
     res.json(registeredUser);
   } catch (e) {
@@ -175,11 +166,44 @@ app.post(
     failureRedirect: "/~",
   }),
   (req, res) => {
-    res.sendStatus(200);
+    // console.log(req.user);
+    req.session.user = req.user;
+
+    console.log("req.session", req.session);
+
+    // console.log(req.session);
+    // Add user to localStorage
+
+    res.json(req.user);
+    // res.sendStatus(200);
   }
 );
 
 // app.post("/saveImage", upload.single());
+
+/**************************    Log Out   *****************************/
+
+app.post("/logout", (req, res, next) => {
+  // req.session.destroy();
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    req.session.destroy();
+    res.sendStatus(200);
+  });
+});
+
+/**************************   Update Session *****************************/
+// app.post("/updateSession", (req, res) => {
+//   const data = req.body;
+
+//   console.log(`update session`, data);
+
+//   // req.session.user = data;
+
+//   // console.log(`new session`, req.session);
+// });
 
 /**************************    Profile Image    *****************************/
 app.post(

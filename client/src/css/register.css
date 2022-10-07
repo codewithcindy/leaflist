@@ -77,3 +77,9 @@
 .login-alt__link {
   text-decoration: none;
 }
+
+@media screen and (min-width: 500px) {
+  .register-form__login-alt {
+    font-size: 0.9rem;
+  }
+}

@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 export default function Landing() {
+  // useEffect(() => {
+  //   localStorage.clear();
+  // }, []);
+
   return (
     <div className="landing-container">
       <h1 className="header">leaflist</h1>

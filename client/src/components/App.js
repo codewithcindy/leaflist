@@ -8,8 +8,10 @@ import LinksForm from "./editComponents/LinksForm";
 import SocialLinksForm from "./editComponents/SocialLinksForm";
 import Preview from "./Preview";
 import Final from "./Final";
+import Navbar from "./Navbar";
 import "../css/app.css";
 import axios from "axios";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -20,22 +22,16 @@ library.add(fab, fas, faEnvelope);
 // Set up Context
 export const FormContext = React.createContext();
 
-// Config axios
-const api = axios.create({
-  baseURL: "http://localhost:8080",
-});
-
 function App() {
   // set state for user info
-  const [userData, setUserData] = useState("");
-  const [userLogin, setUserLogin] = useState("");
+  const [userData, setUserData] = useState(" ");
 
   const [errMsg, setErrMsg] = useState({
     registerErr: "",
     loginErr: "",
   });
-  // const [registerErrorMsg, setRegisterErrorMsg] = useState("");
-  // const [loginErrorMsg, setLoginErrorMsg] = useState("");
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Navigate
   const navigate = useNavigate();
@@ -57,6 +53,24 @@ function App() {
     };
   }, []);
 
+  // Update session
+  // useEffect(() => {
+  //   const controller = new AbortController();
+
+  //   axios
+  //     .post("/updateSession", userData)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+
+  //   return () => {
+  //     controller.abort();
+  //   };
+  // }, [userData]);
+
   /****************************    Register   *******************************/
   async function handleRegisterFormSubmit(formData) {
     console.log("front end registeatoin data");
@@ -69,12 +83,15 @@ function App() {
       })
       .then((res) => {
         setUserData(res.data);
+        setIsLoggedIn(true);
         // Re route user to edit page
         navigate("/edit");
       })
       .catch((e) => {
+        console.log(e.response.data);
+
         const errMsg = {
-          registerErr: "A user with that email already exists.",
+          registerErr: e.response.data,
         };
         setErrMsg(errMsg);
         console.log(errMsg);
@@ -83,36 +100,40 @@ function App() {
 
   /****************************    Login    *******************************/
 
-  // function handleLoginUser(data) {
-  //   const controller = new AbortController();
-
-  //   axios.get("/", { signal: controller.signal }).then((res) => {
-  //     console.log(res.data);
-  //   });
-  // }
-
   function handleLoginFormSubmit(formData) {
-    console.log("frotn end login data", formData);
-
     axios
       .post("http://localhost:8080/login", formData)
       .then((res) => {
         const user = res.data;
+        setUserData(user);
+        setIsLoggedIn(true);
 
-        console.log("res", res);
-        console.log("res data", user);
-        // setUserLogin(user);
-        setUserData(user); // setUserData(res.data.user);
+        // Save user to localStorage
+        // localStorage.setItem("session", user.username);
+
         navigate("/edit");
       })
+
       .catch((e) => {
-        console.log(e);
         const errMsg = {
           loginErr: "Invalid username or password.",
         };
         setErrMsg(errMsg);
-        console.log(errMsg);
       });
+  }
+
+  /*************************    Log Out   ****************************/
+
+  function handleLogOut() {
+    // axios
+    //   .post("http://localhost:8080/save", userData)
+    //   .then((res) => console.log(res))
+    //   .catch((e) => console.log("e", e));
+
+    axios
+      .post("/logout")
+      .then((res) => navigate("/login"))
+      .catch((e) => console.log(e));
   }
 
   /*************************    Profile Image    ****************************/
@@ -163,15 +184,9 @@ function App() {
     const newUserData = { ...userData };
     newUserData.socialLinks = links;
     setUserData(newUserData);
-
-    console.log(userData);
   }
 
   /****************************    Preview    *******************************/
-
-  // function handlePreviewPage() {
-  //   setUpdatedUserData(userData);
-  // }
 
   /****************************    Final    *******************************/
 
@@ -189,8 +204,10 @@ function App() {
   const FormContextValue = {
     errMsg,
     userData,
+    isLoggedIn,
     handleRegisterFormSubmit,
     handleLoginFormSubmit,
+    handleLogOut,
     // handleLoginUser,
     handleImageUpload,
     handleHeadingChange,
@@ -202,51 +219,33 @@ function App() {
   };
 
   return (
-    <FormContext.Provider value={FormContextValue}>
-      {/* <Nav /> */}
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/edit" element=<EditForm /> />
-        <Route path="/links" element={<LinksForm />} />
-        <Route path="/socialLinks" element={<SocialLinksForm />} />
-        <Route path="/preview" element={<Preview userData={userData} />} />
-        <Route path="/final" element={<Final userData={userData} />} />
-      </Routes>
-    </FormContext.Provider>
+    <div className="main-container">
+      <FormContext.Provider value={FormContextValue}>
+        {/* <Nav /> */}
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/register" element={<Register />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/edit/*" element={<EditForm />} />
+            <Route path="/links" element={<LinksForm />} exact />
+            <Route path="/socialLinks" element={<SocialLinksForm />} exact />
+            <Route
+              path="/preview"
+              element={<Preview userData={userData} />}
+              exact
+            />
+            <Route
+              path="/final"
+              element={<Final userData={userData} />}
+              exact
+            />
+          </Route>
+        </Routes>
+      </FormContext.Provider>
+    </div>
   );
 }
-
-// const sampleData = {
-//   id: 1,
-//   email: "GusGus@cat.me",
-//   password: "12345",
-//   heading: "catlady1234",
-//   subHeading: "i like black cats",
-//   description:
-//     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet tellus maximus, faucibus risus et, vehicula est. Aenean commodo massa nunc, a tempor est lobortis cursus.",
-//   links: [
-//     { id: 1, linkText: "Amazon Storefront", linkURL: "wnetfgineg" },
-//     {
-//       id: 2,
-//       linkText: "Favorite recipes",
-//       linkURL: "efnegnekg",
-//     },
-//   ],
-//   socialLinks: [
-//     {
-//       id: 1,
-//       socialLinkIconName: "Instagram",
-//       socialLinkURL: "instagram.com",
-//     },
-//     {
-//       id: 2,
-//       socialLinkIconName: "Youtube",
-//       socialLinkURL: "youtube.com",
-//     },
-//   ],
-//   profileImage: "/../img/catdesk.jpeg",
-// };
 
 export default App;

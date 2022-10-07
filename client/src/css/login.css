@@ -1,6 +1,6 @@
 .login-container {
   text-align: center;
-  margin: 2rem;
+  /* margin: 2rem; */
   background: linear-gradient(
     to right bottom,
     rgba(255, 255, 255, 0.7),
@@ -38,7 +38,7 @@
 
 .login-form__row {
   width: 100%;
-  margin: 0.8rem 0;
+  margin: 0.5rem 0;
 }
 
 .login-form__input {

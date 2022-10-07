@@ -11,14 +11,16 @@
 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .preview__form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 
+  height: 100%;
   padding: 3rem 4rem;
   color: rgb(68, 68, 68);
 }
@@ -36,11 +38,13 @@
 }
 
 .preview__subHeading {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .preview__description {
   margin: 2rem 0;
+  font-size: 0.8rem;
+  text-align: center;
 }
 
 .preview__links {
@@ -48,6 +52,10 @@
   cursor: pointer;
   text-decoration: underline;
   margin: 2rem;
+}
+
+.preview__links li {
+  margin: 1rem 0;
 }
 
 .preview__socialLinks {
@@ -59,5 +67,5 @@
 }
 
 .preview__btns {
-  /* margin: 10 px; */
+  margin-top: auto;
 }

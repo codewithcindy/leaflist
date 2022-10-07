@@ -16,6 +16,12 @@ export default function LogIn() {
 
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   let isLoggedIn = localStorage.getItem("session");
+
+  //   isLoggedIn ? navigate("/edit") : "";
+  // }, []);
+
   function handleFormSubmit(e) {
     e.preventDefault();
 
@@ -44,6 +50,7 @@ export default function LogIn() {
             name="username"
             id="username"
             placeholder="Email"
+            autoFocus
             autoComplete="off"
             {...register("username", { required: true })}
           ></input>
