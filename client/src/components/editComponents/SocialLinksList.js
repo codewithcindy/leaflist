@@ -13,8 +13,8 @@ export default function SocialLinksList({ socialLinksData }) {
 
       if (icon === "twitter") {
         return (
-          <Link className="link" to="/socialLinks">
-            <li className="edit-form__social-link" key={link.id}>
+          <Link className="link" to="/socialLinks" key={link.id}>
+            <li className="edit-form__social-link">
               <div className="edit-form__social-link__icon">
                 <FontAwesomeIcon icon={["fab", "twitter"]} size="lg" />
               </div>
@@ -26,8 +26,8 @@ export default function SocialLinksList({ socialLinksData }) {
         );
       } else if (icon === "instagram") {
         return (
-          <Link className="link" to="/socialLinks">
-            <li className="edit-form__social-link" key={link.id}>
+          <Link className="link" to="/socialLinks" key={link.id}>
+            <li className="edit-form__social-link">
               <div className="edit-form__social-link__icon">
                 <FontAwesomeIcon icon={["fab", "instagram"]} size="lg" />
               </div>
@@ -39,8 +39,8 @@ export default function SocialLinksList({ socialLinksData }) {
         );
       } else if (icon === "youtube") {
         return (
-          <Link className="link" to="/socialLinks">
-            <li className="edit-form__social-link" key={link.id}>
+          <Link className="link" to="/socialLinks" key={link.id}>
+            <li className="edit-form__social-link">
               <div className="edit-form__social-link__icon">
                 <FontAwesomeIcon icon={["fab", "youtube"]} size="lg" />
               </div>
@@ -52,8 +52,8 @@ export default function SocialLinksList({ socialLinksData }) {
         );
       } else if (icon === "tiktok") {
         return (
-          <Link className="link" to="/socialLinks">
-            <li className="edit-form__social-link" key={link.id}>
+          <Link className="link" to="/socialLinks" key={link.id}>
+            <li className="edit-form__social-link">
               <div className="edit-form__social-link__icon">
                 <FontAwesomeIcon icon={["fab", "tiktok"]} size="lg" />
               </div>
@@ -63,10 +63,10 @@ export default function SocialLinksList({ socialLinksData }) {
             </li>
           </Link>
         );
-      } else if (icon === "envelope") {
+      } else if (icon === "email") {
         return (
-          <Link className="link" to="/socialLinks">
-            <li className="edit-form__social-link" key={link.id}>
+          <Link className="link" to="/socialLinks" key={link.id}>
+            <li className="edit-form__social-link">
               <div className="edit-form__social-link__icon">
                 <FontAwesomeIcon icon={["far", "envelope"]} size="lg" />
               </div>

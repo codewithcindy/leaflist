@@ -29,12 +29,14 @@ export default function LinksForm() {
   function handleLinkAdd(e) {
     e.preventDefault();
 
+    // New link object
     const newLink = {
       id: uuidv4(),
       linkText: "",
       linkURL: "",
     };
 
+    // New links array with current links plus the new link
     const newLinks = [...links, newLink];
     setLinks(newLinks);
   }
@@ -44,7 +46,6 @@ export default function LinksForm() {
 
     // Return links with completed fields
     function isFormCompleted(link) {
-      // if (link.linkText.length > 0 && link.linkURL.length > 0) return link;
       if (link.linkURL.length > 0) return link;
     }
 

@@ -44,10 +44,10 @@ export default function Register() {
             // value={email ? email : ""}
             // onChange={(e) => setEmail(e.target.value)}
             {...register("username", {
-              required: true,
+              required: "Email is required",
             })}
-          ></input>
-          {errors.email && <span>Email is required</span>}
+          />
+          {errors.email}
         </div>
         <div className="register-form__row">
           <label className="register-form__label" htmlFor="password"></label>
@@ -58,14 +58,18 @@ export default function Register() {
             id="password"
             placeholder="Password"
             autoComplete="off"
+            // minLength={6}
             // value={password ? password : ""}
             // onChange={(e) => setPassword(e.target.value)}
             {...register("password", {
               required: true,
-              minLength: 6,
+              minLength: {
+                value: 6,
+                message: "Password must be a minimum of 6 characters",
+              },
             })}
-          ></input>
-          {errors.email && <span>Password is required</span>}
+          />
+          {errors.password}
         </div>
 
         <div className="btn-flex">

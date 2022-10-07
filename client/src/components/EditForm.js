@@ -24,6 +24,8 @@ export default function EditForm() {
   //       .catch((e) => console.log(e));
   // }
 
+  console.log(userData);
+
   return (
     <div className="edit-form-container">
       <button onClick={(e) => handleLogOut(e)}>Log Out</button>
