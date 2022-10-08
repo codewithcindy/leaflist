@@ -139,6 +139,11 @@ textarea.edit-form__input {
   background-color: #e7efdd;
   border-radius: 5px;
 }
+
+.edit-form__section-links__add-btn:hover,
+.edit-form__section-social-links__add-btn:hover {
+  background-color: #ced6c5;
+}
 /********************** Links Only **********************/
 
 .edit-form__link,

@@ -59,13 +59,13 @@
   font-size: 0.9rem;
 }
 
-.form-error {
+/* .form-error {
   font-family: Roboto, sans-serif;
   color: red;
   font-size: 0.8rem;
   position: absolute;
   bottom: 32%;
-}
+} */
 
 .login-form__register-alt {
   position: relative;

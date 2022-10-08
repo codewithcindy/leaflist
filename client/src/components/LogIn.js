@@ -2,8 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FormContext } from "./App";
 import { useNavigate, Link } from "react-router-dom";
-import FormData from "form-data";
-import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function LogIn() {
   const {
@@ -27,6 +26,9 @@ export default function LogIn() {
 
     console.log(errors, e);
   }
+
+  // Clear error messages upon mounting
+  useEffect(() => {}, []);
 
   return (
     <div className="login-container">
@@ -75,8 +77,17 @@ export default function LogIn() {
           <button className="btn login-form__submit-btn" type="Submit">
             Log In
           </button>
-        </div>{" "}
-        <div className="form-error login-form-error">{errMsg.loginErr}</div>
+        </div>
+        {errMsg.loginErr && (
+          <div className="form-error login-form-error">
+            <FontAwesomeIcon
+              className="form-error__icon"
+              icon={["fa", "circle-exclamation"]}
+            />{" "}
+            {errMsg.loginErr}
+          </div>
+        )}
+        {/* <div className="form-error login-form-error">{errMsg.loginErr}</div> */}
         <p className="login-form__register-alt">
           Not registered? Sign up{" "}
           <Link to="/register" className="register-alt__link">

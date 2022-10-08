@@ -39,21 +39,25 @@ function App() {
   const navigate = useNavigate();
 
   // Connect to API
-  useEffect(() => {
-    const controller = new AbortController();
+  // useEffect(() => {
+  //   const controller = new AbortController();
 
-    axios
-      .get("/", {
-        signal: controller.signal,
-      })
-      .then((res) => {
-        console.log("Connected to backend");
-      });
+  //   axios
+  //     .get("/", {
+  //       signal: controller.signal,
+  //     })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       console.log("Connected to backend");
+  //     })
+  //     .catch((e) => {
+  //       console.error(e);
+  //     });
 
-    return () => {
-      controller.abort();
-    };
-  }, []);
+  //   return () => {
+  //     controller.abort();
+  //   };
+  // }, []);
 
   /****************************    Register   *******************************/
   async function handleRegisterFormSubmit(formData) {
@@ -86,6 +90,8 @@ function App() {
   /****************************    Login    *******************************/
 
   function handleLoginFormSubmit(formData) {
+    console.log(`formdata`, formData);
+
     axios
       .post("http://localhost:8080/login", formData)
       .then((res) => {

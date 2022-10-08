@@ -56,13 +56,14 @@ export default function LinksList({ linksData }) {
       );
     });
   }
+  console.log(links);
 
   return (
     <div className="edit-form__section edit-form__section-links">
       <label className="edit-form__label">Links</label>
       <ul>{links}</ul>
       <Link to="/links">
-        <button className=" edit-form__section-links__add-btn">+</button>
+        <button className="edit-form__section-links__add-btn">+</button>
       </Link>
     </div>
   );

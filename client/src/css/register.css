@@ -1,6 +1,6 @@
 .register-container {
   text-align: center;
-  margin: 2rem;
+  /* margin: 2rem; */
   background: linear-gradient(
     to right bottom,
     rgba(255, 255, 255, 0.7),
@@ -59,13 +59,13 @@
   font-size: 0.9rem;
 }
 
-.form-error {
+/* .form-error {
   font-family: Roboto, sans-serif;
   color: red;
   font-size: 0.8rem;
   position: absolute;
   bottom: 32%;
-}
+} */
 
 .register-form__login-alt {
   position: relative;

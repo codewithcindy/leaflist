@@ -9,6 +9,14 @@
   margin: 0.5rem;
 }
 
+.btn:hover {
+  background-color: #e5dcd1;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
 .btn-flex {
   display: flex;
 }
@@ -17,8 +25,18 @@
   background-color: #e9c3c3;
 }
 
+.btn-back:hover {
+  background-color: #d5b8b8;
+}
+
 .btn-preview,
 .btn-final {
   background-color: #cdddb9;
   color: #2f2e2e;
+}
+
+.btn-preview:hover,
+.btn-final:hover {
+  background-color: #c0cfae;
+  cursor: pointer;
 }

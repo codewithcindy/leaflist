@@ -1,11 +1,8 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FormContext } from "./App";
-import FormData from "form-data";
-
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Register() {
   const { errMsg, handleRegisterFormSubmit } = useContext(FormContext);
@@ -82,9 +79,15 @@ export default function Register() {
             </Link>
           )}
         </div>
-        <div className="form-error register-form-error">
-          {errMsg.registerErr}
-        </div>
+        {errMsg.registerErr && (
+          <div className="form-error register-form-error">
+            <FontAwesomeIcon
+              className="form-error__icon"
+              icon={["fa", "circle-exclamation"]}
+            />{" "}
+            {errMsg.registerErr}
+          </div>
+        )}
         <p className="register-form__login-alt">
           Already have an account? Log in
           <Link to="/login" className="login-alt__link">
