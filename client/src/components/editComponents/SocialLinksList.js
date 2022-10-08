@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FormContext } from "../App";
 
 export default function SocialLinksList({ socialLinksData }) {
+  const { handleSocialLinksListChange } = useContext(FormContext);
+
   let socialLinks;
 
+  function handleDeleteLink(e) {
+    const linkToDelete = e.target.closest("#linkEl").dataset.id;
+    const updatedLinks = socialLinksData.filter(
+      (link) => link.id !== linkToDelete
+    );
+    console.log(updatedLinks);
+
+    handleSocialLinksListChange(updatedLinks);
+  }
   if (!socialLinksData) {
     socialLinks = [];
   } else {
@@ -13,68 +25,198 @@ export default function SocialLinksList({ socialLinksData }) {
 
       if (icon === "twitter") {
         return (
-          <Link className="link" to="/socialLinks" key={link.id}>
-            <li className="edit-form__social-link">
-              <div className="edit-form__social-link__icon">
-                <FontAwesomeIcon icon={["fab", "twitter"]} size="lg" />
+          <li
+            className="edit-form__social-link"
+            id="linkEl"
+            data-id={link.id}
+            key={link.id}
+          >
+            <div className="edit-form__social-link__icon">
+              <FontAwesomeIcon icon={["fab", "twitter"]} size="lg" />
+            </div>
+            <div className="edit-form__social-link__info">
+              <Link className="link" to="/socialLinks">
+                <div className="edit-form__social-link__url">
+                  {link.socialLinkURL}
+                </div>
+              </Link>
+              <div className="btn-flex">
+                <Link to="/socialLinks">
+                  <button className="edit-form__link-edit">
+                    <FontAwesomeIcon
+                      className="edit-form__link-edit-icon"
+                      icon={["fa", "pen-to-square"]}
+                    />
+                  </button>
+                </Link>
+                <button
+                  className="edit-form__link-delete"
+                  onClick={(e) => handleDeleteLink(e)}
+                >
+                  <FontAwesomeIcon
+                    className="edit-form__link-delete-icon"
+                    icon={(["fa", "regular"], ["fa", "trash-can"])}
+                  />
+                </button>
               </div>
-              <div className="edit-form__social-link__url">
-                {link.socialLinkURL}
-              </div>
-            </li>
-          </Link>
+            </div>
+          </li>
         );
       } else if (icon === "instagram") {
         return (
-          <Link className="link" to="/socialLinks" key={link.id}>
-            <li className="edit-form__social-link">
-              <div className="edit-form__social-link__icon">
-                <FontAwesomeIcon icon={["fab", "instagram"]} size="lg" />
+          <li
+            className="edit-form__social-link"
+            id="linkEl"
+            data-id={link.id}
+            key={link.id}
+          >
+            <div className="edit-form__social-link__icon">
+              <FontAwesomeIcon icon={["fab", "instagram"]} size="lg" />
+            </div>
+            <div className="edit-form__social-link__info">
+              <Link className="link" to="/socialLinks">
+                <div className="edit-form__social-link__url">
+                  {link.socialLinkURL}
+                </div>
+              </Link>
+              <div className="btn-flex">
+                <Link to="/socialLinks">
+                  <button className="edit-form__link-edit">
+                    <FontAwesomeIcon
+                      className="edit-form__link-edit-icon"
+                      icon={["fa", "pen-to-square"]}
+                    />
+                  </button>
+                </Link>
+                <button
+                  className="edit-form__link-delete"
+                  onClick={(e) => handleDeleteLink(e)}
+                >
+                  <FontAwesomeIcon
+                    className="edit-form__link-delete-icon"
+                    icon={(["fa", "regular"], ["fa", "trash-can"])}
+                  />
+                </button>
               </div>
-              <div className="edit-form__social-link__url">
-                {link.socialLinkURL}
-              </div>
-            </li>
-          </Link>
+            </div>
+          </li>
         );
       } else if (icon === "youtube") {
         return (
-          <Link className="link" to="/socialLinks" key={link.id}>
-            <li className="edit-form__social-link">
-              <div className="edit-form__social-link__icon">
-                <FontAwesomeIcon icon={["fab", "youtube"]} size="lg" />
+          <li
+            className="edit-form__social-link"
+            id="linkEl"
+            data-id={link.id}
+            key={link.id}
+          >
+            <div className="edit-form__social-link__icon">
+              <FontAwesomeIcon icon={["fab", "youtube"]} size="lg" />
+            </div>
+            <div className="edit-form__social-link__info">
+              <Link className="link" to="/socialLinks">
+                <div className="edit-form__social-link__url">
+                  {link.socialLinkURL}
+                </div>
+              </Link>
+              <div className="btn-flex">
+                <Link to="/socialLinks">
+                  <button className="edit-form__link-edit">
+                    <FontAwesomeIcon
+                      className="edit-form__link-edit-icon"
+                      icon={["fa", "pen-to-square"]}
+                    />
+                  </button>
+                </Link>
+                <button
+                  className="edit-form__link-delete"
+                  onClick={(e) => handleDeleteLink(e)}
+                >
+                  <FontAwesomeIcon
+                    className="edit-form__link-delete-icon"
+                    icon={(["fa", "regular"], ["fa", "trash-can"])}
+                  />
+                </button>
               </div>
-              <div className="edit-form__social-link__url">
-                {link.socialLinkURL}
-              </div>
-            </li>
-          </Link>
+            </div>
+          </li>
         );
       } else if (icon === "tiktok") {
         return (
-          <Link className="link" to="/socialLinks" key={link.id}>
-            <li className="edit-form__social-link">
-              <div className="edit-form__social-link__icon">
-                <FontAwesomeIcon icon={["fab", "tiktok"]} size="lg" />
+          <li
+            className="edit-form__social-link"
+            id="linkEl"
+            data-id={link.id}
+            key={link.id}
+          >
+            <div className="edit-form__social-link__icon">
+              <FontAwesomeIcon icon={["fab", "tiktok"]} size="lg" />
+            </div>
+            <div className="edit-form__social-link__info">
+              <Link className="link" to="/socialLinks">
+                <div className="edit-form__social-link__url">
+                  {link.socialLinkURL}
+                </div>
+              </Link>
+              <div className="btn-flex">
+                <Link to="/socialLinks">
+                  <button className="edit-form__link-edit">
+                    <FontAwesomeIcon
+                      className="edit-form__link-edit-icon"
+                      icon={["fa", "pen-to-square"]}
+                    />
+                  </button>
+                </Link>
+                <button
+                  className="edit-form__link-delete"
+                  onClick={(e) => handleDeleteLink(e)}
+                >
+                  <FontAwesomeIcon
+                    className="edit-form__link-delete-icon"
+                    icon={(["fa", "regular"], ["fa", "trash-can"])}
+                  />
+                </button>
               </div>
-              <div className="edit-form__social-link__url">
-                {link.socialLinkURL}
-              </div>
-            </li>
-          </Link>
+            </div>
+          </li>
         );
       } else if (icon === "email") {
         return (
-          <Link className="link" to="/socialLinks" key={link.id}>
-            <li className="edit-form__social-link">
-              <div className="edit-form__social-link__icon">
-                <FontAwesomeIcon icon={["far", "envelope"]} size="lg" />
+          <li
+            className="edit-form__social-link"
+            id="linkEl"
+            data-id={link.id}
+            key={link.id}
+          >
+            <div className="edit-form__social-link__icon">
+              <FontAwesomeIcon icon={["far", "envelope"]} size="lg" />
+            </div>
+            <div className="edit-form__social-link__info">
+              <Link className="link" to="/socialLinks">
+                <div className="edit-form__social-link__url">
+                  {link.socialLinkURL}
+                </div>
+              </Link>
+              <div className="btn-flex">
+                <Link to="/socialLinks">
+                  <button className="edit-form__link-edit">
+                    <FontAwesomeIcon
+                      className="edit-form__link-edit-icon"
+                      icon={["fa", "pen-to-square"]}
+                    />
+                  </button>
+                </Link>
+                <button
+                  className="edit-form__link-delete"
+                  onClick={(e) => handleDeleteLink(e)}
+                >
+                  <FontAwesomeIcon
+                    className="edit-form__link-delete-icon"
+                    icon={(["fa", "regular"], ["fa", "trash-can"])}
+                  />
+                </button>
               </div>
-              <div className="edit-form__social-link__url">
-                {link.socialLinkURL}
-              </div>
-            </li>
-          </Link>
+            </div>
+          </li>
         );
       }
     });

@@ -23,14 +23,16 @@ library.add(fab, fas, faEnvelope);
 export const FormContext = React.createContext();
 
 function App() {
-  // set state for user info
+  // State for user info
   const [userData, setUserData] = useState(" ");
 
+  // State for error messages
   const [errMsg, setErrMsg] = useState({
     registerErr: "",
     loginErr: "",
   });
 
+  // State for user authentication
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Navigate
@@ -53,48 +55,31 @@ function App() {
     };
   }, []);
 
-  // Update session
-  // useEffect(() => {
-  //   const controller = new AbortController();
-
-  //   axios
-  //     .post("/updateSession", userData)
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-
-  //   return () => {
-  //     controller.abort();
-  //   };
-  // }, [userData]);
-
   /****************************    Register   *******************************/
   async function handleRegisterFormSubmit(formData) {
-    console.log("front end registeatoin data");
-    console.log(formData);
-
     // Send register form data to node
     axios
       .post("http://localhost:8080/registerUser", formData, {
         withCredentials: true,
       })
       .then((res) => {
+        // Update userData to be the new user
         setUserData(res.data);
+
+        // Update isLoggedIn state for protected routes
         setIsLoggedIn(true);
+
         // Re route user to edit page
         navigate("/edit");
       })
       .catch((e) => {
-        console.log(e.response.data);
-
+        // Set registration error message
         const errMsg = {
           registerErr: e.response.data,
         };
+
+        // Update errMsg state
         setErrMsg(errMsg);
-        console.log(errMsg);
       });
   }
 
@@ -107,9 +92,6 @@ function App() {
         const user = res.data;
         setUserData(user);
         setIsLoggedIn(true);
-
-        // Save user to localStorage
-        // localStorage.setItem("session", user.username);
 
         navigate("/edit");
       })
@@ -125,11 +107,6 @@ function App() {
   /*************************    Log Out   ****************************/
 
   function handleLogOut() {
-    // axios
-    //   .post("http://localhost:8080/save", userData)
-    //   .then((res) => console.log(res))
-    //   .catch((e) => console.log("e", e));
-
     axios
       .post("/logout")
       .then((res) => navigate("/login"))
@@ -179,6 +156,11 @@ function App() {
   }
 
   /****************************  SocialLinks  *******************************/
+  function handleSocialLinksListChange(updatedLinks) {
+    const newUserData = { ...userData };
+    newUserData.socialLinks = updatedLinks;
+    setUserData(newUserData);
+  }
 
   function handleSocialLinksSubmit(links) {
     const newUserData = { ...userData };
@@ -208,20 +190,18 @@ function App() {
     handleRegisterFormSubmit,
     handleLoginFormSubmit,
     handleLogOut,
-    // handleLoginUser,
     handleImageUpload,
     handleHeadingChange,
     handleLinksListChange,
+    handleSocialLinksListChange,
     handleLinksSubmit,
     handleSocialLinksSubmit,
-    // handlePreviewPage,
     saveUserDataToDB,
   };
 
   return (
     <div className="main-container">
       <FormContext.Provider value={FormContextValue}>
-        {/* <Nav /> */}
         <Navbar />
         <Routes>
           <Route path="/" element={<Landing />} />

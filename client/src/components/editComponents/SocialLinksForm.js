@@ -79,7 +79,6 @@ export default function SocialLinksForm() {
       >
         <h1 className="social-links__header">social links</h1>
         {socialLinks.map((link) => {
-          console.log(link);
           return (
             <NewSocialLink
               key={link.id}

@@ -15,13 +15,6 @@ export default function Register() {
     formState: { errors },
   } = useForm();
 
-  // async function onSubmit(e) {
-  //   e.preventDefault();
-  //   const data = new FormData(e.target);
-  //   const formData = Object.fromEntries(data.entries());
-  //   handleRegisterFormSubmit(formData);
-  // }
-
   function onSubmit(data, e) {
     e.preventDefault();
     console.log(`onsubmit data`, data);
@@ -50,8 +43,6 @@ export default function Register() {
             placeholder="Email"
             autoFocus
             autoComplete="off"
-            // value={email ? email : ""}
-            // onChange={(e) => setEmail(e.target.value)}
             {...register("username", {
               required: {
                 value: true,
@@ -70,9 +61,6 @@ export default function Register() {
             id="password"
             placeholder="Password"
             autoComplete="off"
-            // minLength={6}
-            // value={password ? password : ""}
-            // onChange={(e) => setPassword(e.target.value)}
             {...register("password", {
               required: true,
               minLength: {

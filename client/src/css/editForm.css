@@ -1,5 +1,4 @@
 .edit-form-container {
-  /* text-align: center; */
   margin: 2rem;
   background: linear-gradient(
     to right bottom,
@@ -18,7 +17,6 @@
 .edit-form {
   height: 100%;
   width: 100%;
-  /* max-width: 500px; */
   padding: 2rem;
   overflow: auto;
 
@@ -116,6 +114,9 @@ textarea.edit-form__input {
 
 .link {
   text-decoration: none;
+
+  display: flex;
+  align-items: center;
 }
 
 .edit-form__section-links ul,
@@ -137,11 +138,11 @@ textarea.edit-form__input {
   cursor: pointer;
   background-color: #e7efdd;
   border-radius: 5px;
-  /* margin-top: 0.5rem; */
 }
 /********************** Links Only **********************/
 
-.edit-form__link {
+.edit-form__link,
+.edit-form__social-link__info {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -190,22 +191,21 @@ textarea.edit-form__input {
 .edit-form__social-link {
   display: flex;
   align-items: center;
+}
 
-  margin: 0.5rem 0;
-  /* justify-content: space-between; */
+.edit-form__social-link__info {
+  width: 100%;
 }
 
 .edit-form__social-link__icon {
-  flex-basis: 15%;
-  width: 100%;
+  width: 50px;
+  text-align: center;
   color: rgb(59, 59, 59);
   font-size: 1.2rem;
-  text-align: center;
 }
 
 .edit-form__social-link__url {
   width: 100%;
-  padding: 0.5rem 1rem;
   background-color: #f1f1f1;
   color: rgb(101, 101, 101);
   border-radius: 5px;

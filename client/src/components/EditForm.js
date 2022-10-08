@@ -8,27 +8,13 @@ import LinksList from "./editComponents/LinksList";
 
 import SocialLinksList from "./editComponents/SocialLinksList";
 import { FormContext } from "./App";
-import axios from "axios";
-
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Links from "./editComponents/Links";
 
 export default function EditForm() {
-  const { isLoggedIn, userData, displayPreview, handleLogOut } =
-    useContext(FormContext);
-
-  // function handleClickogOut() {
-  //     axios
-  //       .post("/logout")
-  //       .then((res) => console.log(res))
-  //       .catch((e) => console.log(e));
-  // }
-
-  console.log(userData);
+  const { userData } = useContext(FormContext);
 
   return (
     <div className="edit-form-container">
-      <button onClick={(e) => handleLogOut(e)}>Log Out</button>
+      {/* <button onClick={(e) => handleLogOut(e)}>Log Out</button> */}
       <div className="form edit-form">
         <ProfileImage profileImage={userData.profileImageSrc} />
         <Heading heading={userData.heading} />

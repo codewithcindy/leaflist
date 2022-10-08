@@ -16,17 +16,8 @@ export default function LogIn() {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   let isLoggedIn = localStorage.getItem("session");
-
-  //   isLoggedIn ? navigate("/edit") : "";
-  // }, []);
-
   function onSubmit(data, e) {
     e.preventDefault();
-
-    // const data = new FormData(e.target);
-    // const formData = Object.fromEntries(data.entries());
 
     handleLoginFormSubmit(data);
   }
