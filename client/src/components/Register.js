@@ -15,20 +15,29 @@ export default function Register() {
     formState: { errors },
   } = useForm();
 
-  async function handleFormSubmit(e) {
+  // async function onSubmit(e) {
+  //   e.preventDefault();
+  //   const data = new FormData(e.target);
+  //   const formData = Object.fromEntries(data.entries());
+  //   handleRegisterFormSubmit(formData);
+  // }
+
+  function onSubmit(data, e) {
     e.preventDefault();
-    const data = new FormData(e.target);
-    const formData = Object.fromEntries(data.entries());
-    handleRegisterFormSubmit(formData);
+    console.log(`onsubmit data`, data);
+    handleRegisterFormSubmit(data);
+  }
+
+  function onError(errors, e) {
+    e.preventDefault();
+    console.log(`onerror data`, errors);
   }
 
   return (
     <div className="register-container">
       <form
         className="form register-form"
-        onSubmit={(e) => {
-          handleSubmit(handleFormSubmit(e));
-        }}
+        onSubmit={handleSubmit(onSubmit, onError)}
       >
         <h1 className="register-form__header">sign up</h1>
         <div className="register-form__row">
@@ -44,10 +53,13 @@ export default function Register() {
             // value={email ? email : ""}
             // onChange={(e) => setEmail(e.target.value)}
             {...register("username", {
-              required: "Email is required",
+              required: {
+                value: true,
+                message: "Please enter a valid email",
+              },
             })}
           />
-          {errors.email}
+          {errors.username?.message}
         </div>
         <div className="register-form__row">
           <label className="register-form__label" htmlFor="password"></label>
@@ -64,12 +76,12 @@ export default function Register() {
             {...register("password", {
               required: true,
               minLength: {
-                value: 6,
-                message: "Password must be a minimum of 6 characters",
+                value: 8,
+                message: "Password must be a minimum of 8 characters",
               },
             })}
           />
-          {errors.password}
+          {errors.password?.message}
         </div>
 
         <div className="btn-flex">

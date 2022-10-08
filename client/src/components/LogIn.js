@@ -22,16 +22,18 @@ export default function LogIn() {
   //   isLoggedIn ? navigate("/edit") : "";
   // }, []);
 
-  function handleFormSubmit(e) {
+  function onSubmit(data, e) {
     e.preventDefault();
 
-    const data = new FormData(e.target);
-    const formData = Object.fromEntries(data.entries());
+    // const data = new FormData(e.target);
+    // const formData = Object.fromEntries(data.entries());
 
-    handleLoginFormSubmit(formData);
+    handleLoginFormSubmit(data);
   }
 
   function onError(errors, e) {
+    e.preventDefault();
+
     console.log(errors, e);
   }
 
@@ -39,7 +41,7 @@ export default function LogIn() {
     <div className="login-container">
       <form
         className="form login-form"
-        onSubmit={(e) => handleSubmit(handleFormSubmit(e), onError)}
+        onSubmit={handleSubmit(onSubmit, onError)}
       >
         <h1 className="login-form__header">log in</h1>
         <div className="login-form__row">
@@ -54,7 +56,9 @@ export default function LogIn() {
             autoComplete="off"
             {...register("username", { required: true })}
           ></input>
-          {errors.email && <span>Email is required</span>}
+          {errors.email && (
+            <span>Please provide a valid email address and password.</span>
+          )}
         </div>
         <div className="login-form__row">
           <label htmlFor="password" className="login-form__label"></label>
@@ -67,7 +71,9 @@ export default function LogIn() {
             autoComplete="off"
             {...register("password", { required: true, minLength: 6 })}
           ></input>
-          {errors.password && <span>Password is required</span>}
+          {errors.password && (
+            <span>Please provide a valid email address and password.</span>
+          )}
         </div>
         <div className="btn-flex">
           {errMsg.loginErr && (
