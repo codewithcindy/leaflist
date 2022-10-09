@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useLayoutEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FormContext } from "./App";
 import { useNavigate, Link } from "react-router-dom";
@@ -11,7 +11,8 @@ export default function LogIn() {
     formState: { errors },
   } = useForm();
 
-  const { errMsg, handleLoginFormSubmit } = useContext(FormContext);
+  const { errMsg, clearErrors, handleLoginFormSubmit } =
+    useContext(FormContext);
 
   const navigate = useNavigate();
 
@@ -28,7 +29,16 @@ export default function LogIn() {
   }
 
   // Clear error messages upon mounting
-  useEffect(() => {}, []);
+  // useEffect(() => {
+  //   clearErrors();
+  // }, []);
+
+  // Clear error messages when unmounting
+  useLayoutEffect(() => {
+    return () => {
+      clearErrors();
+    };
+  }, []);
 
   return (
     <div className="login-container">
@@ -36,7 +46,7 @@ export default function LogIn() {
         className="form login-form"
         onSubmit={handleSubmit(onSubmit, onError)}
       >
-        <h1 className="login-form__header">log in</h1>
+        <h1 className="login-form__header">Log In</h1>
         <div className="login-form__row">
           <label className="login-form__label" htmlFor="email"></label>
           <input

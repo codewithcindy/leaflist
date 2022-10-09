@@ -37,6 +37,7 @@
 .links-form__section {
   width: 100%;
   margin: 1rem 0;
+  position: relative;
 }
 
 .links-form__row {
@@ -70,3 +71,40 @@
   font-size: 1rem;
   background-color: #ddd1c5;
 }
+
+.links-form__row__delete-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.links-form__row__delete-btn:hover::before {
+  content: "";
+  height: 180px;
+  width: 455px;
+  background-color: rgb(145, 145, 145);
+  opacity: 0.2;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  border-radius: 5px;
+}
+
+.links-form__row__delete-btn:hover {
+  cursor: pointer;
+}
+/* 
+.links-form__row__delete-icon {
+  position: relative;
+} */
+
+/* .links-form__row__delete-icon:hover::before {
+  content: "";
+  height: 200px;
+  width: 500px;
+  background-color: paleturquoise;
+  opacity: 0.2;
+  position: absolute;
+  right: 80%;
+  top: 0;
+} */

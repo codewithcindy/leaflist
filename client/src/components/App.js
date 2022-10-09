@@ -149,6 +149,8 @@ function App() {
   /****************************    Links    *******************************/
 
   function handleLinksListChange(updatedLinks) {
+    console.log(`updatedlinks in app`, updatedLinks);
+
     const newUserData = { ...userData };
     newUserData.links = updatedLinks;
     setUserData(newUserData);
@@ -187,10 +189,20 @@ function App() {
     navigate("/final");
   }
 
+  /****************************    Errors    *******************************/
+
+  function clearErrors() {
+    setErrMsg({
+      registerErr: "",
+      loginErr: "",
+    });
+  }
+
   /****************************    Context    *******************************/
 
   const FormContextValue = {
     errMsg,
+    clearErrors,
     userData,
     isLoggedIn,
     handleRegisterFormSubmit,

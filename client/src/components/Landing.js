@@ -8,8 +8,10 @@ export default function Landing() {
 
   return (
     <div className="landing-container">
-      <h1 className="header">leaflist</h1>
-      <p className="sub-header">Your link-in-bio bestie</p>
+      <div className="header-container">
+        <h1 className="header">leaflist</h1>
+        <p className="sub-header">Your link-in-bio bestie</p>
+      </div>
       <div className="landing-btns-container">
         <NavLink to="/login" className="landing-btns__link">
           <button className="btn landing-btns__login">Log In</button>

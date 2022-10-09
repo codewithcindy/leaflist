@@ -1,11 +1,12 @@
-import React, { useRef, useState, useContext, useEffect } from "react";
+import React, { useRef, useState, useContext, useLayoutEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { FormContext } from "./App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Register() {
-  const { errMsg, handleRegisterFormSubmit } = useContext(FormContext);
+  const { errMsg, clearErrors, handleRegisterFormSubmit } =
+    useContext(FormContext);
   const {
     register,
     handleSubmit,
@@ -23,13 +24,20 @@ export default function Register() {
     console.log(`onerror data`, errors);
   }
 
+  // Clear error messages when unmounting
+  useLayoutEffect(() => {
+    return () => {
+      clearErrors();
+    };
+  }, []);
+
   return (
     <div className="register-container">
       <form
         className="form register-form"
         onSubmit={handleSubmit(onSubmit, onError)}
       >
-        <h1 className="register-form__header">sign up</h1>
+        <h1 className="register-form__header">Sign Up</h1>
         <div className="register-form__row">
           <label className="register-form__label" htmlFor="email"></label>
           <input

@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { FormContext } from "../App";
 
+// export const LinkContext = React.createContext();
+
 export default function LinksList({ linksData }) {
   const { handleLinksListChange } = useContext(FormContext);
 
@@ -13,6 +15,10 @@ export default function LinksList({ linksData }) {
 
     handleLinksListChange(updatedLinks);
   }
+
+  // const LinkContextValue = {
+  //   handleDeleteLink,
+  // };
 
   let links;
 
@@ -59,6 +65,7 @@ export default function LinksList({ linksData }) {
   console.log(links);
 
   return (
+    // <LinkContext.Provider value={LinkContextValue}>
     <div className="edit-form__section edit-form__section-links">
       <label className="edit-form__label">Links</label>
       <ul>{links}</ul>
@@ -66,5 +73,6 @@ export default function LinksList({ linksData }) {
         <button className="edit-form__section-links__add-btn">+</button>
       </Link>
     </div>
+    // </LinkContext.Provider>
   );
 }

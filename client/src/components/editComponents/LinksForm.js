@@ -59,6 +59,10 @@ export default function LinksForm() {
     navigate("/edit");
   }
 
+  function updateLinksForm(updatedLinks) {
+    setLinks(updatedLinks);
+  }
+
   return (
     <div className="links-form-container">
       <form
@@ -66,12 +70,13 @@ export default function LinksForm() {
         onSubmit={(e) => handleLinkFormSubmit(e)}
       >
         <h1 className="links-form__header">links</h1>
-        {links.map((linkInfo) => {
+        {links.map((link) => {
           return (
             <NewLink
-              key={linkInfo.id ?? uuidv4()}
-              linkInfo={linkInfo}
+              key={link.id ?? uuidv4()}
+              link={link}
               handleLinkChange={handleLinkChange}
+              updateLinksForm={updateLinksForm}
             />
           );
         })}

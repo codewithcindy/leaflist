@@ -1,8 +1,7 @@
 @font-face {
-  font-family: Butler Light;
-  src: url("../fonts/butler/Butler_Light.otf") format("opentype");
-  /* font-weight: 300;
-  font-style: normal; */
+  font-family: Better Minds;
+  src: url("../fonts/Better\ minds.ttf") format("truetype");
+  font-weight: 300;
 }
 
 @font-face {
@@ -17,4 +16,9 @@
   src: url("../fonts/roboto/Roboto-Regular.ttf") format("truetype");
   /* font-weight: normal; */
   /* font-style: normal; */
+}
+
+@font-face {
+  font-family: Roboto Bold;
+  src: url("../fonts/roboto/Roboto-Bold.ttf") format("truetype");
 }
