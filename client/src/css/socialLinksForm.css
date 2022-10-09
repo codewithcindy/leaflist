@@ -1,5 +1,4 @@
 .social-links-container {
-  margin: 2rem;
   background: linear-gradient(
     to right bottom,
     rgba(255, 255, 255, 0.7),
@@ -29,11 +28,12 @@
 .social-links__header {
   font-family: Butler, serif;
   letter-spacing: 3px;
+  margin-bottom: 1rem;
 }
 
 .social-links-form__section {
   width: 100%;
-  margin: 0.8rem 0;
+  margin: 1rem 0;
 
   position: relative;
 }
@@ -88,13 +88,50 @@
 }
 
 .active {
-  color: orange;
+  opacity: 1;
 }
 
-/* .social-links__icon {
-  padding: 5px;
-  margin: 0 5px;
-  cursor: pointer;
+.not-active {
+  opacity: 0.5;
+}
 
-  /* border: 1px solid blue; */
-/* } */
+.social-links-form__row__delete-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  color: rgb(101, 101, 101);
+  border: none;
+  background: none;
+}
+
+.social-links-form__row__delete-btn:hover::before {
+  content: "";
+  height: 110px;
+  width: 455px;
+  background-color: rgb(145, 145, 145);
+  opacity: 0.2;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  border-radius: 5px;
+
+  pointer-events: none;
+}
+
+.social-links-form__row__delete-btn:hover {
+  cursor: pointer;
+}
+
+.social-links-form__row__delete-icon {
+  /* width: 50px; */
+  /* text-align: center; */
+  color: rgb(59, 59, 59);
+  opacity: 0.5;
+  font-size: 1rem;
+}
+
+.social-links-form__row__delete-icon:hover {
+  opacity: 0.8;
+  color: rgb(185, 67, 67);
+}

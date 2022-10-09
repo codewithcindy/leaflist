@@ -71,6 +71,11 @@ export default function SocialLinksForm() {
     navigate("/edit");
   }
 
+  function updateLinksForm(updatedLinks) {
+    console.log(`updatedlinks in sociallinksfomr`, updatedLinks);
+    setSocialLinks(updatedLinks);
+  }
+
   return (
     <div className="social-links-container">
       <form
@@ -87,6 +92,8 @@ export default function SocialLinksForm() {
               linkURL={link.socialLinkURL}
               handleLinkInputChange={handleLinkInputChange}
               handleLinkSelect={handleLinkSelect}
+              updateLinksForm={updateLinksForm}
+              linkSelectedId={linkSelectedId}
             />
           );
         })}

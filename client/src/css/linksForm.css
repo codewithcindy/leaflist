@@ -1,6 +1,5 @@
 .links-form-container {
   /* text-align: center; */
-  margin: 2rem;
   background: linear-gradient(
     to right bottom,
     rgba(255, 255, 255, 0.7),
@@ -74,8 +73,12 @@
 
 .links-form__row__delete-btn {
   position: absolute;
-  top: 0;
+  top: 10px;
   right: 0;
+
+  color: rgb(101, 101, 101);
+  border: none;
+  background: none;
 }
 
 .links-form__row__delete-btn:hover::before {
@@ -88,23 +91,18 @@
   right: -10px;
   top: -10px;
   border-radius: 5px;
+
+  pointer-events: none;
 }
 
 .links-form__row__delete-btn:hover {
   cursor: pointer;
 }
-/* 
-.links-form__row__delete-icon {
-  position: relative;
-} */
 
-/* .links-form__row__delete-icon:hover::before {
-  content: "";
-  height: 200px;
-  width: 500px;
-  background-color: paleturquoise;
-  opacity: 0.2;
-  position: absolute;
-  right: 80%;
-  top: 0;
-} */
+.links-form__row__delete-icon {
+  /* width: 50px; */
+  /* text-align: center; */
+  color: rgb(59, 59, 59);
+  opacity: 0.5;
+  font-size: 1rem;
+}
