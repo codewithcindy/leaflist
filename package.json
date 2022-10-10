@@ -2,7 +2,7 @@
   "name": "leaflist",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "api/server.js",
   "dependencies": {
     "express": "^4.18.1",
     "gh-pages": "^4.0.0",
