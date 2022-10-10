@@ -22,7 +22,7 @@ const port = 8080;
 
 const app = express();
 
-// // Connect to MongoDB
+// Connect to MongoDB
 mongoose
   .connect(dbURL)
   .then(() => console.log("Connected to database"))
@@ -137,17 +137,11 @@ app.post("/registerUser", async (req, res, next) => {
 
     const registeredUser = await User.register(user, password);
 
-    // console.log("registerduser", registeredUser);
-
-    // req.session.passport.user = req.user;
-
     req.login(registeredUser, (err) => {
       if (err) return next(err);
     });
 
     req.session.user = req.user;
-
-    // console.log("req.session", req.session);
 
     res.json(registeredUser);
   } catch (e) {
@@ -169,17 +163,9 @@ app.post(
     // console.log(req.user);
     req.session.user = req.user;
 
-    console.log("req.session", req.session);
-
-    // console.log(req.session);
-    // Add user to localStorage
-
     res.json(req.user);
-    // res.sendStatus(200);
   }
 );
-
-// app.post("/saveImage", upload.single());
 
 /**************************    Log Out   *****************************/
 
@@ -193,17 +179,6 @@ app.post("/logout", (req, res, next) => {
     res.sendStatus(200);
   });
 });
-
-/**************************   Update Session *****************************/
-// app.post("/updateSession", (req, res) => {
-//   const data = req.body;
-
-//   console.log(`update session`, data);
-
-//   // req.session.user = data;
-
-//   // console.log(`new session`, req.session);
-// });
 
 /**************************    Profile Image    *****************************/
 app.post(
@@ -237,6 +212,13 @@ app.post("/save", (req, res, next) => {
   run(userData).catch(console.dir);
 
   res.send("yay");
+});
+
+/****************************  Error handling  *******************************/
+
+app.all("*", (req, res, next) => {
+  console.log("ERRORRR BISH");
+  res.redirect("../client/src/components/App.js");
 });
 
 app.use((err, req, res, next) => {
