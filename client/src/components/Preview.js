@@ -84,7 +84,7 @@ export default function Preview({ userData }) {
     // display final product - same as preview but no btns
 
     // pass data to App to save data to mongo
-    saveUserDataToDB();
+    saveUserDataToDB("finalSave");
   }
 
   return (

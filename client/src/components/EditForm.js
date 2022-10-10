@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Routes, Route, useNavigate, Link } from "react-router-dom";
+import Navbar from "./Navbar";
 import ProfileImage from "./editComponents/ProfileImage";
 import Heading from "./editComponents/Heading";
 import SubHeading from "./editComponents/SubHeading";
@@ -10,10 +11,12 @@ import SocialLinksList from "./editComponents/SocialLinksList";
 import { FormContext } from "./App";
 
 export default function EditForm() {
-  const { userData } = useContext(FormContext);
+  const { userData, saveUserDataToDB } = useContext(FormContext);
 
   return (
     <div className="edit-form-container">
+      {/* <Navbar /> */}
+
       {/* <button onClick={(e) => handleLogOut(e)}>Log Out</button> */}
       <div className="form edit-form">
         <ProfileImage profileImage={userData.profileImageSrc} />
@@ -28,6 +31,9 @@ export default function EditForm() {
             Preview
           </button>
         </Link>
+        <button className="btn" onClick={saveUserDataToDB}>
+          Save
+        </button>
       </div>
 
       {/* <Routes>

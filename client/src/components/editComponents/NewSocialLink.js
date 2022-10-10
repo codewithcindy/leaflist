@@ -10,6 +10,7 @@ export default function NewSocialLink(props) {
     handleLinkSelect,
     updateLinksForm,
     linkSelectedId,
+    currentLinks,
   } = props;
   const { userData, handleSocialLinksListChange } = useContext(FormContext);
 
@@ -76,11 +77,16 @@ export default function NewSocialLink(props) {
   function handleDeleteLink(e) {
     e.preventDefault();
 
-    const linkToDelete = e.target.closest("#linkDiv").dataset.id;
+    const linkIdToDelete = e.target.closest("#linkDiv").dataset.id;
 
     // const linksData = userData.links;
+    console.log(`links before update`, currentLinks);
 
-    const updatedLinks = links.filter((link) => link.id !== linkToDelete);
+    const updatedLinks = currentLinks.filter(
+      (link) => link.id !== linkIdToDelete
+    );
+
+    console.log(`updatedlinks`, updatedLinks);
 
     updateLinksForm(updatedLinks);
 
@@ -88,84 +94,82 @@ export default function NewSocialLink(props) {
   }
 
   return (
-    <>
-      <div
-        id="linkDiv"
-        data-id={linkInfo.id}
-        className="form social-links-form__section"
-      >
-        <label className="social-links-form__label" htmlFor="socialLinkURL">
-          URL
-        </label>
-        <div className="social-links-form__input-row">
-          <input
-            className="social-links-form__input"
-            type="text"
-            name="socialLinkURL"
-            id="socialLinkURL"
-            autoComplete="off"
-            value={linkURL}
-            onChange={(e) => handleURLChange(e)}
-            onClick={() => handleLinkSelect(linkInfo.id)}
-          />
-          <div className="social-links__icons-container">
-            <div>
-              <FontAwesomeIcon
-                icon={["fab", "instagram"]}
-                className="social-links__icon"
-                data-name="instagram"
-                data-id={linkInfo.id}
-                onClick={(e) => handleIconChange(e)}
-              />
-            </div>
-            <div>
-              <FontAwesomeIcon
-                icon={["fab", "youtube"]}
-                className="social-links__icon"
-                data-name="youtube"
-                data-id={linkInfo.id}
-                onClick={(e) => handleIconChange(e)}
-              />
-            </div>
-            <div>
-              <FontAwesomeIcon
-                icon={["fab", "tiktok"]}
-                className="social-links__icon"
-                data-name="tiktok"
-                data-id={linkInfo.id}
-                onClick={(e) => handleIconChange(e)}
-              />
-            </div>
-            <div>
-              <FontAwesomeIcon
-                icon={["far", "envelope"]}
-                className="social-links__icon"
-                data-name="email"
-                data-id={linkInfo.id}
-                onClick={(e) => handleIconChange(e)}
-              />
-            </div>
-            <div>
-              <FontAwesomeIcon
-                icon={["fab", "twitter"]}
-                className="social-links__icon "
-                data-name="twitter"
-                data-id={linkInfo.id}
-                onClick={(e) => handleIconChange(e)}
-              />
-            </div>
+    <div
+      id="linkDiv"
+      data-id={linkInfo.id}
+      className="form social-links-form__section"
+    >
+      <label className="social-links-form__label" htmlFor="socialLinkURL">
+        URL
+      </label>
+      <div className="social-links-form__input-row">
+        <input
+          className="social-links-form__input"
+          type="text"
+          name="socialLinkURL"
+          id="socialLinkURL"
+          autoComplete="off"
+          value={linkURL}
+          onChange={(e) => handleURLChange(e)}
+          onClick={() => handleLinkSelect(linkInfo.id)}
+        />
+        <div className="social-links__icons-container">
+          <div>
+            <FontAwesomeIcon
+              icon={["fab", "instagram"]}
+              className="social-links__icon"
+              data-name="instagram"
+              data-id={linkInfo.id}
+              onClick={(e) => handleIconChange(e)}
+            />
+          </div>
+          <div>
+            <FontAwesomeIcon
+              icon={["fab", "youtube"]}
+              className="social-links__icon"
+              data-name="youtube"
+              data-id={linkInfo.id}
+              onClick={(e) => handleIconChange(e)}
+            />
+          </div>
+          <div>
+            <FontAwesomeIcon
+              icon={["fab", "tiktok"]}
+              className="social-links__icon"
+              data-name="tiktok"
+              data-id={linkInfo.id}
+              onClick={(e) => handleIconChange(e)}
+            />
+          </div>
+          <div>
+            <FontAwesomeIcon
+              icon={["far", "envelope"]}
+              className="social-links__icon"
+              data-name="email"
+              data-id={linkInfo.id}
+              onClick={(e) => handleIconChange(e)}
+            />
+          </div>
+          <div>
+            <FontAwesomeIcon
+              icon={["fab", "twitter"]}
+              className="social-links__icon "
+              data-name="twitter"
+              data-id={linkInfo.id}
+              onClick={(e) => handleIconChange(e)}
+            />
           </div>
         </div>
-        <button
-          className="social-links-form__row__delete-btn"
-          onClick={(e) => handleDeleteLink(e)}
-        >
-          <FontAwesomeIcon
-            className="social-links-form__row__delete-icon"
-            icon={(["fa", "regular"], ["fa", "trash-can"])}
-          />
-        </button>
       </div>
-    </>
+      <button
+        className="social-links-form__row__delete-btn"
+        onClick={(e) => handleDeleteLink(e)}
+      >
+        <FontAwesomeIcon
+          className="social-links-form__row__delete-icon"
+          icon={(["fa", "regular"], ["fa", "trash-can"])}
+        />
+      </button>
+    </div>
   );
 }

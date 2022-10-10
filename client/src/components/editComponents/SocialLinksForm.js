@@ -94,6 +94,7 @@ export default function SocialLinksForm() {
               handleLinkSelect={handleLinkSelect}
               updateLinksForm={updateLinksForm}
               linkSelectedId={linkSelectedId}
+              currentLinks={socialLinks}
             />
           );
         })}

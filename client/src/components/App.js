@@ -180,13 +180,24 @@ function App() {
 
   /****************************    Final    *******************************/
 
-  async function saveUserDataToDB() {
-    axios
-      .post("http://localhost:8080/save", userData)
-      .then((res) => console.log(res))
-      .catch((e) => console.log("e", e));
+  async function saveUserDataToDB(saveType) {
+    if (saveType === "finalSave") {
+      // Save from preview page
+      axios
+        .post("http://localhost:8080/save", userData)
+        .then((res) => console.log(res))
+        .catch((e) => console.log("e", e));
 
-    navigate("/final");
+      navigate("/final");
+    } else {
+      // Save from edit form
+      axios
+        .post("http://localhost:8080/save", userData)
+        .then((res) => console.log(res))
+        .catch((e) => console.log("e", e));
+
+      navigate("/login");
+    }
   }
 
   /****************************    Errors    *******************************/

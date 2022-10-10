@@ -3,15 +3,17 @@ import { Link } from "react-router-dom";
 import { FormContext } from "./App";
 
 export default function Navbar() {
-  const { handleLogOut } = useContext(FormContext);
+  const { isLoggedIn, handleLogOut } = useContext(FormContext);
   return (
     <nav className="navbar">
-      <Link to="/edit">
-        <span className="logo">leaflist</span>
+      <Link className="logo__link" to="/edit">
+        <span className="logo__text">leaflist</span>
       </Link>
-      <button className="logout-btn" onClick={(e) => handleLogOut(e)}>
-        Log Out
-      </button>
+      {isLoggedIn && (
+        <button className="logout-btn" onClick={(e) => handleLogOut(e)}>
+          Log Out
+        </button>
+      )}
     </nav>
   );
 }
