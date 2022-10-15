@@ -9,6 +9,7 @@ const User = require("./models/user");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const path = require("path");
 const multer = require("multer");
 const { storage } = require("./cloudinaryConfig");
@@ -17,6 +18,7 @@ const upload = multer({ storage });
 const dbURL = process.env.DB_URL || "mongodb://localhost:27017/leaflistDB";
 
 const port = process.env.PORT || 8080;
+const secret = process.env.SECRET;
 
 const app = express();
 
@@ -50,14 +52,25 @@ async function run(userData) {
 // Serve static files
 app.use(express.static(path.join(__dirname, "client", "build")));
 
+const store = MongoStore.create({
+  mongoURL: dbURL,
+  secret,
+  touchAfter: 24 * 60 * 60,
+});
+
 // Configure sessions
 app.use(
   session({
-    secret: "orange",
+    store,
+    name: "connected.id",
+    secret,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: true },
-    name: "connected.id",
+    cookie: {
+      expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+    },
   })
 );
 
