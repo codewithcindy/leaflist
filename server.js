@@ -8,23 +8,21 @@ const cors = require("cors");
 const User = require("./models/user");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const catchAsync = require("./utils/catchAsync");
 const session = require("express-session");
-const flash = require("connect-flash");
+const path = require("path");
 const multer = require("multer");
-const cloudinary = require("cloudinary");
 const { storage } = require("./cloudinaryConfig");
 const { MongoClient } = require("mongodb");
 const upload = multer({ storage });
 const dbURL = process.env.DB_URL || "mongodb://localhost:27017/leaflistDB";
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 const app = express();
 
 // Connect to MongoDB
 mongoose
-  .connect(dbURL)
+  .connect(dbURL, { useNewUrlParser: true })
   .then(() => console.log("Connected to database"))
   .catch((err) => console.log(`Error: ${err}`));
 
@@ -48,6 +46,9 @@ async function run(userData) {
     console.log("Connection closed");
   }
 }
+
+// Serve static files
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 // Configure sessions
 app.use(
@@ -81,20 +82,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(
-  new LocalStrategy(function (username, password, done) {
+  new LocalStrategy(function (username, password, cb) {
     User.findOne(
       {
         username: username,
       },
       function (err, user) {
         // This is how you handle error
-        if (err) return done(err);
+        if (err) return cb(err);
         // When user is not found
-        if (!user) return done(null, false);
+        if (!user) return cb(null, false);
         // When password is not correct
-        if (user && !user.authenticate(password)) return done(null, false);
+        if (user && !user.authenticate(password)) return cb(null, false);
         // When all things are good, we return the user
-        return done(null, user);
+        return cb(null, user);
       }
     );
   })
@@ -132,8 +133,7 @@ app.post("/registerUser", async (req, res, next) => {
     const user = new User({ username });
 
     // Set default profile image
-    user.profileImageSrc.url =
-      "https://res.cloudinary.com/codewithcindy/image/upload/v1664316788/Leaflist/default_profile_image_fwfrwu.png";
+    user.profileImageSrc.url = process.env.PROFILE_DEFAULT;
 
     const registeredUser = await User.register(user, password);
 
@@ -216,9 +216,13 @@ app.post("/save", (req, res, next) => {
 
 /****************************  Error handling  *******************************/
 
-app.all("*", (req, res, next) => {
-  console.log("ERRORRR BISH");
-  res.redirect("../client/src/components/App.js");
+// app.all("*", (req, res, next) => {
+//   console.log("ERRORRR BISH");
+//   res.redirect("../client/src/components/App.js");
+// });
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname), "client", "build", "index.html");
 });
 
 app.use((err, req, res, next) => {
