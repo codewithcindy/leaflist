@@ -9,7 +9,7 @@ const User = require("./models/user");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const session = require("express-session");
-const MongoStore = require("connect-mongo");
+const MongoStore = require("connect-mongo").default;
 const path = require("path");
 const multer = require("multer");
 const { storage } = require("./cloudinaryConfig");
@@ -56,15 +56,13 @@ async function run(userData) {
 // Serve static files
 app.use(express.static(path.join(__dirname, "client", "build")));
 
-// const store = MongoStore.create({
-//   mongoUrl,
-//   client: mongoUrl,
-//   clientPromise: mongoUrl,
-//   touchAfter: 24 * 60 * 60,
-//   crypto: {
-//     secret,
-//   },
-// });
+const store = MongoStore.create({
+  mongoUrl,
+  touchAfter: 24 * 60 * 60,
+  crypto: {
+    secret,
+  },
+});
 
 // const store = new MongoStore({
 //   mongoUrl: dbURL,
@@ -79,13 +77,7 @@ app.use(express.static(path.join(__dirname, "client", "build")));
 // });
 
 const sessionConfig = {
-  store: MongoStore.create({
-    mongoUrl,
-    touchAfter: 24 * 60 * 60,
-    // crypto: {
-    //   secret,
-    // },
-  }),
+  store,
   name: "connected.id",
   secret,
   resave: false,
