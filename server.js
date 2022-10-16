@@ -58,6 +58,8 @@ app.use(express.static(path.join(__dirname, "client", "build")));
 
 const store = MongoStore.create({
   mongoUrl,
+  client: mongoUrl,
+  clientPromise: mongoUrl,
   touchAfter: 24 * 60 * 60,
   crypto: {
     secret,
