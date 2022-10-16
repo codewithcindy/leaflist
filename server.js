@@ -19,6 +19,7 @@ const dbURL = process.env.DB_URL || "mongodb://localhost:27017/leaflistDB";
 
 const port = process.env.PORT || 8080;
 const secret = process.env.SECRET;
+const api = process.env.API_URL || "http://localhost:8080";
 
 const app = express();
 
@@ -148,7 +149,7 @@ passport.deserializeUser(function (user, cb) {
 
 /****************************    Register    *******************************/
 
-app.post("/registerUser", async (req, res, next) => {
+app.post(`${api}/registerUser`, async (req, res, next) => {
   try {
     // console.log("req.body", req.body);
 
@@ -178,7 +179,7 @@ app.post("/registerUser", async (req, res, next) => {
 /****************************    Login    *******************************/
 
 app.post(
-  "/login",
+  `${api}/login`,
   passport.authenticate("local", {
     failureFlash: true,
     failureMessage: true,
@@ -194,7 +195,7 @@ app.post(
 
 /**************************    Log Out   *****************************/
 
-app.post("/logout", (req, res, next) => {
+app.post(`${api}/logout`, (req, res, next) => {
   // req.session.destroy();
   req.logout(function (err) {
     if (err) {
@@ -207,7 +208,7 @@ app.post("/logout", (req, res, next) => {
 
 /**************************    Profile Image    *****************************/
 app.post(
-  "/uploadImage",
+  `${api}/uploadImage`,
   upload.single("profileImage", { type: "authenticated" }),
   (req, res, next) => {
     try {
@@ -224,7 +225,7 @@ app.post(
 
 /****************************    Final    *******************************/
 
-app.post("/save", (req, res, next) => {
+app.post(`${api}/save`, (req, res, next) => {
   const userData = {
     heading: req.body.heading,
     subHeading: req.body.subHeading,
@@ -239,16 +240,13 @@ app.post("/save", (req, res, next) => {
   res.send("yay");
 });
 
-/****************************  Error handling  *******************************/
-
-// app.all("*", (req, res, next) => {
-//   console.log("ERRORRR BISH");
-//   res.redirect("../client/src/components/App.js");
-// });
+/****************************    Catchall    *******************************/
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname), "client", "build", "index.html");
 });
+
+/****************************  Error handling  *******************************/
 
 app.use((err, req, res, next) => {
   const { status = 500, message = "Something went wrong" } = err;
