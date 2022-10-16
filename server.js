@@ -108,20 +108,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(
-  new LocalStrategy(function (username, password, cb) {
+  new LocalStrategy(function (username, password, done) {
     User.findOne(
       {
         username: username,
       },
       function (err, user) {
         // This is how you handle error
-        if (err) return cb(err);
+        if (err) return done(err);
         // When user is not found
-        if (!user) return cb(null, false);
+        if (!user) return done(null, false);
         // When password is not correct
-        if (user && !user.authenticate(password)) return cb(null, false);
+        if (user && !user.authenticate(password)) return done(null, false);
         // When all things are good, we return the user
-        return cb(null, user);
+        return done(null, user);
       }
     );
   })
