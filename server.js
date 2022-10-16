@@ -53,7 +53,7 @@ async function run(userData) {
 app.use(express.static(path.join(__dirname, "client", "build")));
 
 const store = MongoStore.create({
-  mongoURL: dbURL,
+  mongoUrl: dbURL,
   mongoOptions: {
     secret,
     touchAfter: 24 * 60 * 60,
