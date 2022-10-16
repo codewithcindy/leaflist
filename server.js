@@ -9,7 +9,7 @@ const User = require("./models/user");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const session = require("express-session");
-const MongoStore = require("connect-mongo").default;
+const MongoStore = require("connect-mongo");
 const path = require("path");
 const multer = require("multer");
 const { storage } = require("./cloudinaryConfig");
@@ -29,11 +29,17 @@ mongoose
     // m.connection.getClient();
     console.log("Connected to database");
   })
-  .catch((err) => console.log(`Error: ${err}`));
+  .catch((err) => console.error(`Error: ${err}`));
 
-const client = new MongoClient(dbURL);
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+  console.log("Database connected");
+});
 
 // Connect to Mongo Atlas
+const client = new MongoClient(dbURL);
+
 async function run(userData) {
   try {
     // Connect to Mongo Client
@@ -61,9 +67,11 @@ app.use(express.json());
 
 // Configure sessions
 const store = MongoStore.create({
-  client: dbConnection.getClient(),
+  mongoUrl: dbURL,
   // touchAfter: 24 * 60 * 60,
-  secret,
+  crypto: {
+    secret,
+  },
 });
 
 store.on("error", function (e) {
