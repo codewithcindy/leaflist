@@ -54,8 +54,14 @@ app.use(express.static(path.join(__dirname, "client", "build")));
 
 const store = MongoStore.create({
   mongoURL: dbURL,
-  secret,
-  touchAfter: 24 * 60 * 60,
+  mongoOptions: {
+    secret,
+    touchAfter: 24 * 60 * 60,
+  },
+});
+
+store.on("error", function (e) {
+  console.log("SESSION STORE ERROR", e);
 });
 
 // Configure sessions
