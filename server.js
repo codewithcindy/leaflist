@@ -24,9 +24,12 @@ const secret = process.env.SECRET;
 const app = express();
 
 // Connect to MongoDB
-mongoose
+const mongoUrl = mongoose
   .connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Connected to database"))
+  .then((m) => {
+    m.connection.getClient();
+    console.log("Connected to database");
+  })
   .catch((err) => console.log(`Error: ${err}`));
 
 const client = new MongoClient(dbURL);
@@ -54,7 +57,7 @@ async function run(userData) {
 app.use(express.static(path.join(__dirname, "client", "build")));
 
 const store = MongoStore.create({
-  client: Connection.prototype.getClient(),
+  mongoUrl,
   touchAfter: 24 * 60 * 60,
   crypto: {
     secret,
