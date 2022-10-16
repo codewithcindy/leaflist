@@ -19,7 +19,6 @@ const dbURL = process.env.DB_URL || "mongodb://localhost:27017/leaflistDB";
 
 const port = process.env.PORT || 8080;
 const secret = process.env.SECRET;
-const api = process.env.API_URL || "http://localhost:8080";
 
 const app = express();
 

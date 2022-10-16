@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Landing from "./Landing";
@@ -39,7 +43,7 @@ function App() {
   const navigate = useNavigate();
 
   // Define API endpoint
-  const api = process.env.API_URL || "http://localhost:8080";
+  const api = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
   // Connect to API
   // useEffect(() => {
