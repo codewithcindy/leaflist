@@ -53,7 +53,7 @@ async function run(userData) {
 app.use(express.static(path.join(__dirname, "client", "build")));
 
 const store = MongoStore.create({
-  mongoUrl: dbURL,
+  client: dbURL,
   touchAfter: 24 * 60 * 60,
   crypto: {
     secret,
@@ -64,21 +64,21 @@ store.on("error", function (e) {
   console.log("SESSION STORE ERROR", e);
 });
 
+const sessionConfig = {
+  store,
+  name: "connected.id",
+  secret,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    httpOnly: true,
+  },
+};
+
 // Configure sessions
-app.use(
-  session({
-    store,
-    name: "connected.id",
-    secret,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-      httpOnly: true,
-    },
-  })
-);
+app.use(session(sessionConfig));
 
 // Enable cors
 app.use(
