@@ -52,8 +52,16 @@ async function run(userData) {
 // Serve static files
 app.use(express.static(path.join(__dirname, "client", "build")));
 
-const store = MongoStore.create({
-  client: dbURL,
+// const store = MongoStore.create({
+//   client: dbURL,
+//   touchAfter: 24 * 60 * 60,
+//   crypto: {
+//     secret,
+//   },
+// });
+
+const store = new MongoStore({
+  mongoUrl: dbURL,
   touchAfter: 24 * 60 * 60,
   crypto: {
     secret,
