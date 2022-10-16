@@ -14,6 +14,7 @@ const path = require("path");
 const multer = require("multer");
 const { storage } = require("./cloudinaryConfig");
 const { MongoClient } = require("mongodb");
+const { createConnection } = require("net");
 const upload = multer({ storage });
 const dbURL = process.env.DB_URL || "mongodb://localhost:27017/leaflistDB";
 
@@ -24,7 +25,7 @@ const app = express();
 
 // Connect to MongoDB
 mongoose
-  .connect(dbURL, { useNewUrlParser: true })
+  .connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to database"))
   .catch((err) => console.log(`Error: ${err}`));
 
@@ -52,21 +53,21 @@ async function run(userData) {
 // Serve static files
 app.use(express.static(path.join(__dirname, "client", "build")));
 
-// const store = MongoStore.create({
-//   client: dbURL,
-//   touchAfter: 24 * 60 * 60,
-//   crypto: {
-//     secret,
-//   },
-// });
-
-const store = new MongoStore({
-  mongoUrl: dbURL,
+const store = MongoStore.create({
+  client: Connection.prototype.getClient(),
   touchAfter: 24 * 60 * 60,
   crypto: {
     secret,
   },
 });
+
+// const store = new MongoStore({
+//   mongoUrl: dbURL,
+//   touchAfter: 24 * 60 * 60,
+//   crypto: {
+//     secret,
+//   },
+// });
 
 store.on("error", function (e) {
   console.log("SESSION STORE ERROR", e);
