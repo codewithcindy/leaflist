@@ -38,6 +38,9 @@ function App() {
   // Navigate
   const navigate = useNavigate();
 
+  // Define API endpoint
+  const api = process.env.API_URL || "http://localhost:8080";
+
   // Connect to API
   // useEffect(() => {
   //   const controller = new AbortController();
@@ -63,7 +66,7 @@ function App() {
   async function handleRegisterFormSubmit(formData) {
     // Send register form data to node
     axios
-      .post("/registerUser", formData, {
+      .post(`${api}/registerUser`, formData, {
         withCredentials: true,
       })
       .then((res) => {
@@ -93,7 +96,7 @@ function App() {
     console.log(`formdata`, formData);
 
     axios
-      .post("/login", formData)
+      .post(`${api}/login`, formData)
       .then((res) => {
         const user = res.data;
         setUserData(user);
@@ -114,7 +117,7 @@ function App() {
 
   function handleLogOut() {
     axios
-      .post("/logout")
+      .post(`${api}/logout`)
       .then((res) => navigate("/login"))
       .catch((e) => console.log(e));
   }
@@ -123,7 +126,7 @@ function App() {
 
   function handleImageUpload(formData) {
     axios
-      .post("/uploadImage", formData)
+      .post(`${api}/uploadImage`, formData)
       .then((res) => {
         const file = res.data;
 
@@ -184,7 +187,7 @@ function App() {
     if (saveType === "finalSave") {
       // Save from preview page
       axios
-        .post("/save", userData)
+        .post(`${api}/save`, userData)
         .then((res) => console.log(res))
         .catch((e) => console.log("e", e));
 
@@ -192,7 +195,7 @@ function App() {
     } else {
       // Save from edit form
       axios
-        .post("/save", userData)
+        .post(`${api}/save`, userData)
         .then((res) => console.log(res))
         .catch((e) => console.log("e", e));
 

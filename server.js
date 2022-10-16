@@ -149,7 +149,7 @@ passport.deserializeUser(function (user, cb) {
 
 /****************************    Register    *******************************/
 
-app.post(`${api}/registerUser`, async (req, res, next) => {
+app.post("/registerUser", async (req, res, next) => {
   try {
     // console.log("req.body", req.body);
 
@@ -179,7 +179,7 @@ app.post(`${api}/registerUser`, async (req, res, next) => {
 /****************************    Login    *******************************/
 
 app.post(
-  `${api}/login`,
+  `/login`,
   passport.authenticate("local", {
     failureFlash: true,
     failureMessage: true,
@@ -195,7 +195,7 @@ app.post(
 
 /**************************    Log Out   *****************************/
 
-app.post(`${api}/logout`, (req, res, next) => {
+app.post(`/logout`, (req, res, next) => {
   // req.session.destroy();
   req.logout(function (err) {
     if (err) {
@@ -208,7 +208,7 @@ app.post(`${api}/logout`, (req, res, next) => {
 
 /**************************    Profile Image    *****************************/
 app.post(
-  `${api}/uploadImage`,
+  `/uploadImage`,
   upload.single("profileImage", { type: "authenticated" }),
   (req, res, next) => {
     try {
@@ -225,7 +225,7 @@ app.post(
 
 /****************************    Final    *******************************/
 
-app.post(`${api}/save`, (req, res, next) => {
+app.post(`/save`, (req, res, next) => {
   const userData = {
     heading: req.body.heading,
     subHeading: req.body.subHeading,
