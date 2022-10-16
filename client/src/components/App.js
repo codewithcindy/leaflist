@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Landing from "./Landing";
 import LogIn from "./LogIn";
@@ -40,27 +40,6 @@ function App() {
 
   // Define API endpoint
   const api = process.env.REACT_APP_API_URL || "http://localhost:8080";
-
-  // Connect to API
-  // useEffect(() => {
-  //   const controller = new AbortController();
-
-  //   axios
-  //     .get("/", {
-  //       signal: controller.signal,
-  //     })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       console.log("Connected to backend");
-  //     })
-  //     .catch((e) => {
-  //       console.error(e);
-  //     });
-
-  //   return () => {
-  //     controller.abort();
-  //   };
-  // }, []);
 
   /****************************    Register   *******************************/
   async function handleRegisterFormSubmit(formData) {
@@ -178,8 +157,6 @@ function App() {
     newUserData.socialLinks = links;
     setUserData(newUserData);
   }
-
-  /****************************    Preview    *******************************/
 
   /****************************    Final    *******************************/
 
