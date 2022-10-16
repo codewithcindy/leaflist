@@ -56,15 +56,15 @@ async function run(userData) {
 // Serve static files
 app.use(express.static(path.join(__dirname, "client", "build")));
 
-const store = MongoStore.create({
-  mongoUrl,
-  client: mongoUrl,
-  clientPromise: mongoUrl,
-  touchAfter: 24 * 60 * 60,
-  crypto: {
-    secret,
-  },
-});
+// const store = MongoStore.create({
+//   mongoUrl,
+//   client: mongoUrl,
+//   clientPromise: mongoUrl,
+//   touchAfter: 24 * 60 * 60,
+//   crypto: {
+//     secret,
+//   },
+// });
 
 // const store = new MongoStore({
 //   mongoUrl: dbURL,
@@ -74,12 +74,18 @@ const store = MongoStore.create({
 //   },
 // });
 
-store.on("error", function (e) {
-  console.log("SESSION STORE ERROR", e);
-});
+// store.on("error", function (e) {
+//   console.log("SESSION STORE ERROR", e);
+// });
 
 const sessionConfig = {
-  store,
+  store: MongoStore.create({
+    mongoUrl,
+    touchAfter: 24 * 60 * 60,
+    // crypto: {
+    //   secret,
+    // },
+  }),
   name: "connected.id",
   secret,
   resave: false,
