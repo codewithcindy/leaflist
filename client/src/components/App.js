@@ -63,7 +63,7 @@ function App() {
   async function handleRegisterFormSubmit(formData) {
     // Send register form data to node
     axios
-      .post("http://localhost:8080/registerUser", formData, {
+      .post("/registerUser", formData, {
         withCredentials: true,
       })
       .then((res) => {
@@ -93,7 +93,7 @@ function App() {
     console.log(`formdata`, formData);
 
     axios
-      .post("http://localhost:8080/login", formData)
+      .post("/login", formData)
       .then((res) => {
         const user = res.data;
         setUserData(user);
@@ -123,7 +123,7 @@ function App() {
 
   function handleImageUpload(formData) {
     axios
-      .post("http://localhost:8080/uploadImage", formData)
+      .post("/uploadImage", formData)
       .then((res) => {
         const file = res.data;
 
@@ -184,7 +184,7 @@ function App() {
     if (saveType === "finalSave") {
       // Save from preview page
       axios
-        .post("http://localhost:8080/save", userData)
+        .post("/save", userData)
         .then((res) => console.log(res))
         .catch((e) => console.log("e", e));
 
@@ -192,7 +192,7 @@ function App() {
     } else {
       // Save from edit form
       axios
-        .post("http://localhost:8080/save", userData)
+        .post("/save", userData)
         .then((res) => console.log(res))
         .catch((e) => console.log("e", e));
 
