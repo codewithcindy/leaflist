@@ -9,7 +9,7 @@ const User = require("./models/user");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const session = require("express-session");
-const MongoStore = require("connect-mongo").default;
+const MongoStore = require("connect-mongo");
 const path = require("path");
 const multer = require("multer");
 const { storage } = require("./cloudinaryConfig");
@@ -24,10 +24,10 @@ const secret = process.env.SECRET;
 const app = express();
 
 // Connect to MongoDB
-const mongoUrl = mongoose
+mongoose
   .connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((m) => {
-    m.connection.getClient();
+    // m.connection.getClient();
     console.log("Connected to database");
   })
   .catch((err) => console.log(`Error: ${err}`));
@@ -56,29 +56,24 @@ async function run(userData) {
 // Serve static files
 app.use(express.static(path.join(__dirname, "client", "build")));
 
+// Use body parser
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Configure sessions
 const store = MongoStore.create({
-  mongoUrl,
+  mongoUrl: `${dbURL}`,
   touchAfter: 24 * 60 * 60,
-  crypto: {
-    secret,
-  },
+  secret,
 });
 
-// const store = new MongoStore({
-//   mongoUrl: dbURL,
-//   touchAfter: 24 * 60 * 60,
-//   crypto: {
-//     secret,
-//   },
-// });
-
-// store.on("error", function (e) {
-//   console.log("SESSION STORE ERROR", e);
-// });
+store.on("error", function (e) {
+  console.log("SESSION STORE ERROR", e);
+});
 
 const sessionConfig = {
   store,
-  name: "connected.id",
+  name: "session.id",
   secret,
   resave: false,
   saveUninitialized: false,
@@ -89,7 +84,6 @@ const sessionConfig = {
   },
 };
 
-// Configure sessions
 app.use(session(sessionConfig));
 
 // Enable cors
@@ -100,13 +94,6 @@ app.use(
     credentials: true, // allow session cookie from browser to pass through
   })
 );
-
-// Use body parser
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-// Use flash
-// app.use(flash());
 
 // Configure Passportjs
 app.use(passport.initialize());
