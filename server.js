@@ -14,7 +14,6 @@ const path = require("path");
 const multer = require("multer");
 const { storage } = require("./cloudinaryConfig");
 const { MongoClient } = require("mongodb");
-const { createConnection } = require("net");
 const upload = multer({ storage });
 const dbURL = process.env.DB_URL || "mongodb://localhost:27017/leaflistDB";
 
@@ -62,8 +61,8 @@ app.use(express.json());
 
 // Configure sessions
 const store = MongoStore.create({
-  mongoUrl: `${dbURL}`,
-  touchAfter: 24 * 60 * 60,
+  client: dbConnection.getClient(),
+  // touchAfter: 24 * 60 * 60,
   secret,
 });
 
