@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const User = require("./models/user");
 const passport = require("passport");
-const LocalStrategy = require("passport-local");
+const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const path = require("path");
@@ -107,20 +107,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(
-  new LocalStrategy(function (username, password, done) {
+  new LocalStrategy(function (username, password, cb) {
     User.findOne(
       {
         username: username,
       },
       function (err, user) {
         // This is how you handle error
-        if (err) return done(err);
+        if (err) return cb(err);
         // When user is not found
-        if (!user) return done(null, false);
+        if (!user) return cb(null, false);
         // When password is not correct
-        if (user && !user.authenticate(password)) return done(null, false);
+        if (user && !user.authenticate(password)) return cb(null, false);
         // When all things are good, we return the user
-        return done(null, user);
+        return cb(null, user);
       }
     );
   })
