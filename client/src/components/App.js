@@ -45,7 +45,7 @@ function App() {
   async function handleRegisterFormSubmit(formData) {
     // Send register form data to node
     axios
-      .post(api + `registerUser`, formData, {
+      .post(api + `/registerUser`, formData, {
         withCredentials: true,
       })
       .then((res) => {
