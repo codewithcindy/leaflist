@@ -31,11 +31,11 @@ mongoose
   })
   .catch((err) => console.error(`Error: ${err}`));
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-  console.log("Database connected");
-});
+// const db = mongoose.connection;
+// db.on("error", console.error.bind(console, "connection error:"));
+// db.once("open", () => {
+//   console.log("Database connected");
+// });
 
 // Connect to Mongo Atlas
 const client = new MongoClient(dbURL);
@@ -59,7 +59,7 @@ async function run(userData) {
 }
 
 // Serve static files
-app.use(express.static(path.join(__dirname, "client", "build")));
+app.use(express.static(path.join(__dirname, "/client", "/build")));
 
 // Use body parser
 app.use(express.urlencoded({ extended: true }));
@@ -74,9 +74,9 @@ const store = MongoStore.create({
   },
 });
 
-store.on("error", function (e) {
-  console.log("SESSION STORE ERROR", e);
-});
+// store.on("error", function (e) {
+//   console.log("SESSION STORE ERROR", e);
+// });
 
 const sessionConfig = {
   store,
@@ -94,13 +94,21 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 
 // Enable cors
-app.use(
-  cors({
-    origin: "http://localhost:3000", // allow to server to accept request from different origin
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true, // allow session cookie from browser to pass through
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["http://localhost:3000", process.env.APP_URL], // allow to server to accept request from different origin
+//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     credentials: true, // allow session cookie from browser to pass through
+//   })
+// );
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", [
+    "http://localhost:3000",
+    process.env.APP_URL,
+  ]); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
 
 // Configure Passportjs
 app.use(passport.initialize());
@@ -241,9 +249,9 @@ app.post(`/save`, (req, res, next) => {
 
 /****************************    Catchall    *******************************/
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname), "client", "build", "index.html");
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "/client", "/build", "/index.html"));
+// });
 
 /****************************  Error handling  *******************************/
 
