@@ -41,6 +41,7 @@ function App() {
   const navigate = useNavigate();
 
   // Define API endpoint
+  let api;
   process.env.NODE_ENV === "production"
     ? (api = "")
     : (api = "http://localhost:3000");
