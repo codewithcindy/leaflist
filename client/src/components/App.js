@@ -41,15 +41,15 @@ function App() {
   const navigate = useNavigate();
 
   // Define API endpoint
-  const api = process.env.REACT_APP_API_URL || "http://localhost:8080";
-
+  process.env.NODE_ENV === "production"
+    ? (api = "")
+    : (api = "http://localhost:3000");
   /****************************    Register   *******************************/
   async function handleRegisterFormSubmit(formData) {
     // Send register form data to node
     axios
-      // .post(`${api}/registerUser`, formData, {
-
-      .post(`/registerUser`, formData, {
+      .post(`${api}/registerUser`, formData, {
+        // .post(`/registerUser`, formData, {
         withCredentials: true,
       })
       .then((res) => {
@@ -79,8 +79,8 @@ function App() {
     console.log(`formdata`, formData);
 
     axios
-      // .post(`${api}/login`, formData)
-      .post(`/login`, formData)
+      .post(`${api}/login`, formData)
+      // .post(`/login`, formData)
       .then((res) => {
         const user = res.data;
         setUserData(user);
@@ -101,8 +101,8 @@ function App() {
 
   function handleLogOut() {
     axios
-      // .post(`${api}/logout`)
-      .post(`/logout`)
+      .post(`${api}/logout`)
+      // .post(`/logout`)
 
       .then((res) => navigate("/login"))
       .catch((e) => console.log(e));
@@ -112,8 +112,8 @@ function App() {
 
   function handleImageUpload(formData) {
     axios
-      // .post(`${api}/uploadImage`, formData)
-      .post(`/uploadImage`, formData)
+      .post(`${api}/uploadImage`, formData)
+      // .post(`/uploadImage`, formData)
 
       .then((res) => {
         const file = res.data;
@@ -173,8 +173,8 @@ function App() {
     if (saveType === "finalSave") {
       // Save from preview page
       axios
-        // .post(`${api}/save`, userData)
-        .post(`/save`, userData)
+        .post(`${api}/save`, userData)
+        // .post(`/save`, userData)
 
         .then((res) => console.log(res))
         .catch((e) => console.log("e", e));
@@ -183,8 +183,8 @@ function App() {
     } else {
       // Save from edit form
       axios
-        // .post(`${api}/save`, userData)
-        .post(`/save`, userData)
+        .post(`${api}/save`, userData)
+        // .post(`/save`, userData)
 
         .then((res) => console.log(res))
         .catch((e) => console.log("e", e));
