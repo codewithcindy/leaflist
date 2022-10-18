@@ -79,6 +79,7 @@
 }
 
 @media screen and (min-width: 500px) {
-  .login-form {
+  .login-form__register-alt {
+    font-size: 0.9rem;
   }
 } ;

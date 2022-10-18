@@ -39,6 +39,8 @@
 .register-form__row {
   width: 100%;
   margin: 0.5rem 0;
+
+  text-align: center;
 }
 
 .register-form__input {

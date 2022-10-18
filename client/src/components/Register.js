@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext, useLayoutEffect } from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { FormContext } from "./App";
@@ -55,7 +55,13 @@ export default function Register() {
               },
             })}
           />
-          {errors.username?.message}
+
+          {/* {errors.username ? (
+            <div className="form-error">{errors.username.message}</div>
+          ) : null} */}
+          {errors.username && <span>{errors.username.message}</span>}
+
+          {/* <span className="form-error">{errors.username?.message}</span> */}
         </div>
         <div className="register-form__row">
           <label className="register-form__label" htmlFor="password"></label>
@@ -74,7 +80,10 @@ export default function Register() {
               },
             })}
           />
-          {errors.password?.message}
+          {/* {errors.password ? (
+            <div className="form-error">{errors.password.message}</div>
+          ) : null} */}
+          {errors.password && <span>{errors.password.message}</span>}
         </div>
 
         <div className="btn-flex">

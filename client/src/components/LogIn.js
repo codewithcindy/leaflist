@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useLayoutEffect } from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import { useForm } from "react-hook-form";
 import { FormContext } from "./App";
 import { useNavigate, Link } from "react-router-dom";
@@ -27,11 +27,6 @@ export default function LogIn() {
 
     console.log(errors, e);
   }
-
-  // Clear error messages upon mounting
-  // useEffect(() => {
-  //   clearErrors();
-  // }, []);
 
   // Clear error messages when unmounting
   useLayoutEffect(() => {
@@ -72,7 +67,7 @@ export default function LogIn() {
             id="password"
             placeholder="Password"
             autoComplete="off"
-            {...register("password", { required: true, minLength: 6 })}
+            {...register("password", { required: true })}
           ></input>
           {errors.password && (
             <span>Please provide a valid email address and password.</span>

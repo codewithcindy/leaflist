@@ -122,7 +122,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(
-  new LocalStrategy(function (username, password, cb) {
+  new LocalStrategy(function (password, username, cb) {
+    console.log(req.body);
+    console.log(`username`, username);
+    console.log(`password`, password);
     User.findOne(
       {
         username: username,
