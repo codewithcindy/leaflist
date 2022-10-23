@@ -15,9 +15,6 @@ export default function EditForm() {
 
   return (
     <div className="edit-form-container">
-      {/* <Navbar /> */}
-
-      {/* <button onClick={(e) => handleLogOut(e)}>Log Out</button> */}
       <div className="form edit-form">
         <ProfileImage profileImage={userData.profileImageSrc} />
         <Heading heading={userData.heading} />
