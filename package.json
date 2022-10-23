@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/codewithcindy/leaflist/issues"
   },
-  "homepage": "https://github.com/codewithcindy/leaflist#readme"
+  "homepage": "https://github.com/codewithcindy/leaflist#readme",
+  "dependencies": {
+    "serve": "^14.0.1"
+  }
 }

@@ -61,7 +61,7 @@ async function run(userData) {
 
 // Serve static files
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
+  app.use(express.static(path.resolve(__dirname, "../client/build")));
 
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
@@ -130,32 +130,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new LocalStrategy(User.authenticate()));
-
-// passport.use(
-//   new LocalStrategy(function verify(username, password, cb) {
-//     // console.log(req.body);
-//     console.log(`username`, username);
-//     console.log(`password`, password);
-//     User.findOne(
-//       {
-//         username: username,
-//       },
-//       function (err, user) {
-//         // This is how you handle error
-//         if (err) {
-//           console.log(err);
-//           return cb(err);
-//         }
-//         // When user is not found
-//         if (!user) return cb(null, false);
-//         // When password is not correct
-//         if (user && !user.verifyPassword(password)) return cb(null, false);
-//         // When all things are good, we return the user
-//         return cb(null, user);
-//       }
-//     );
-//   })
-// );
 
 passport.serializeUser(function (user, cb) {
   // cb(null, user.username);
