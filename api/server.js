@@ -32,12 +32,6 @@ mongoose
   })
   .catch((err) => console.error(`Error: ${err}`));
 
-// const db = mongoose.connection;
-// db.on("error", console.error.bind(console, "connection error:"));
-// db.once("open", () => {
-//   console.log("Database connected");
-// });
-
 // Connect to Mongo Atlas
 const client = new MongoClient(dbURL);
 
@@ -102,13 +96,6 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 
 // Enable cors
-// app.use(
-//   cors({
-//     origin: ["http://localhost:3000", process.env.APP_URL], // allow to server to accept request from different origin
-//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//     credentials: true, // allow session cookie from browser to pass through
-//   })
-// );
 app.use(function (req, res, next) {
   const whitelist = ["http://localhost:3000", process.env.APP_URL];
 
@@ -132,7 +119,6 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 
 passport.serializeUser(function (user, cb) {
-  // cb(null, user.username);
   process.nextTick(function () {
     return cb(null, {
       username: user.username,
@@ -150,7 +136,6 @@ passport.deserializeUser(function (user, cb) {
   process.nextTick(function () {
     return cb(null, user);
   });
-  // cb(null, user.username);
 });
 
 /****************************    Register    *******************************/
@@ -186,29 +171,6 @@ app.post("/registerUser", async (req, res, next) => {
 
 /****************************    Login    *******************************/
 
-// app.post("/login", (req, res) => {
-//   const user = req.body;
-
-//   console.log(user);
-//   // passport.authenticate("local");
-
-//   req.login(user, (err) => {
-//     if (err) return next(err);
-//     return res.json(user);
-//   });
-// });
-
-// app.post(
-//   "/login",
-//   passport.authenticate("local", {
-//     failureRedirect: "/login",
-//     failureMessage: true,
-//   }),
-//   function (req, res) {
-//     res.redirect("/~" + req.user.username);
-//   }
-// );
-
 app.post(
   "/login",
   passport.authenticate("local", {
@@ -216,33 +178,9 @@ app.post(
     failureMessage: "Login Error",
   }),
   (req, res) => {
-    // console.log(req.body);
-    console.log(req.body);
-    // console.log(req.user);
-    // console.log("hello");
-    // req.session.user = req.user;
-    // console.log(req);
-    // console.log(`req.session`, req.session);
     res.json(req.user);
   }
 );
-
-// app.post("/login", (req, res) => {
-//   passport.authenticate("local", (err, user, info) => {
-//     if (err) {
-//       console.log(err);
-//       return res.status(401).json(err);
-//     }
-//     if (user) {
-//       console.log(user);
-//       // const token = user.generateJwt();
-//       return res.json(req.user);
-//     } else {
-//       console.log(info);
-//       res.status(401).json(info);
-//     }
-//   });
-// });
 
 /**************************    Log Out   *****************************/
 
@@ -290,12 +228,6 @@ app.post(`/save`, (req, res, next) => {
 
   res.send("yay");
 });
-
-/****************************    Catchall    *******************************/
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "/client", "/build", "/index.html"));
-// });
 
 /****************************  Error handling  *******************************/
 

@@ -2,7 +2,7 @@
   "name": "leaflist",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "api/server.js",
   "scripts": {
     "start": "cd ./api/ && npm install && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -20,8 +20,5 @@
   "bugs": {
     "url": "https://github.com/codewithcindy/leaflist/issues"
   },
-  "homepage": "https://github.com/codewithcindy/leaflist#readme",
-  "dependencies": {
-    "serve": "^14.0.1"
-  }
+  "homepage": "https://github.com/codewithcindy/leaflist#readme"
 }

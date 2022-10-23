@@ -23,8 +23,6 @@ library.add(fab, fas, faEnvelope);
 export const FormContext = React.createContext();
 
 function App() {
-  console.log("react loaded");
-
   // State for user info
   const [userData, setUserData] = useState(" ");
 
