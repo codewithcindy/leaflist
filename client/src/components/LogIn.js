@@ -19,6 +19,10 @@ export default function LogIn() {
   function onSubmit(data, e) {
     e.preventDefault();
 
+    // const formData = new FormData();
+    // formData.append("username", data.username);
+    // formData.append("password", data.password);
+
     handleLoginFormSubmit(data);
   }
 
@@ -55,7 +59,9 @@ export default function LogIn() {
             {...register("username", { required: true })}
           ></input>
           {errors.email && (
-            <span>Please provide a valid email address and password.</span>
+            <span className="form__validation-error">
+              Please provide a valid email address and password.
+            </span>
           )}
         </div>
         <div className="login-form__row">
@@ -70,7 +76,9 @@ export default function LogIn() {
             {...register("password", { required: true })}
           ></input>
           {errors.password && (
-            <span>Please provide a valid email address and password.</span>
+            <span className="form__validation-error">
+              Please provide a valid email address and password.
+            </span>
           )}
         </div>
         <div className="btn-flex">
@@ -83,23 +91,22 @@ export default function LogIn() {
             Log In
           </button>
         </div>
-        {errMsg.loginErr && (
-          <div className="form-error login-form-error">
-            <FontAwesomeIcon
-              className="form-error__icon"
-              icon={["fa", "circle-exclamation"]}
-            />{" "}
-            {errMsg.loginErr}
-          </div>
-        )}
-        {/* <div className="form-error login-form-error">{errMsg.loginErr}</div> */}
-        <p className="login-form__register-alt">
-          Not registered? Sign up{" "}
-          <Link to="/register" className="register-alt__link">
-            {""}here
-          </Link>
-        </p>
       </form>
+      {errMsg.loginErr && (
+        <div className="form__error login-form__error">
+          <FontAwesomeIcon
+            className="form__error__icon"
+            icon={["fa", "circle-exclamation"]}
+          />{" "}
+          {errMsg.loginErr}
+        </div>
+      )}
+      <p className="login-form__register-alt">
+        Not registered? Sign up{" "}
+        <Link to="/register" className="register-alt__link">
+          {""}here
+        </Link>
+      </p>
     </div>
   );
 }

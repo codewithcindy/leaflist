@@ -33,12 +33,12 @@
 .login-form__header {
   font-family: Roboto Bold, sans-erif;
   letter-spacing: 3px;
-  margin: 1rem 0;
+  margin-bottom: 2rem;
 }
 
 .login-form__row {
   width: 100%;
-  margin: 0.5rem 0;
+  margin: 0.8rem 0;
 }
 
 .login-form__input {
@@ -59,17 +59,9 @@
   font-size: 0.9rem;
 }
 
-/* .form-error {
-  font-family: Roboto, sans-serif;
-  color: red;
-  font-size: 0.8rem;
-  position: absolute;
-  bottom: 32%;
-} */
-
 .login-form__register-alt {
-  position: relative;
-  top: 75px;
+  position: absolute;
+  bottom: 20%;
   font-size: 0.8rem;
   color: #515151;
 }

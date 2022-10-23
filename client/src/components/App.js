@@ -43,8 +43,8 @@ function App() {
   // Define API endpoint
   let api;
   process.env.NODE_ENV === "production"
-    ? (api = "")
-    : (api = "http://localhost:3000");
+    ? (api = process.env.REACT_APP_API_URL)
+    : (api = "http://localhost:8080");
   /****************************    Register   *******************************/
   async function handleRegisterFormSubmit(formData) {
     // Send register form data to node
@@ -76,12 +76,22 @@ function App() {
 
   /****************************    Login    *******************************/
 
-  function handleLoginFormSubmit(formData) {
+  async function handleLoginFormSubmit(formData) {
     console.log(`formdata`, formData);
 
-    axios
-      .post(`${api}/login`, formData)
-      // .post(`/login`, formData)
+    axios({
+      method: "post",
+      url: `/login`,
+      data: formData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      // .post(`${api}/login`, formData, {
+      //   withCredentials: true,
+      //   headers: { "Content-Type": "multipart/form-data" },
+      // })
+      // .post(`/login`, formData, { withCredentials: true })
       .then((res) => {
         const user = res.data;
         setUserData(user);
@@ -95,6 +105,7 @@ function App() {
           loginErr: "Invalid username or password.",
         };
         setErrMsg(errMsg);
+        console.log(e);
       });
   }
 
@@ -105,7 +116,10 @@ function App() {
       .post(`${api}/logout`)
       // .post(`/logout`)
 
-      .then((res) => navigate("/login"))
+      .then((res) => {
+        setIsLoggedIn(false);
+        navigate("/login");
+      })
       .catch((e) => console.log(e));
   }
 

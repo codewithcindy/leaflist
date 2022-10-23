@@ -14,6 +14,7 @@ const path = require("path");
 const multer = require("multer");
 const { storage } = require("./cloudinaryConfig");
 const { MongoClient } = require("mongodb");
+const { type } = require("os");
 const upload = multer({ storage });
 const dbURL = process.env.DB_URL || "mongodb://localhost:27017/leaflistDB";
 
@@ -94,7 +95,7 @@ const sessionConfig = {
   cookie: {
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
     maxAge: 1000 * 60 * 60 * 24 * 7,
-    httpOnly: true,
+    // httpOnly: true,
   },
 };
 
@@ -109,11 +110,18 @@ app.use(session(sessionConfig));
 //   })
 // );
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", [
-    "http://localhost:3000",
-    process.env.APP_URL,
-  ]); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Credentials", true);
+  const whitelist = ["http://localhost:3000", process.env.APP_URL];
+
+  if (whitelist.indexOf(req.headers.origin) !== -1) {
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+    );
+    res.header("Access-Control-Allow-Credentials", true);
+  }
+
   next();
 });
 
@@ -121,30 +129,36 @@ app.use(function (req, res, next) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(
-  new LocalStrategy(function (password, username, cb) {
-    console.log(req.body);
-    console.log(`username`, username);
-    console.log(`password`, password);
-    User.findOne(
-      {
-        username: username,
-      },
-      function (err, user) {
-        // This is how you handle error
-        if (err) return cb(err);
-        // When user is not found
-        if (!user) return cb(null, false);
-        // When password is not correct
-        if (user && !user.authenticate(password)) return cb(null, false);
-        // When all things are good, we return the user
-        return cb(null, user);
-      }
-    );
-  })
-);
+passport.use(new LocalStrategy(User.authenticate()));
+
+// passport.use(
+//   new LocalStrategy(function verify(username, password, cb) {
+//     // console.log(req.body);
+//     console.log(`username`, username);
+//     console.log(`password`, password);
+//     User.findOne(
+//       {
+//         username: username,
+//       },
+//       function (err, user) {
+//         // This is how you handle error
+//         if (err) {
+//           console.log(err);
+//           return cb(err);
+//         }
+//         // When user is not found
+//         if (!user) return cb(null, false);
+//         // When password is not correct
+//         if (user && !user.verifyPassword(password)) return cb(null, false);
+//         // When all things are good, we return the user
+//         return cb(null, user);
+//       }
+//     );
+//   })
+// );
 
 passport.serializeUser(function (user, cb) {
+  // cb(null, user.username);
   process.nextTick(function () {
     return cb(null, {
       username: user.username,
@@ -162,6 +176,7 @@ passport.deserializeUser(function (user, cb) {
   process.nextTick(function () {
     return cb(null, user);
   });
+  // cb(null, user.username);
 });
 
 /****************************    Register    *******************************/
@@ -186,6 +201,8 @@ app.post("/registerUser", async (req, res, next) => {
 
     req.session.user = req.user;
 
+    console.log(res);
+
     res.json(registeredUser);
   } catch (e) {
     res.status(401);
@@ -195,20 +212,63 @@ app.post("/registerUser", async (req, res, next) => {
 
 /****************************    Login    *******************************/
 
+// app.post("/login", (req, res) => {
+//   const user = req.body;
+
+//   console.log(user);
+//   // passport.authenticate("local");
+
+//   req.login(user, (err) => {
+//     if (err) return next(err);
+//     return res.json(user);
+//   });
+// });
+
+// app.post(
+//   "/login",
+//   passport.authenticate("local", {
+//     failureRedirect: "/login",
+//     failureMessage: true,
+//   }),
+//   function (req, res) {
+//     res.redirect("/~" + req.user.username);
+//   }
+// );
+
 app.post(
-  `/login`,
+  "/login",
   passport.authenticate("local", {
-    failureFlash: true,
-    failureMessage: true,
     failureRedirect: "/~",
+    failureMessage: "Login Error",
   }),
   (req, res) => {
+    // console.log(req.body);
+    console.log(req.body);
     // console.log(req.user);
-    req.session.user = req.user;
-
+    // console.log("hello");
+    // req.session.user = req.user;
+    // console.log(req);
+    // console.log(`req.session`, req.session);
     res.json(req.user);
   }
 );
+
+// app.post("/login", (req, res) => {
+//   passport.authenticate("local", (err, user, info) => {
+//     if (err) {
+//       console.log(err);
+//       return res.status(401).json(err);
+//     }
+//     if (user) {
+//       console.log(user);
+//       // const token = user.generateJwt();
+//       return res.json(req.user);
+//     } else {
+//       console.log(info);
+//       res.status(401).json(info);
+//     }
+//   });
+// });
 
 /**************************    Log Out   *****************************/
 

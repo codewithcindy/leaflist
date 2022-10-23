@@ -36,6 +36,7 @@ export default function Register() {
       <form
         className="form register-form"
         onSubmit={handleSubmit(onSubmit, onError)}
+        noValidate
       >
         <h1 className="register-form__header">Sign Up</h1>
         <div className="register-form__row">
@@ -51,17 +52,18 @@ export default function Register() {
             {...register("username", {
               required: {
                 value: true,
-                message: "Please enter a valid email",
+              },
+              pattern: {
+                value: /.+@.+\..+/,
+                message: "! Please enter a valid email",
               },
             })}
           />
-
-          {/* {errors.username ? (
-            <div className="form-error">{errors.username.message}</div>
-          ) : null} */}
-          {errors.username && <span>{errors.username.message}</span>}
-
-          {/* <span className="form-error">{errors.username?.message}</span> */}
+          {errors.username && (
+            <span className="form__validation-error">
+              {errors.username.message}
+            </span>
+          )}
         </div>
         <div className="register-form__row">
           <label className="register-form__label" htmlFor="password"></label>
@@ -75,15 +77,19 @@ export default function Register() {
             {...register("password", {
               required: true,
               minLength: {
-                value: 8,
-                message: "Password must be a minimum of 8 characters",
+                value: 6,
+                message: "! Password must be a minimum of 6 characters",
               },
             })}
           />
           {/* {errors.password ? (
             <div className="form-error">{errors.password.message}</div>
           ) : null} */}
-          {errors.password && <span>{errors.password.message}</span>}
+          {errors.password && (
+            <span className="form__validation-error">
+              {errors.password.message}
+            </span>
+          )}
         </div>
 
         <div className="btn-flex">
@@ -96,23 +102,23 @@ export default function Register() {
             </Link>
           )}
         </div>
-        {errMsg.registerErr && (
-          <div className="form-error register-form-error">
-            <FontAwesomeIcon
-              className="form-error__icon"
-              icon={["fa", "circle-exclamation"]}
-            />{" "}
-            {errMsg.registerErr}
-          </div>
-        )}
-        <p className="register-form__login-alt">
-          Already have an account? Log in
-          <Link to="/login" className="login-alt__link">
-            {" "}
-            here
-          </Link>
-        </p>
       </form>
+      {errMsg.registerErr && (
+        <div className="form__error register-form__rror">
+          <FontAwesomeIcon
+            className="form__error__icon"
+            icon={["fa", "circle-exclamation"]}
+          />{" "}
+          {errMsg.registerErr}
+        </div>
+      )}
+      <p className="register-form__login-alt">
+        Already have an account? Log in
+        <Link to="/login" className="login-alt__link">
+          {" "}
+          here
+        </Link>
+      </p>
     </div>
   );
 }

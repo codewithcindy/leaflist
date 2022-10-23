@@ -62,7 +62,6 @@ export default function LinksList({ linksData }) {
       );
     });
   }
-  console.log(links);
 
   return (
     // <LinkContext.Provider value={LinkContextValue}>

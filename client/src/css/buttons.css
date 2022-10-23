@@ -19,6 +19,11 @@
 
 .btn-flex {
   display: flex;
+  margin-top: 2rem;
+}
+
+.btn-flex__social-link {
+  margin-top: 0;
 }
 
 .btn-back {
