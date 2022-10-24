@@ -75,8 +75,6 @@ function App() {
   /****************************    Login    *******************************/
 
   async function handleLoginFormSubmit(formData) {
-    console.log(`formdata`, formData);
-
     axios({
       method: "post",
       url: `/login`,
@@ -85,11 +83,6 @@ function App() {
         "Content-Type": "application/json",
       },
     })
-      // .post(`${api}/login`, formData, {
-      //   withCredentials: true,
-      //   headers: { "Content-Type": "multipart/form-data" },
-      // })
-      // .post(`/login`, formData, { withCredentials: true })
       .then((res) => {
         const user = res.data;
         setUserData(user);

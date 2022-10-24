@@ -19,7 +19,7 @@
 
 .btn-flex {
   display: flex;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
 }
 
 .btn-flex__social-link,
