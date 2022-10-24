@@ -2,13 +2,12 @@ import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormContext } from "../App";
 
-// import { FormContext } from "../App";
-
 export default function NewLink(props) {
   const { link, handleLinkChange, updateLinksForm } = props;
   const { userData, handleLinksListChange } = useContext(FormContext);
 
   const [links, setLinks] = useState(userData.links);
+  const [linkText, setLinkText] = useState(link.linkText);
 
   function handleChange(changes) {
     handleLinkChange(link.id, { ...link, ...changes });
@@ -18,15 +17,24 @@ export default function NewLink(props) {
     e.preventDefault();
 
     const linkToDelete = e.target.closest("#linkDiv").dataset.id;
-
-    // const linksData = userData.links;
-
     const updatedLinks = links.filter((link) => link.id !== linkToDelete);
-
     updateLinksForm(updatedLinks);
-
     handleLinksListChange(updatedLinks);
   }
+
+  function handleEnterKeyPress(e) {
+    e.preventDefault();
+
+    e.key = 9;
+    e.code = "Tab";
+    // select next input tag based on id of the link div
+    // const nextInput = document.querySelector(
+    //   "div [data-id=`${link.id}`] input[id='linkURL']"
+    // );
+    // nextInput.focus();
+  }
+
+  // const el = document.querySelector("div.user-panel.mai n input[name='login']");
 
   return (
     <div id="linkDiv" data-id={link.id} className="form links-form__section">
@@ -42,6 +50,9 @@ export default function NewLink(props) {
           autoComplete="off"
           value={link.linkText ?? ""}
           onChange={(e) => handleChange({ linkText: e.target.value })}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") e.preventDefault();
+          }}
         />
       </div>
       <div className="links-form__row links-form__row-url">
