@@ -56,11 +56,19 @@ export default function LogIn() {
             placeholder="Email"
             autoFocus
             autoComplete="off"
-            {...register("username", { required: true })}
+            {...register("username", {
+              required: {
+                value: true,
+              },
+              pattern: {
+                value: /.+@.+\..+/,
+                message: "! Please enter a valid email",
+              },
+            })}
           ></input>
-          {errors.email && (
+          {errors.username && (
             <span className="form__validation-error">
-              Please provide a valid email address and password.
+              {errors.username.message}
             </span>
           )}
         </div>
@@ -73,11 +81,16 @@ export default function LogIn() {
             id="password"
             placeholder="Password"
             autoComplete="off"
-            {...register("password", { required: true })}
+            {...register("password", {
+              required: {
+                value: true,
+                message: "Please enter a valid password",
+              },
+            })}
           ></input>
           {errors.password && (
             <span className="form__validation-error">
-              Please provide a valid email address and password.
+              {errors.password.message}
             </span>
           )}
         </div>

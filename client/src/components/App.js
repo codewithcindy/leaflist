@@ -82,6 +82,7 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       },
+      withCredentials: true,
     })
       .then((res) => {
         const user = res.data;
