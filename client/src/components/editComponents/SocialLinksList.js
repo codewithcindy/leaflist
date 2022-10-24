@@ -79,7 +79,7 @@ export default function SocialLinksList({ socialLinksData }) {
                   {link.socialLinkURL}
                 </div>
               </Link>
-              <div className="btn-flex">
+              <div className="btn-flex btn-flex__social-link">
                 <Link to="/socialLinks">
                   <button className="edit-form__link-edit">
                     <FontAwesomeIcon
@@ -118,7 +118,7 @@ export default function SocialLinksList({ socialLinksData }) {
                   {link.socialLinkURL}
                 </div>
               </Link>
-              <div className="btn-flex">
+              <div className="btn-flex btn-flex__social-link">
                 <Link to="/socialLinks">
                   <button className="edit-form__link-edit">
                     <FontAwesomeIcon
@@ -157,7 +157,7 @@ export default function SocialLinksList({ socialLinksData }) {
                   {link.socialLinkURL}
                 </div>
               </Link>
-              <div className="btn-flex">
+              <div className="btn-flex btn-flex__social-link">
                 <Link to="/socialLinks">
                   <button className="edit-form__link-edit">
                     <FontAwesomeIcon
@@ -196,7 +196,7 @@ export default function SocialLinksList({ socialLinksData }) {
                   {link.socialLinkURL}
                 </div>
               </Link>
-              <div className="btn-flex">
+              <div className="btn-flex btn-flex__social-link">
                 <Link to="/socialLinks">
                   <button className="edit-form__link-edit">
                     <FontAwesomeIcon

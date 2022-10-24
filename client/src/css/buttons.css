@@ -22,7 +22,8 @@
   margin-top: 2rem;
 }
 
-.btn-flex__social-link {
+.btn-flex__social-link,
+.btn-flex__link {
   margin-top: 0;
 }
 

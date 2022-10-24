@@ -4,7 +4,7 @@ import { FormContext } from "../App";
 
 export default function NewLink(props) {
   const { link, handleLinkChange, updateLinksForm, currentLinks } = props;
-  const { userData, handleLinksListChange } = useContext(FormContext);
+  const { handleLinksListChange } = useContext(FormContext);
 
   function handleChange(changes) {
     handleLinkChange(link.id, { ...link, ...changes });

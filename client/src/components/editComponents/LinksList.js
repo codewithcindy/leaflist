@@ -39,7 +39,7 @@ export default function LinksList({ linksData }) {
             </div>
           </Link>
           {/* <div>{link.linkURL}</div> */}
-          <div className="btn-flex">
+          <div className="btn-flex btn-flex__link">
             <Link to="/links">
               <button className="edit-form__link-edit">
                 <FontAwesomeIcon

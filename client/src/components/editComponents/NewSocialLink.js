@@ -12,10 +12,12 @@ export default function NewSocialLink(props) {
     linkSelectedId,
     currentLinks,
   } = props;
-  const { userData, handleSocialLinksListChange } = useContext(FormContext);
+  const { handleSocialLinksListChange } = useContext(FormContext);
 
-  const [active, setActive] = useState(false);
-  const [icon, setIcon] = useState("");
+  // const [active, setActive] = useState(false);
+  // const [icon, setIcon] = useState("");
+
+  const [linkId, setLinkId] = useState(linkInfo.id);
 
   function handleURLChange(e) {
     const urlChange = { socialLinkURL: e.target.value };
@@ -27,41 +29,48 @@ export default function NewSocialLink(props) {
   }
 
   function handleIconChange(e) {
+    // Set selected link
+    // handleLinkSelect(id);
+
     // Updated socialLinkIcon
     const iconChange = { socialLinkIcon: e.currentTarget.dataset["name"] };
 
     // Element of selected link/div
-    const selectedLinkEl = document.querySelector(
-      `[data-id='${linkSelectedId}'`
-    );
+    if (linkSelectedId) {
+      const selectedLinkEl = document.querySelector(
+        `[data-id='${linkSelectedId}'`
+      );
+      // Array of all icon elements
+      const iconElementsArr = selectedLinkEl.querySelectorAll(
+        `.social-links__icon,[data-id='${linkSelectedId}' `
+      );
+      // Element of selected icon
+      let iconEl = e.currentTarget;
 
-    // Array of all icon elements
-    const iconElementsArr = selectedLinkEl.querySelectorAll(
-      `.social-links__icon,[data-id='${linkSelectedId}' `
-    );
+      iconElementsArr.forEach((el) => {
+        // Add "active" class to selected icon
+        if (el === iconEl) {
+          el.classList.remove("not-active");
 
-    // Element of selected icon
-    let iconEl = e.currentTarget;
+          el.classList.add("active");
+        }
 
-    iconElementsArr.forEach((el) => {
-      // Add "active" class to selected icon
-      if (el === iconEl) {
-        el.classList.remove("not-active");
+        // Remove "active" class from all other icons
+        if (el !== iconEl) {
+          el.classList.add("not-active");
 
-        el.classList.add("active");
-      }
+          el.classList.remove("active");
+        }
+      });
 
-      // Remove "active" class from all other icons
-      if (el !== iconEl) {
-        el.classList.add("not-active");
+      // Update state of icon
+      // setIcon(iconChange.socialLinkIcon);
+      handleLinkInputChange(linkInfo.id, { ...linkInfo, ...iconChange });
+    }
 
-        el.classList.remove("active");
-      }
-    });
-
-    // Update state of icon
-    setIcon(iconChange.socialLinkIcon);
-    handleLinkInputChange(linkInfo.id, { ...linkInfo, ...iconChange });
+    // const linkURL = document.querySelectorAll(".social-links-form__input")[-1];
+    // console.log(linkURL);
+    // linkURL.focus();
   }
 
   function handleDeleteLink(e) {
@@ -83,6 +92,7 @@ export default function NewSocialLink(props) {
       id="linkDiv"
       data-id={linkInfo.id}
       className="form social-links-form__section"
+      onClick={() => handleLinkSelect(linkInfo.id)}
     >
       <label className="social-links-form__label" htmlFor="socialLinkURL">
         URL
@@ -95,8 +105,9 @@ export default function NewSocialLink(props) {
           id="socialLinkURL"
           autoComplete="off"
           value={linkURL}
+          autoFocus
           onChange={(e) => handleURLChange(e)}
-          onClick={() => handleLinkSelect(linkInfo.id)}
+          // onClick={() => handleLinkSelect(linkInfo.id)}
         />
         <div className="social-links__icons-container">
           <div>
@@ -105,7 +116,10 @@ export default function NewSocialLink(props) {
               className="social-links__icon"
               data-name="instagram"
               data-id={linkInfo.id}
-              onClick={(e) => handleIconChange(e)}
+              onClick={(e) => {
+                // handleLinkSelect(linkInfo.id);
+                handleIconChange(e);
+              }}
             />
           </div>
           <div>
@@ -114,7 +128,11 @@ export default function NewSocialLink(props) {
               className="social-links__icon"
               data-name="youtube"
               data-id={linkInfo.id}
-              onClick={(e) => handleIconChange(e)}
+              onClick={(e) => {
+                // handleLinkSelect(linkInfo.id);
+
+                handleIconChange(e);
+              }}
             />
           </div>
           <div>
@@ -123,7 +141,10 @@ export default function NewSocialLink(props) {
               className="social-links__icon"
               data-name="tiktok"
               data-id={linkInfo.id}
-              onClick={(e) => handleIconChange(e)}
+              onClick={(e) => {
+                // handleLinkSelect(linkInfo.id);
+                handleIconChange(e);
+              }}
             />
           </div>
           <div>
@@ -132,7 +153,10 @@ export default function NewSocialLink(props) {
               className="social-links__icon"
               data-name="email"
               data-id={linkInfo.id}
-              onClick={(e) => handleIconChange(e)}
+              onClick={(e) => {
+                // handleLinkSelect(linkInfo.id);
+                handleIconChange(e);
+              }}
             />
           </div>
           <div>
@@ -141,7 +165,10 @@ export default function NewSocialLink(props) {
               className="social-links__icon "
               data-name="twitter"
               data-id={linkInfo.id}
-              onClick={(e) => handleIconChange(e)}
+              onClick={(e) => {
+                // handleLinkSelect(linkInfo.id);
+                handleIconChange(e);
+              }}
             />
           </div>
         </div>

@@ -2,34 +2,31 @@
   display: flex;
   justify-content: space-between;
   text-align: center;
-  position: absolute;
+
+  position: fixed;
   width: 90%;
-  padding: 3rem 3rem;
+  padding: 3rem 3rem 0 3rem;
   box-sizing: inherit;
+
+  backdrop-filter: blur(2px);
+  z-index: 1;
 }
 
 .logo__link {
   text-decoration: none;
   color: #515151;
-
-  /* display: block; */
 }
 
 .logo__text {
   font-family: Better Minds, sans-serif;
   font-size: 1.5rem;
   letter-spacing: 1px;
-
-  /* font-weight:  */
 }
 
 .logout-btn {
   border: none;
   background: none;
   opacity: 0.5;
-  /* margin-left: auto; */
-
-  /* display: block; */
 }
 
 .logout-btn:hover {
@@ -39,7 +36,7 @@
 
 @media screen and (min-width: 500px) {
   .navbar {
-    padding: 3rem 4rem;
+    padding: 3rem 4rem 1rem 4rem;
   }
 
   .logo__text {

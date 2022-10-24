@@ -52,27 +52,23 @@ export default function SocialLinksForm() {
 
     const newSocialLinks = [...socialLinks, newSocialLink];
     setSocialLinks(newSocialLinks);
+    setLinkSelectedId(newSocialLink.id);
   }
 
   // handle form submit
   function handleFormSubmit(e) {
     e.preventDefault();
 
-    console.log(socialLinks);
-
     // Only keep the links with the URL field completed
     const completedLinks = socialLinks.filter((link) => {
       if (link.socialLinkIcon && link.socialLinkURL) return link;
     });
-
-    console.log(completedLinks);
 
     handleSocialLinksSubmit(completedLinks);
     navigate("/edit");
   }
 
   function updateLinksForm(updatedLinks) {
-    console.log(`updatedlinks in sociallinksfomr`, updatedLinks);
     setSocialLinks(updatedLinks);
   }
 

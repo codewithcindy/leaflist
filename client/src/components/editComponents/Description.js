@@ -17,7 +17,7 @@ export default function Description({ description }) {
         className="edit-form__input"
         name="description"
         id="description"
-        rows="5"
+        rows="3"
         cols="20"
         max-length="50"
         value={description ? description : ""}
