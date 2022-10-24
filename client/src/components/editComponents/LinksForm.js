@@ -77,6 +77,7 @@ export default function LinksForm() {
               link={link}
               handleLinkChange={handleLinkChange}
               updateLinksForm={updateLinksForm}
+              currentLinks={links}
             />
           );
         })}

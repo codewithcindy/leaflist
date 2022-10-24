@@ -14,8 +14,6 @@ export default function NewSocialLink(props) {
   } = props;
   const { userData, handleSocialLinksListChange } = useContext(FormContext);
 
-  const [links, setLinks] = useState(userData.socialLinks);
-
   const [active, setActive] = useState(false);
   const [icon, setIcon] = useState("");
 
@@ -45,11 +43,6 @@ export default function NewSocialLink(props) {
     // Element of selected icon
     let iconEl = e.currentTarget;
 
-    // console.log(selectedLinkEl);
-    console.log(iconElementsArr);
-
-    // console.log(selectedLinkEl.iconElements Arr);
-
     iconElementsArr.forEach((el) => {
       // Add "active" class to selected icon
       if (el === iconEl) {
@@ -69,9 +62,6 @@ export default function NewSocialLink(props) {
     // Update state of icon
     setIcon(iconChange.socialLinkIcon);
     handleLinkInputChange(linkInfo.id, { ...linkInfo, ...iconChange });
-
-    // Icon element
-    const iconElement = e.currentTarget;
   }
 
   function handleDeleteLink(e) {
@@ -79,14 +69,9 @@ export default function NewSocialLink(props) {
 
     const linkIdToDelete = e.target.closest("#linkDiv").dataset.id;
 
-    // const linksData = userData.links;
-    console.log(`links before update`, currentLinks);
-
     const updatedLinks = currentLinks.filter(
       (link) => link.id !== linkIdToDelete
     );
-
-    console.log(`updatedlinks`, updatedLinks);
 
     updateLinksForm(updatedLinks);
 
